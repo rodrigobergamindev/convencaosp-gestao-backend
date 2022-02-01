@@ -45,7 +45,7 @@ class OficialRepository implements IOficialRepository {
         this.oficiais.push(oficial)
     }
 
-    update(ro: number, oficial: Oficial): void {
+    update(ro: string, oficial: Oficial): void {
         let oficialToUpdate = this.oficiais.find((oficial) => oficial.ro === ro);
 
         if(!oficialToUpdate) {
@@ -61,7 +61,7 @@ class OficialRepository implements IOficialRepository {
         this.oficiais.push(oficialToUpdate)
     }
 
-    delete(ro: number): void {
+    delete(ro: string): void {
         const oficialToDelete = this.oficiais.find((oficial) => oficial.ro === ro);
         const index = this.oficiais.indexOf(oficialToDelete)
 

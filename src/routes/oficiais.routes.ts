@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import multer from 'multer'
 import { importOficialController } from '../modules/oficiais/useCases/importOficial'
+import { listOficiaisController } from '../modules/oficiais/useCases/listOficiais'
 
 const oficiaisRoutes = Router()
 
@@ -19,7 +20,7 @@ oficiaisRoutes.post("/import", upload.single("file"), (request, response) => {
 
 
 oficiaisRoutes.get("/", (request, response) => {
-    //return listCategoriesController.handle(request, response);
+    return listOficiaisController.handle(request, response);
 })
 
 
