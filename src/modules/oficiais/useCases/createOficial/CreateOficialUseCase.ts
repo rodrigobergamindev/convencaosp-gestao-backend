@@ -12,7 +12,6 @@ class CreateOficialUseCase {
         const oficialAlreadyExist = this.oficiaisRepository.findByRO(ro)
 
         if(!oficialAlreadyExist){
-            console.log("Tá chegando");
             this.oficiaisRepository.create(oficial)
         }
         
