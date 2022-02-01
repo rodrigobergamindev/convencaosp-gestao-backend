@@ -3,10 +3,10 @@ import {IAnuidade} from '../../../types/IAnuidade'
 
 interface ICreateOficialDTO {
 
-    ro: number;
+    ro: string;
     funcao: string;
     nome: string;
-    dirigente: boolean;
+    dirigente: string;
     endereco: string; 
     bairro: string;
     cidade: string;
@@ -21,7 +21,7 @@ interface ICreateOficialDTO {
     ri_igreja: string; 
     anuidade: IAnuidade;
     observacao: string;
-    foto: string;
+    foto?: string;
 
 }
 

@@ -8,10 +8,10 @@ class Oficial {
     created_at: Date;
     id?: string;
 
-    ro: number;
+    ro: string;
     funcao: string;
     nome: string;
-    dirigente: boolean;
+    dirigente: string;
     endereco: string; 
     bairro: string;
     cidade: string;

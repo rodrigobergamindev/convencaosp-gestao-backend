@@ -25,7 +25,7 @@ class OficialRepository implements IOficialRepository {
         return oficial
     }
 
-    findByRO(ro: number): Oficial {
+    findByRO(ro: string): Oficial {
         const oficial = this.oficiais.find((oficial) => oficial.ro === ro);
         return oficial
     }
@@ -72,3 +72,6 @@ class OficialRepository implements IOficialRepository {
         this.oficiais.splice(index, 1);
     }
 }
+
+
+export {OficialRepository}

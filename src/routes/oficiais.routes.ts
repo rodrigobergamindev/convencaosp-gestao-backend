@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import multer from 'multer'
-import {importOficiais} from '../modules/oficiais/useCases/importOficiais/index'
+import { importOficialController } from '../modules/oficiais/useCases/importOficial'
 
 const oficiaisRoutes = Router()
 
@@ -13,7 +13,7 @@ oficiaisRoutes.post("/", (request, response) => {
 })
 
 oficiaisRoutes.post("/import", upload.single("file"), (request, response) => {
-   return importOficiais(request, response)
+   return importOficialController.handle(request, response)
 })
 
 
