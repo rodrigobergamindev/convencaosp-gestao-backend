@@ -90,6 +90,7 @@ class ImportOficialUseCase {
             const existOficial = this.oficiaisRepository.findByRO(ro);
 
             if(!existOficial) {
+                
                 this.oficiaisRepository.create({
                 ro, funcao, nome, dirigente, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
