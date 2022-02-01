@@ -1,4 +1,4 @@
-import { Oficial } from "../../model/Oficial";
+
 import { IOficialRepository } from "../../repositories/IOficialRepository";
 
 class DeleteOficialUseCase {

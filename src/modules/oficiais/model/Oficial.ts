@@ -5,35 +5,40 @@ import {IAnuidade} from '../../../types/IAnuidade'
 
 
 class Oficial {
-    created_at: Date;
+    created_at?: Date;
     id?: string;
 
     ro: string;
     funcao: string;
+    status?: string;
     nome: string;
-    dirigente: string;
+    dirigente?: string;
     endereco: string; 
     bairro: string;
     cidade: string;
     uf: string;
     cep: string; 
-    telefone: string;
-    email: string;
+    telefone?: string;
+    email?: string;
     rg: string;
     cpf: string;
     nascimento: Date;
-    consagracao: Date; 
-    ri_igreja: string; 
-    anuidade: IAnuidade;
-    observacao: string;
-    foto: string;
+    consagracao?: Date; 
+    igreja_sede: string; 
+    anuidade?: IAnuidade;
+    observacao?: string;
+    foto?: string;
 
-    update: Date;
-    update_by: string;
+    update?: Date;
+    update_by?: string;
 
     constructor() {
         if(!this.id) { 
             this.id = uuidV4()
+        }
+
+        if(!this.created_at){
+            this.created_at = new Date()
         }
     }
 }

@@ -36,10 +36,9 @@ class OficialRepository implements IOficialRepository {
 
     create(data: ICreateOficialDTO): void {
         const oficial = new Oficial();
-
+        console.log(data);
         Object.assign(oficial, {
-            ...data,
-            created_at: new Date()
+            ...data
         })
 
         this.oficiais.push(oficial)

@@ -6,22 +6,23 @@ interface ICreateOficialDTO {
     ro: string;
     funcao: string;
     nome: string;
-    dirigente: string;
+    status?: string;
+    dirigente?: string;
     endereco: string; 
     bairro: string;
     cidade: string;
     uf: string;
     cep: string; 
-    telefone: string;
-    email: string;
+    telefone?: string;
+    email?: string;
     rg: string;
     cpf: string;
     nascimento: Date;
-    consagracao: Date; 
-    ri_igreja: string; 
-    anuidade: IAnuidade;
-    observacao: string;
-    foto?: string;
+    consagracao?: Date; 
+    igreja_sede: string; 
+    anuidade?: IAnuidade;
+    observacao?: string;
+    foto?: Express.Multer.File;
 
 }
 
