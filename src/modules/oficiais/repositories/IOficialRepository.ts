@@ -1,12 +1,7 @@
-
-import { v4 as uuidV4 } from 'uuid'
+import { Oficial } from '../model/Oficial'
 import {IAnuidade} from '../../../types/IAnuidade'
 
-
-
-class Oficial {
-    created_at: Date;
-    id?: string;
+interface ICreateOficialDTO {
 
     ro: number;
     funcao: string;
@@ -28,15 +23,16 @@ class Oficial {
     observacao: string;
     foto: string;
 
-    update: Date;
-    update_by: string;
-
-    constructor() {
-        if(!this.id) { 
-            this.id = uuidV4()
-        }
-    }
 }
 
+interface IOficialRepository {
 
-export { Oficial }
+    findByName(nome: string) : Oficial | null | undefined;
+    findByRO(ro: number) : Oficial | null | undefined;
+    list() : Oficial[] | null;
+    create(data : ICreateOficialDTO) : void;
+    update(ro : number, oficial: Oficial) : void;
+    delete(ro: number) : void;
+}
+
+export { ICreateOficialDTO, IOficialRepository}
