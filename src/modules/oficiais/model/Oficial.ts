@@ -27,10 +27,10 @@ class Oficial {
     igreja_sede: string; 
     anuidade?: IAnuidade;
     observacao?: string;
-    foto?: string;
+    foto?: string | Express.Multer.File;
 
-    update?: Date;
-    update_by?: string;
+    updated_at?: Date;
+    updated_by?: string;
 
     constructor() {
         if(!this.id) { 

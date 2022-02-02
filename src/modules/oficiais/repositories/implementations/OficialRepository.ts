@@ -46,9 +46,17 @@ class OficialRepository implements IOficialRepository {
             throw new Error("Oficial não existe")
         }
 
-        
-        //const index = this.oficiais.indexOf(oficialToUpdate)
+        const index = this.oficiais.indexOf(oficialToUpdate)
 
+        const oficial = new Oficial()
+
+        Object.assign(oficial, {
+            ...data,
+            updated_by: 'admin',
+            updated_at: new Date()
+        })
+
+        this.oficiais.splice(index, 1, oficial)
     
     }
 
