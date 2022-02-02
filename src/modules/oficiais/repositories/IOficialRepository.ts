@@ -22,7 +22,7 @@ interface ICreateOficialDTO {
     igreja_sede: string; 
     anuidade?: IAnuidade;
     observacao?: string;
-    foto?: Express.Multer.File;
+    foto?: string | Express.Multer.File;
 
 }
 

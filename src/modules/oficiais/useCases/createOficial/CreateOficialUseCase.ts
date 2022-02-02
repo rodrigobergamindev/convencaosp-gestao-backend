@@ -8,17 +8,20 @@ class CreateOficialUseCase {
 
     }
 
-    uploadImage(file: Express.Multer.File, ro: string): void {
-        insert(file, ro)
+    uploadImage(file: Express.Multer.File, ro: string): Promise<string> {
+       const url = insert(file, ro)
+       return url
     }
 
-    execute(oficial: ICreateOficialDTO): void {
-        const {ro} = oficial
+    async execute(data: ICreateOficialDTO): Promise<void> {
+        const {ro} = data
         const oficialAlreadyExist = this.oficiaisRepository.findByRO(ro)
 
         if(!oficialAlreadyExist){
-            this.uploadImage(oficial.foto, ro)
-           // this.oficiaisRepository.create(oficial)
+            const url = await this.uploadImage(data.foto as Express.Multer.File, ro)
+            const oficial = {...data, foto: url}
+
+            this.oficiaisRepository.create(oficial)
         }
         
     }

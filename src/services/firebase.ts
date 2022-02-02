@@ -4,16 +4,17 @@ import {getStorage} from 'firebase/storage';
 
 
 const firebaseConfig = {
-  apiKey: process.env.API_KEY_FIREBASE,
-  authDomain: process.env.AUTH_DOMAIN_FIREBASE,
-  projectId: process.env.PROJECT_ID_FIREBASE,
+  apiKey: "AIzaSyD84Bizqt3mIvJurxethzlyQCxK0UrYE34",
+  authDomain: "convencaosp-gestao.firebaseapp.com",
+  projectId: "convencaosp-gestao",
   storageBucket: "convencaosp-gestao.appspot.com",
-  messagingSenderId: process.env.MESSAGING_SENDER_ID_FIREBASE,
-  appId: process.env.APP_ID_FIREBASE,
-  measurementId: process.env.MEASUREMENT_ID_FIREBASE
+  messagingSenderId: "83676151078",
+  appId: "1:83676151078:web:6c631184bcad9011d715e7",
+  measurementId: "G-Q62KKXBL1W"
 };
 
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
+
 
 export const storage = getStorage(firebase)

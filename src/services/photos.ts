@@ -34,11 +34,14 @@ export const insert = async (image: Express.Multer.File, ro: string) => {
         if(image) {
             if(['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(image.mimetype)) {
                 
-                const newFile = ref(storage, `images/${ro}`);
+                const newFile = ref(storage, `images/RO${ro}`);
+                const metadata = {
+                    contentType: image.mimetype.toString()
+                }
             
-                const upload = await uploadBytes(newFile, image.buffer);
+                const upload = await uploadBytes(newFile, image.buffer, metadata);
                 const photoUrl = await getDownloadURL(upload.ref);   
-                console.log(photoUrl);
+                return photoUrl
             }
         }
         
