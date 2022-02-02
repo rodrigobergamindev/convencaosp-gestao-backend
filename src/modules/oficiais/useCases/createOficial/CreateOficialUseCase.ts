@@ -9,9 +9,7 @@ class CreateOficialUseCase {
     }
 
     uploadImage(file: Express.Multer.File, ro: string): void {
-        const image = fs.readFileSync(file.path, {encoding: 'base64'})
-        //insert(image, ro)
-
+        insert(file, ro)
     }
 
     execute(oficial: ICreateOficialDTO): void {

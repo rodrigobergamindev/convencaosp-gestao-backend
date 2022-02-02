@@ -12,7 +12,7 @@ const upload = multer({
 })
 
 const uploadImage = multer({
-    dest: "./tmp/img"
+    storage: multer.memoryStorage()
 })
 
 

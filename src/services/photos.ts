@@ -28,7 +28,7 @@ export const getAll = async () => {
     return list;
 }
 
-export const insert = async (image: file, ro: string) => {
+export const insert = async (image: Express.Multer.File, ro: string) => {
 
     
         if(image) {
@@ -36,7 +36,7 @@ export const insert = async (image: file, ro: string) => {
                 
                 const newFile = ref(storage, `images/${ro}`);
             
-                const upload = await uploadBytes(newFile, image.path);
+                const upload = await uploadBytes(newFile, image.buffer);
                 const photoUrl = await getDownloadURL(upload.ref);   
                 console.log(photoUrl);
             }
