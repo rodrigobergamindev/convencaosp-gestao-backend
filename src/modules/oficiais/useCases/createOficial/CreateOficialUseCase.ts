@@ -1,9 +1,16 @@
 
 import { ICreateOficialDTO, IOficialRepository } from "../../repositories/IOficialRepository";
-
+import { insert } from "../../../../services/photos";
+import fs from 'fs'
 class CreateOficialUseCase {
 
     constructor(private oficiaisRepository: IOficialRepository){
+
+    }
+
+    uploadImage(file: Express.Multer.File, ro: string): void {
+        const image = fs.readFileSync(file.path, {encoding: 'base64'})
+        //insert(image, ro)
 
     }
 
@@ -12,7 +19,8 @@ class CreateOficialUseCase {
         const oficialAlreadyExist = this.oficiaisRepository.findByRO(ro)
 
         if(!oficialAlreadyExist){
-            this.oficiaisRepository.create(oficial)
+            this.uploadImage(oficial.foto, ro)
+           // this.oficiaisRepository.create(oficial)
         }
         
     }

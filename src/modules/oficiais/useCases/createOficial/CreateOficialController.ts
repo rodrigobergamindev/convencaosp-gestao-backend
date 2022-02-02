@@ -2,6 +2,7 @@ import {Request, Response} from 'express'
 import { CreateOficialUseCase } from './CreateOficialUseCase'
 
 
+
 class CreateOficialController {
     constructor(private createOficialUseCase: CreateOficialUseCase) {
 
@@ -9,7 +10,7 @@ class CreateOficialController {
 
     handle(request: Request, response: Response) : Response {
 
-        const oficial = {...request.body, foto: request.file.filename}
+        const oficial = {...request.body, foto: request.file}
         this.createOficialUseCase.execute(oficial)
 
         return response.send()
