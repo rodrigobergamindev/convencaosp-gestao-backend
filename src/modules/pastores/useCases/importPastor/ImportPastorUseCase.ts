@@ -49,15 +49,13 @@ class ImportPastorUseCase {
             const [
                 rm, titulo, nome, funcao, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
-                rg, cpf, nascimento, consagracao, igreja_sede, 
-                credencial,observacao
+                nascimento, consagracao, rg, cpf, igreja_sede, credencial, observacao
                ] = line
 
                pastores.push({
                 rm, titulo, nome, funcao, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
-                rg, cpf, nascimento, consagracao, igreja_sede,credencial
-                , observacao
+                nascimento, consagracao, rg, cpf, igreja_sede, credencial, observacao
                })
         })
         .on("end", async () => {
