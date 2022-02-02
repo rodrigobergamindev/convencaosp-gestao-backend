@@ -26,30 +26,6 @@ interface ICreateOficialDTO {
 
 }
 
-interface IUpdateOficialDTO {
-
-    ro?: string;
-    funcao?: string;
-    nome?: string;
-    status?: string;
-    dirigente?: string;
-    endereco?: string; 
-    bairro?: string;
-    cidade?: string;
-    uf?: string;
-    cep?: string; 
-    telefone?: string;
-    email?: string;
-    rg?: string;
-    cpf?: string;
-    nascimento?: Date;
-    consagracao?: Date; 
-    igreja_sede?: string; 
-    anuidade?: IAnuidade;
-    observacao?: string;
-    foto?: string | Express.Multer.File;
-
-}
 
 
 interface IOficialRepository {
@@ -57,8 +33,8 @@ interface IOficialRepository {
     findByRO(ro: string) : Oficial | null | undefined;
     list() : Oficial[] | null;
     create(data : ICreateOficialDTO) : void;
-    update(data: IUpdateOficialDTO) : void;
+    update(data: Oficial) : void;
     delete(ro: string) : void;
 }
 
-export { ICreateOficialDTO, IUpdateOficialDTO, IOficialRepository}
+export { ICreateOficialDTO, IOficialRepository}

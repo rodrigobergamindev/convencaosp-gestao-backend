@@ -1,5 +1,5 @@
 
-import { IUpdateOficialDTO, IOficialRepository } from "../../repositories/IOficialRepository";
+import { IOficialRepository } from "../../repositories/IOficialRepository";
 import { insert } from "../../../../services/photos";
 import { Oficial } from "../../model/Oficial";
 
@@ -17,7 +17,7 @@ class UpdateOficialUseCase {
        return url
     }
 
-    async execute(data: IUpdateOficialDTO): Promise<void> {
+    async execute(data: Oficial): Promise<void> {
         const {ro} = data
         const oficialAlreadyExist = this.oficiaisRepository.findByRO(ro)
     
@@ -35,10 +35,6 @@ class UpdateOficialUseCase {
         }else{
             throw new Error('Oficial não cadastrado')
         }
-        
-        
-        
-
         
     }
 }
