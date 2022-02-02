@@ -1,9 +1,9 @@
-import { Oficial } from '../model/Oficial'
+import { Pastor } from '../model/Pastor'
 import {IAnuidade} from '../../../types/IAnuidade'
 
-interface ICreateOficialDTO {
+interface ICreatePastorDTO {
 
-    ro: string;
+    rm: string;
     titulo: string;
     nome: string;
     funcao?: string;
@@ -20,19 +20,19 @@ interface ICreateOficialDTO {
     nascimento: Date;
     consagracao?: Date; 
     igreja_sede: string; 
-    anuidade?: IAnuidade;
+    credencial: Date;
     observacao?: string;
     foto?: string | Express.Multer.File;
 
 }
 
 
-interface IUpdateOficialDTO {
+interface IUpdatePastorDTO {
 
     created_at: Date;
     id: string;
 
-    ro: string;
+    rm: string;
     titulo: string;
     status?: string;
     nome: string;
@@ -49,7 +49,7 @@ interface IUpdateOficialDTO {
     nascimento: Date;
     consagracao?: Date; 
     igreja_sede: string; 
-    anuidade?: IAnuidade;
+    credencial: Date;
     observacao?: string;
     foto?: string | Express.Multer.File;
 
@@ -61,13 +61,13 @@ interface IUpdateOficialDTO {
 
 
 
-interface IOficialRepository {
+interface IPastorRepository {
 
-    findByRO(ro: string) : Oficial | null | undefined;
-    list() : Oficial[] | null;
-    create(data : ICreateOficialDTO) : void;
-    update(data: IUpdateOficialDTO) : void;
-    delete(ro: string) : void;
+    findByRM(rm: string) : Pastor | null | undefined;
+    list() : Pastor[] | null;
+    create(data : ICreatePastorDTO) : void;
+    update(data: IUpdatePastorDTO) : void;
+    delete(rm: string) : void;
 }
 
-export { ICreateOficialDTO, IUpdateOficialDTO, IOficialRepository}
+export { ICreatePastorDTO, IUpdatePastorDTO, IPastorRepository}

@@ -1,6 +1,6 @@
 
 import { v4 as uuidV4 } from 'uuid'
-import {IAnuidade} from '../../../types/IAnuidade'
+
 
 
 
@@ -9,10 +9,10 @@ class Pastor {
     id?: string;
 
     rm: string;
-    funcao: string;
+    titulo: string;
     status?: string;
     nome: string;
-    dirigente?: string;
+    funcao?: string;
     endereco: string; 
     bairro: string;
     cidade: string;
@@ -23,9 +23,9 @@ class Pastor {
     rg: string;
     cpf: string;
     nascimento: Date;
+    credencial?: Date;
     consagracao?: Date; 
     igreja_sede: string; 
-    anuidade?: IAnuidade;
     observacao?: string;
     foto?: string | Express.Multer.File;
 
