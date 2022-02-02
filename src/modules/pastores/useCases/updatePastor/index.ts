@@ -1,10 +1,10 @@
-import { OficialRepository } from "../../repositories/implementations/OficialRepository";
-import { UpdateOficialController } from "./UpdateOficialController";
-import { UpdateOficialUseCase } from "./UpdateOficialUseCase";
+import { PastorRepository } from "../../repositories/implementations/PastorRepository";
+import { UpdatePastorController } from "./UpdatePastorController";
+import { UpdatePastorUseCase } from "./UpdatePastorUseCase";
 
 
-const oficiaisRepository = OficialRepository.getInstance()
-const updateOficialUseCase = new UpdateOficialUseCase(oficiaisRepository)
-const updateOficialController = new UpdateOficialController(updateOficialUseCase)
+const oficiaisRepository = PastorRepository.getInstance()
+const updatePastorUseCase = new UpdatePastorUseCase(oficiaisRepository)
+const updatePastorController = new UpdatePastorController(updatePastorUseCase)
 
-export {updateOficialController}
+export {updatePastorController}
