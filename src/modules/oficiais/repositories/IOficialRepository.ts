@@ -32,7 +32,7 @@ interface IOficialRepository {
     findByRO(ro: string) : Oficial | null | undefined;
     list() : Oficial[] | null;
     create(data : ICreateOficialDTO) : void;
-    update(ro : string, oficial: Oficial) : void;
+    update(oficial: Oficial) : void;
     delete(ro: string) : void;
 }
 

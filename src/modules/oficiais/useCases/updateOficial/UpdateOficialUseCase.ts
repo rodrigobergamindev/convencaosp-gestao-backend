@@ -1,8 +1,12 @@
 
 import { ICreateOficialDTO, IOficialRepository } from "../../repositories/IOficialRepository";
 import { insert } from "../../../../services/photos";
+import { Oficial } from "../../model/Oficial";
 
-class CreateOficialUseCase {
+
+
+
+class UpdateOficialUseCase {
 
     constructor(private oficiaisRepository: IOficialRepository){
 
@@ -17,21 +21,19 @@ class CreateOficialUseCase {
         const {ro} = data
         const oficialAlreadyExist = this.oficiaisRepository.findByRO(ro)
 
-        if(!oficialAlreadyExist){
-
+        if(oficialAlreadyExist){
             if(data.foto){
-
                 const url = await this.uploadImage(data.foto as Express.Multer.File, ro)
                 const oficial = {...data, foto: url}
-                this.oficiaisRepository.create(oficial)
-
-            }else{
+                this.oficiaisRepository.update(oficial)
+            }else {
                 const oficial = {...data}
-                this.oficiaisRepository.create(oficial)
+                this.oficiaisRepository.update(oficial as Oficial)
             }
+            
         }
         
     }
 }
 
-export {CreateOficialUseCase}
+export {UpdateOficialUseCase}

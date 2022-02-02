@@ -29,25 +29,24 @@ export const getAll = async () => {
 }
 
 export const insert = async (image: Express.Multer.File, ro: string) => {
-
     
         if(image) {
             if(['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(image.mimetype)) {
-                
+
                 const newFile = ref(storage, `images/RO${ro}`);
                 const metadata = {
                     contentType: image.mimetype.toString()
                 }
-            
+
                 const upload = await uploadBytes(newFile, image.buffer, metadata);
-                const photoUrl = await getDownloadURL(upload.ref);   
+                const photoUrl = await getDownloadURL(upload.ref); 
+
                 return photoUrl
             }
-        }
-        
-    
+        }  
     
 }
+
 
 export const deletePhoto = async (name: string) => {
 

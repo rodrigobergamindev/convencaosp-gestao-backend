@@ -4,6 +4,7 @@ import { importOficialController } from '../modules/oficiais/useCases/importOfic
 import { listOficiaisController } from '../modules/oficiais/useCases/listOficiais'
 import {deleteOficialController} from '../modules/oficiais/useCases/deleteOficial'
 import { createOficialController } from '../modules/oficiais/useCases/createOficial'
+import {updateOficialController} from '../modules/oficiais/useCases/updateOficial'
 
 const oficiaisRoutes = Router()
 
@@ -18,6 +19,10 @@ const uploadImage = multer({
 
 oficiaisRoutes.post("/create", uploadImage.single("foto"), (request, response) => {
     return createOficialController.handle(request, response);
+})
+
+oficiaisRoutes.put("/update", uploadImage.single("foto"), (request, response) => {
+    return updateOficialController.handle(request, response);
 })
 
 oficiaisRoutes.post("/import", upload.single("file"), (request, response) => {

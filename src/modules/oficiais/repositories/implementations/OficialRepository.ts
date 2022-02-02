@@ -43,8 +43,10 @@ class OficialRepository implements IOficialRepository {
         this.oficiais.push(oficial)
     }
 
-    update(ro: string, oficial: Oficial): void {
+    update(oficial: Oficial): void {
+        const {ro} = oficial
         let oficialToUpdate = this.oficiais.find((oficial) => oficial.ro === ro);
+
 
         if(!oficialToUpdate) {
             throw new Error("Oficial não existe")
@@ -57,6 +59,8 @@ class OficialRepository implements IOficialRepository {
         }
 
         this.oficiais.push(oficialToUpdate)
+
+        //método correto: substituir push por slice
     }
 
     delete(ro: string): void {
