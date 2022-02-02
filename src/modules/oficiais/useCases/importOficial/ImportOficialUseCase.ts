@@ -99,8 +99,13 @@ class ImportOficialUseCase {
                 observacao
                })
         })
-        .on("end", () => {
+        .on("end", async () => {
             resolve(oficiais)
+
+            await fs.unlink(`${file.path}`, (err) => {
+                if (err) throw err
+                console.log(`${file.path} was deleted`);
+            })
         })
         .on("error", (err) => {
             reject(err)
