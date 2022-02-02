@@ -1,5 +1,5 @@
 import {Oficial} from '../../model/Oficial'
-import { IOficialRepository, ICreateOficialDTO } from '../IOficialRepository'
+import { IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO } from '../IOficialRepository'
 
 
 class OficialRepository implements IOficialRepository {
@@ -20,11 +20,6 @@ class OficialRepository implements IOficialRepository {
         return OficialRepository.INSTANCE
     }
 
-    findByName(nome: string): Oficial {
-        const oficial = this.oficiais.find((oficial) => oficial.nome === nome);
-        return oficial
-    }
-
     findByRO(ro: string): Oficial {
         const oficial = this.oficiais.find((oficial) => oficial.ro === ro);
         return oficial
@@ -43,24 +38,18 @@ class OficialRepository implements IOficialRepository {
         this.oficiais.push(oficial)
     }
 
-    update(oficial: Oficial): void {
-        const {ro} = oficial
+    update(data: IUpdateOficialDTO): void {
+        const {ro} = data
         let oficialToUpdate = this.oficiais.find((oficial) => oficial.ro === ro);
-
 
         if(!oficialToUpdate) {
             throw new Error("Oficial não existe")
         }
 
-        oficialToUpdate = {
-            ...oficial,
-            update: new Date(),
-            update_by: 'admin'
-        }
+        
+        //const index = this.oficiais.indexOf(oficialToUpdate)
 
-        this.oficiais.push(oficialToUpdate)
-
-        //método correto: substituir push por slice
+    
     }
 
     delete(ro: string): void {

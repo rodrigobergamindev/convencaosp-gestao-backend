@@ -110,9 +110,9 @@ class ImportOficialUseCase {
 
     async execute(file: Express.Multer.File): Promise<void> {
         const oficiais = await this.loadOficiais(file)
-        console.log(oficiais);
 
         oficiais.map(async (oficial) => {
+            
             const {ro, funcao, nome, dirigente, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
@@ -123,14 +123,16 @@ class ImportOficialUseCase {
 
             if(!existOficial) {
                 
-                this.oficiaisRepository.create({
+               this.oficiaisRepository.create({
                 ro, funcao, nome, dirigente, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
                 anuidade, 
                 observacao
                 })
+                
             }
+
         })
     }
 

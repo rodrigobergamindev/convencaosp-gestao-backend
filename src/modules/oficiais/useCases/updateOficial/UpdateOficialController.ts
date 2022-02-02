@@ -10,7 +10,6 @@ class UpdateOficialController {
 
     handle(request: Request, response: Response) : Response {
         
-     
         const oficial = {...request.body, foto: request.file}
         this.updateOficialUseCase.execute(oficial)
         

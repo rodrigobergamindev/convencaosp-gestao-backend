@@ -16,6 +16,8 @@ class CreateOficialUseCase {
     async execute(data: ICreateOficialDTO): Promise<void> {
         const {ro} = data
         const oficialAlreadyExist = this.oficiaisRepository.findByRO(ro)
+        
+
 
         if(!oficialAlreadyExist){
 
