@@ -1,5 +1,5 @@
 import {Oficial} from '../../model/Oficial'
-import { IOficialRepository, ICreateOficialDTO} from '../IOficialRepository'
+import { IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
 
 
 class OficialRepository implements IOficialRepository {
@@ -38,7 +38,7 @@ class OficialRepository implements IOficialRepository {
         this.oficiais.push(oficial)
     }
 
-    update(data: Oficial): void {
+    update(data: IUpdateOficialDTO): void {
         const {ro} = data
         let oficialToUpdate = this.oficiais.find((oficial) => oficial.ro === ro);
 

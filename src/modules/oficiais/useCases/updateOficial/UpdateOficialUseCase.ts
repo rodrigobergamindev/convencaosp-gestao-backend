@@ -1,9 +1,7 @@
 
-import { IOficialRepository } from "../../repositories/IOficialRepository";
+import { IOficialRepository, IUpdateOficialDTO } from "../../repositories/IOficialRepository";
 import { insert } from "../../../../services/photos";
 import { Oficial } from "../../model/Oficial";
-
-
 
 
 class UpdateOficialUseCase {
@@ -17,7 +15,7 @@ class UpdateOficialUseCase {
        return url
     }
 
-    async execute(data: Oficial): Promise<void> {
+    async execute(data: IUpdateOficialDTO): Promise<void> {
         const {ro} = data
         const oficialAlreadyExist = this.oficiaisRepository.findByRO(ro)
     

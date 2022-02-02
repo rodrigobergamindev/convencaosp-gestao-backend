@@ -27,6 +27,39 @@ interface ICreateOficialDTO {
 }
 
 
+interface IUpdateOficialDTO {
+
+    created_at: Date;
+    id: string;
+
+    ro: string;
+    funcao: string;
+    status?: string;
+    nome: string;
+    dirigente?: string;
+    endereco: string; 
+    bairro: string;
+    cidade: string;
+    uf: string;
+    cep: string; 
+    telefone?: string;
+    email?: string;
+    rg: string;
+    cpf: string;
+    nascimento: Date;
+    consagracao?: Date; 
+    igreja_sede: string; 
+    anuidade?: IAnuidade;
+    observacao?: string;
+    foto?: string | Express.Multer.File;
+
+    updated_at?: Date;
+    updated_by?: string;
+    
+}
+
+
+
 
 interface IOficialRepository {
 
@@ -37,4 +70,4 @@ interface IOficialRepository {
     delete(ro: string) : void;
 }
 
-export { ICreateOficialDTO, IOficialRepository}
+export { ICreateOficialDTO, IUpdateOficialDTO, IOficialRepository}
