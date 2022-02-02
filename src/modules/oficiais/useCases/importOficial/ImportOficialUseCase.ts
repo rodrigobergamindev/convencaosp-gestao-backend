@@ -7,9 +7,9 @@ import {IAnuidade} from '../../../../types/IAnuidade'
 interface IImportOficial {
 
     ro: string;
-    funcao: string;
+    titulo: string;
     nome: string;
-    dirigente?: string;
+    funcao?: string;
     status?: string;
     endereco: string; 
     bairro: string;
@@ -47,7 +47,7 @@ class ImportOficialUseCase {
         parseFile.on("data", async(line) => {
             //[*name*,*description*]
             const [
-                ro, funcao, nome, dirigente, endereco, 
+                ro, titulo, nome, funcao, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede, 
                 valor_credencial, pagamento_2016, tipo_2016, pagamento_2017, 
@@ -57,7 +57,7 @@ class ImportOficialUseCase {
                ] = line
 
                oficiais.push({
-                ro, funcao, nome, dirigente, endereco, 
+                ro, titulo, nome, funcao, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
                 anuidade: 
@@ -118,7 +118,7 @@ class ImportOficialUseCase {
 
         oficiais.map(async (oficial) => {
             
-            const {ro, funcao, nome, dirigente, endereco, 
+            const {ro, titulo, nome, funcao, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
                 anuidade, 
@@ -129,7 +129,7 @@ class ImportOficialUseCase {
             if(!existOficial) {
                 
                this.oficiaisRepository.create({
-                ro, funcao, nome, dirigente, endereco, 
+                ro, titulo, nome, funcao, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
                 anuidade, 

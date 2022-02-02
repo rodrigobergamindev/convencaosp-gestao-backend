@@ -4,9 +4,9 @@ import {IAnuidade} from '../../../types/IAnuidade'
 interface ICreateOficialDTO {
 
     ro: string;
-    funcao: string;
+    titulo: string;
     nome: string;
-    status?: string;
+    funcao?: string;
     dirigente?: string;
     endereco: string; 
     bairro: string;
@@ -33,10 +33,10 @@ interface IUpdateOficialDTO {
     id: string;
 
     ro: string;
-    funcao: string;
+    titulo: string;
     status?: string;
     nome: string;
-    dirigente?: string;
+    funcao?: string;
     endereco: string; 
     bairro: string;
     cidade: string;

@@ -4,15 +4,15 @@ import {IAnuidade} from '../../../types/IAnuidade'
 
 
 
-class Oficial {
+class Pastor {
     created_at?: Date;
     id?: string;
 
-    ro: string;
-    titulo: string;
+    rm: string;
+    funcao: string;
     status?: string;
     nome: string;
-    funcao?: string;
+    dirigente?: string;
     endereco: string; 
     bairro: string;
     cidade: string;
@@ -44,4 +44,4 @@ class Oficial {
 }
 
 
-export { Oficial }
+export { Pastor }
