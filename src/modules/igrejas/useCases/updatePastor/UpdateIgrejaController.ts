@@ -10,7 +10,7 @@ class UpdateIgrejaController {
 
     handle(request: Request, response: Response) : Response {
         
-        const igreja = {...request.body, foto: request.file}
+        const igreja = {...request.body}
         this.updateIgrejaUseCase.execute(igreja)
         
         return response.send()

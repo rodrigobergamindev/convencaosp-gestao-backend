@@ -25,6 +25,11 @@ class IgrejaRepository implements IIgrejaRepository {
         return igreja
     }
 
+    findByID(id: string): Igreja {
+        const igreja = this.igrejas.find((igreja) => igreja.id === id);
+        return igreja
+    }
+
     list(): Igreja[] {
         return this.igrejas;
     }   
@@ -40,11 +45,7 @@ class IgrejaRepository implements IIgrejaRepository {
 
     update(data: IUpdateIgrejaDTO): void {
         const {id} = data
-        let igrejaToUpdate = this.igrejas.find((igreja) => igreja.id === id);
-
-        if(!igrejaToUpdate) {
-            throw new Error("Igreja não existe")
-        }
+        const igrejaToUpdate = this.igrejas.find((igreja) => igreja.id === id);
 
         const index = this.igrejas.indexOf(igrejaToUpdate)
 

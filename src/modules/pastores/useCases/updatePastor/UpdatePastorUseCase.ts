@@ -16,8 +16,8 @@ class UpdatePastorUseCase {
     }
 
     async execute(data: IUpdatePastorDTO): Promise<void> {
-        const {rm} = data
-        const pastorAlreadyExist = this.pastoresRepository.findByRM(rm)
+        const {id, rm} = data
+        const pastorAlreadyExist = this.pastoresRepository.findByID(id)
     
 
         if(pastorAlreadyExist){
@@ -26,10 +26,10 @@ class UpdatePastorUseCase {
                 const pastor = {...data, foto: url}
                 this.pastoresRepository.update(pastor)
                 
-            }else {
+            }
                 const pastor = {...data}
                 this.pastoresRepository.update(pastor)
-            }
+            
         }else{
             throw new Error('Pastor não cadastrado')
         }

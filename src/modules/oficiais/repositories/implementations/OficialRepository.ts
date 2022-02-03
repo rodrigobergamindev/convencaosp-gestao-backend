@@ -25,6 +25,11 @@ class OficialRepository implements IOficialRepository {
         return oficial
     }
 
+    findByID(id: string): Oficial {
+        const oficial = this.oficiais.find((oficial) => oficial.id === id);
+        return oficial
+    }
+
     list(): Oficial[] {
         return this.oficiais;
     }   
@@ -40,10 +45,6 @@ class OficialRepository implements IOficialRepository {
     update(data: IUpdateOficialDTO): void {
         const {id} = data
         let oficialToUpdate = this.oficiais.find((oficial) => oficial.id === id);
-
-        if(!oficialToUpdate) {
-            throw new Error("Oficial não existe")
-        }
 
         const index = this.oficiais.indexOf(oficialToUpdate)
 

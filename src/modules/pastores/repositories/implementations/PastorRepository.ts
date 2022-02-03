@@ -25,6 +25,11 @@ class PastorRepository implements IPastorRepository {
         return pastor
     }
 
+    findByID(id: string): Pastor {
+        const pastor = this.pastores.find((pastor) => pastor.id === id);
+        return pastor
+    }
+
     list(): Pastor[] {
         return this.pastores;
     }   
@@ -41,10 +46,6 @@ class PastorRepository implements IPastorRepository {
     update(data: IUpdatePastorDTO): void {
         const {id} = data
         let pastorToUpdate = this.pastores.find((pastor) => pastor.id === id);
-
-        if(!pastorToUpdate) {
-            throw new Error("Pastor não existe")
-        }
 
         const index = this.pastores.indexOf(pastorToUpdate)
 

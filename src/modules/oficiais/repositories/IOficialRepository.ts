@@ -56,6 +56,7 @@ interface IUpdateOficialDTO {
 interface IOficialRepository {
 
     findByRO(ro: string) : Oficial | null | undefined;
+    findByID(id: string) : Oficial | null | undefined;
     list() : Oficial[] | null | undefined;
     create(data : ICreateOficialDTO) : void;
     update(data: IUpdateOficialDTO) : void;

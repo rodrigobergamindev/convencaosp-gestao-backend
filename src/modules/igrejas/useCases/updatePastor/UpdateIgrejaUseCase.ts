@@ -10,24 +10,17 @@ class UpdateIgrejaUseCase {
 
     }
 
-    uploadImage(file: Express.Multer.File, ro: string): Promise<string> {
-       const url = insert(file, ro)
-       return url
-    }
-
     async execute(data: IUpdateIgrejaDTO): Promise<void> {
-        const {ri} = data
-        const igrejaAlreadyExist = this.igrejasRepository.findByRI(ri)
+        const {ri, id} = data
+        const igrejaAlreadyExist = this.igrejasRepository.findByID(id)
     
 
-        if(igrejaAlreadyExist){
-           
-            const igreja = {...data}
-            this.igrejasRepository.update(igreja)
-            
-        }else{
+        if(!igrejaAlreadyExist){
             throw new Error('Igreja não cadastrado')
         }
+
+        const igreja = {...data}
+        this.igrejasRepository.update(igreja)
         
     }
 }

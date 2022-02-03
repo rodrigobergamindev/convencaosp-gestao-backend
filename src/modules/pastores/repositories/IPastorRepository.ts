@@ -56,6 +56,7 @@ interface IUpdatePastorDTO {
 interface IPastorRepository {
 
     findByRM(rm: string) : Pastor | null | undefined;
+    findByID(id: string) : Pastor | null | undefined;
     list() : Pastor[] | null;
     create(data : ICreatePastorDTO) : void;
     update(data: IUpdatePastorDTO) : void;

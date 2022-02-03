@@ -54,6 +54,7 @@ interface IUpdateIgrejaDTO {
 interface IIgrejaRepository {
 
     findByRI(ri: string) : Igreja | null | undefined;
+    findByID(id: string) : Igreja | null | undefined;
     list() : Igreja[] | null;
     create(data : ICreateIgrejaDTO) : void;
     update(data: IUpdateIgrejaDTO) : void;
