@@ -56,7 +56,7 @@ interface IIgrejaRepository {
     list() : Igreja[] | null;
     create(data : ICreateIgrejaDTO) : void;
     update(data: IUpdateIgrejaDTO) : void;
-    delete(rm: string) : void;
+    delete(id: string) : void;
 }
 
 export { ICreateIgrejaDTO, IUpdateIgrejaDTO, IIgrejaRepository}

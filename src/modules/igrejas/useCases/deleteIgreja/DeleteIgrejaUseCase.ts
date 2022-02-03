@@ -7,11 +7,11 @@ class DeleteIgrejaUseCase {
 
     }
 
-    execute(ri: string): void {
-        const igrejaToDelete = this.igrejasRepository.findByRI(ri)
+    execute(id: string): void {
+        const igrejaToDelete = this.igrejasRepository.findByID(id)
 
         if(igrejaToDelete){
-            this.igrejasRepository.delete(ri)
+            this.igrejasRepository.delete(id)
         }
         
     }

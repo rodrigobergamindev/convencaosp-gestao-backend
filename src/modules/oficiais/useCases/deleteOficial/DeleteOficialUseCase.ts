@@ -7,11 +7,11 @@ class DeleteOficialUseCase {
 
     }
 
-    execute(ro: string): void {
-        const oficialToDelete = this.oficiaisRepository.findByRO(ro)
+    execute(id: string): void {
+        const oficialToDelete = this.oficiaisRepository.findByID(id)
 
         if(oficialToDelete){
-            this.oficiaisRepository.delete(ro)
+            this.oficiaisRepository.delete(id)
         }
         
     }
