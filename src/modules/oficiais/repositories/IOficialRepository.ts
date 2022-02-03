@@ -8,8 +8,8 @@ interface ICreateOficialDTO {
     nome: string;
     funcao?: string;
     dirigente?: string;
-    endereco?: IEndereco;
-    contato?: IContato;
+    endereco?: IEndereco[];
+    contato?: IContato[];
     email?: string;
     rg: string;
     cpf: string;
@@ -17,7 +17,7 @@ interface ICreateOficialDTO {
     consagracao?: Date; 
     igreja_sede: string; 
     anuidade?: IAnuidade;
-    observacao?: IObservacao;
+    observacao?: IObservacao[];
     foto?: string | Express.Multer.File;
 
 }

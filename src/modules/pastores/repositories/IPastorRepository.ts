@@ -8,7 +8,7 @@ interface ICreatePastorDTO {
     nome: string;
     funcao?: string;
     dirigente?: string;
-    endereco?: IEndereco;
+    endereco?: IEndereco[];
     contato?: IContato[];
     email?: string;
     rg: string;
