@@ -13,7 +13,6 @@ interface IImportOficial {
     status?: string;
     endereco?: IEndereco[];
     contato?: IContato[];
-    email?: string;
     rg: string;
     cpf: string;
     nascimento: string;
@@ -64,11 +63,14 @@ class ImportOficialUseCase {
             ], 
                 contato: [
                     {
-                   tipo: null,
-                   numero: telefone 
-                }
+                        tipo: 'importado',
+                        descricao: telefone 
+                    },
+                    {
+                        tipo: 'e-mail',
+                        descricao: email 
+                    }
             ], 
-                email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
                 anuidade: 
                     {

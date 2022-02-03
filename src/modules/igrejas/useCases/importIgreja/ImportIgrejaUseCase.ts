@@ -13,7 +13,6 @@ interface IImportIgreja {
     igreja_sede: string;
     endereco: IEndereco[];
     contato: IContato[];
-    email: string;
     dirigente: string;
     presidente: string;
     templo: string;
@@ -76,10 +75,13 @@ class ImportIgrejaUseCase {
                 contato: [
                     {
                         tipo: 'importado',
-                        numero: numero_telefone
+                        descricao: numero_telefone
+                    },
+                    {
+                        tipo: 'email',
+                        descricao: email
                     }
                 ],
-                email,
                 dirigente,
                 presidente,
                 templo,

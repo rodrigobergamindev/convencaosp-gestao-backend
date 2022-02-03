@@ -12,7 +12,7 @@ interface IEndereco {
 
 interface IContato {
     tipo: string | null | undefined;
-    numero: string;
+    descricao: string;
 }
 
 interface ISuperintendencia {
@@ -44,7 +44,6 @@ class Igreja {
     igreja_sede: string;
     endereco: IEndereco[];
     contato: IContato[];
-    email: string;
     dirigente: string;
     presidente: string;
     templo: string;

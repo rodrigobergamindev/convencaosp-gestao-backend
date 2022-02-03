@@ -26,7 +26,7 @@ interface IEndereco {
 
 interface IContato {
     tipo?: string | null | undefined;
-    numero: string;
+    descricao: string;
 }
 
 interface IObservacao {
@@ -46,7 +46,6 @@ class Oficial {
     funcao?: string;
     endereco?: IEndereco[]; 
     contato?: IContato[];
-    email?: string;
     rg: string;
     cpf: string;
     nascimento: Date | string;

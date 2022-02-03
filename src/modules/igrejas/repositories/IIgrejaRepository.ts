@@ -10,7 +10,6 @@ interface ICreateIgrejaDTO {
     igreja_sede: string;
     endereco: IEndereco[];
     contato: IContato[];
-    email: string;
     dirigente: string;
     presidente: string;
     templo: string;
@@ -34,7 +33,6 @@ interface IUpdateIgrejaDTO {
     igreja_sede: string;
     endereco: IEndereco[];
     contato: IContato[];
-    email: string;
     dirigente: string;
     presidente: string;
     templo: string;

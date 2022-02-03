@@ -10,7 +10,6 @@ interface ICreateOficialDTO {
     dirigente?: string;
     endereco?: IEndereco[];
     contato?: IContato[];
-    email?: string;
     rg: string;
     cpf: string;
     nascimento: string | Date;
@@ -35,7 +34,6 @@ interface IUpdateOficialDTO {
     dirigente?: string;
     endereco?: IEndereco[];
     contato?: IContato[];
-    email?: string;
     rg: string;
     cpf: string;
     nascimento: Date | string;

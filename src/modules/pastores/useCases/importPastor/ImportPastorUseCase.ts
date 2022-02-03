@@ -13,7 +13,6 @@ interface IImportPastor {
     status?: string;
     endereco?: IEndereco[];
     contato?: IContato[];
-    email?: string;
     rg: string;
     cpf: string;
     nascimento: Date;
@@ -61,10 +60,14 @@ class ImportPastorUseCase {
             ],
                 contato: [
                     {
-                        tipo: null,
-                        numero: telefone,
+                        tipo: 'importado',
+                        descricao: telefone,
+                    },
+                    {
+                        tipo: 'email',
+                        descricao: email,
                     }
-                ], email, 
+                ],
                 nascimento, consagracao, rg, cpf, igreja_sede, credencial, 
                 observacao : [
                     {

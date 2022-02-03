@@ -35,7 +35,6 @@ interface IUpdatePastorDTO {
     dirigente?: string;
     endereco?: IEndereco[];
     contato?: IContato[];
-    email?: string;
     rg: string;
     cpf: string;
     nascimento: Date | string;

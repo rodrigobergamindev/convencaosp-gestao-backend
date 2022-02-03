@@ -13,7 +13,7 @@ interface IEndereco {
 
 interface IContato {
     tipo: string;
-    numero: string;
+    descricao: string;
 }
 
 interface IObservacao {
@@ -33,7 +33,6 @@ class Pastor {
     funcao?: string;
     endereco?: IEndereco[];
     contato?: IContato[];
-    email?: string;
     rg: string;
     cpf: string;
     nascimento: Date | string;
