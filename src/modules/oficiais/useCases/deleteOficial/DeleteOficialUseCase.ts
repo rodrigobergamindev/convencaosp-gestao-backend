@@ -10,10 +10,10 @@ class DeleteOficialUseCase {
     execute(id: string): void {
         const oficialToDelete = this.oficiaisRepository.findByID(id)
 
-        if(oficialToDelete){
-            this.oficiaisRepository.delete(id)
+        if(!oficialToDelete){
+            throw new Error("Oficial não encontrado")
         }
-        
+        this.oficiaisRepository.delete(id)
     }
 }
 

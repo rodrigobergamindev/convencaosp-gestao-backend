@@ -61,13 +61,9 @@ class IgrejaRepository implements IIgrejaRepository {
     
     }
 
-    delete(ri: string): void {
-        const igrejaToDelete = this.igrejas.find((igreja) => igreja.ri === ri);
+    delete(id: string): void {
+        const igrejaToDelete = this.igrejas.find((igreja) => igreja.id === id);
         const index = this.igrejas.indexOf(igrejaToDelete)
-
-        if(!igrejaToDelete) {
-            throw new Error("igreja não existe")
-        }
 
         this.igrejas.splice(index, 1);
     }

@@ -9,9 +9,9 @@ class DeleteOficialController {
 
     handle(request: Request, response: Response) : Response {
 
-        const {ro} = request.params
+        const {id} = request.params
         
-        this.deleteOficialUseCase.execute(ro)
+        this.deleteOficialUseCase.execute(id)
 
         return response.send()
     }

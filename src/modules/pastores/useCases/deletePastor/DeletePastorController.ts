@@ -9,9 +9,9 @@ class DeletePastorController {
 
     handle(request: Request, response: Response) : Response {
 
-        const {ro} = request.params
+        const {id} = request.params
         
-        this.deletePastorUseCase.execute(ro)
+        this.deletePastorUseCase.execute(id)
 
         return response.send()
     }

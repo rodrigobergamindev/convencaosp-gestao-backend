@@ -9,9 +9,9 @@ class DeleteIgrejaController {
 
     handle(request: Request, response: Response) : Response {
 
-        const {ro} = request.params
+        const {id} = request.params
         
-        this.deleteIgrejaUseCase.execute(ro)
+        this.deleteIgrejaUseCase.execute(id)
 
         return response.send()
     }

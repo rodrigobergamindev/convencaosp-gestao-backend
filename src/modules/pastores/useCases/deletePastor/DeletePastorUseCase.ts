@@ -10,10 +10,10 @@ class DeletePastorUseCase {
     execute(id: string): void {
         const pastorToDelete = this.pastoresRepository.findByID(id)
 
-        if(pastorToDelete){
-            this.pastoresRepository.delete(id)
+        if(!pastorToDelete){
+            throw new Error("Pastor não encontrado")
         }
-        
+        this.pastoresRepository.delete(id)
     }
 }
 

@@ -64,10 +64,6 @@ class OficialRepository implements IOficialRepository {
         const oficialToDelete = this.oficiais.find((oficial) => oficial.id === id);
         const index = this.oficiais.indexOf(oficialToDelete)
 
-        if(!oficialToDelete) {
-            throw new Error("Oficial não existe")
-        }
-
         this.oficiais.splice(index, 1);
     }
 }

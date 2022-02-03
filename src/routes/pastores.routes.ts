@@ -33,7 +33,7 @@ pastoresRoutes.get("/list", (request, response) => {
     return listPastoresController.handle(request, response);
 })
 
-pastoresRoutes.delete("/delete/:ro", (request, response) => {
+pastoresRoutes.delete("/delete/:id", (request, response) => {
     return deletePastorController.handle(request, response);
 })
 

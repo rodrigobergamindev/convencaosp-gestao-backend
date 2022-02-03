@@ -33,7 +33,7 @@ oficiaisRoutes.get("/list", (request, response) => {
     return listOficiaisController.handle(request, response);
 })
 
-oficiaisRoutes.delete("/delete/:ro", (request, response) => {
+oficiaisRoutes.delete("/delete/:id", (request, response) => {
     return deleteOficialController.handle(request, response);
 })
 

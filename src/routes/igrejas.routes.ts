@@ -33,7 +33,7 @@ igrejasRoutes.get("/list", (request, response) => {
     return listIgrejasController.handle(request, response);
 })
 
-igrejasRoutes.delete("/delete/:ro", (request, response) => {
+igrejasRoutes.delete("/delete/:id", (request, response) => {
     return deleteIgrejaController.handle(request, response);
 })
 

@@ -65,10 +65,6 @@ class PastorRepository implements IPastorRepository {
         const pastorToDelete = this.pastores.find((pastor) => pastor.id === id);
         const index = this.pastores.indexOf(pastorToDelete)
 
-        if(!pastorToDelete) {
-            throw new Error("pastor não existe")
-        }
-
         this.pastores.splice(index, 1);
     }
 }
