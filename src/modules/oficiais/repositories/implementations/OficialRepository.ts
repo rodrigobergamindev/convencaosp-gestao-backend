@@ -38,8 +38,8 @@ class OficialRepository implements IOficialRepository {
     }
 
     update(data: IUpdateOficialDTO): void {
-        const {ro} = data
-        let oficialToUpdate = this.oficiais.find((oficial) => oficial.ro === ro);
+        const {id} = data
+        let oficialToUpdate = this.oficiais.find((oficial) => oficial.id === id);
 
         if(!oficialToUpdate) {
             throw new Error("Oficial não existe")
@@ -59,8 +59,8 @@ class OficialRepository implements IOficialRepository {
     
     }
 
-    delete(ro: string): void {
-        const oficialToDelete = this.oficiais.find((oficial) => oficial.ro === ro);
+    delete(id: string): void {
+        const oficialToDelete = this.oficiais.find((oficial) => oficial.id === id);
         const index = this.oficiais.indexOf(oficialToDelete)
 
         if(!oficialToDelete) {

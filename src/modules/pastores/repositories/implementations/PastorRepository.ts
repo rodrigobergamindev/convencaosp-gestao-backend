@@ -39,8 +39,8 @@ class PastorRepository implements IPastorRepository {
     }
 
     update(data: IUpdatePastorDTO): void {
-        const {rm} = data
-        let pastorToUpdate = this.pastores.find((pastor) => pastor.rm === rm);
+        const {id} = data
+        let pastorToUpdate = this.pastores.find((pastor) => pastor.id === id);
 
         if(!pastorToUpdate) {
             throw new Error("Pastor não existe")
@@ -60,8 +60,8 @@ class PastorRepository implements IPastorRepository {
     
     }
 
-    delete(rm: string): void {
-        const pastorToDelete = this.pastores.find((pastor) => pastor.rm === rm);
+    delete(id: string): void {
+        const pastorToDelete = this.pastores.find((pastor) => pastor.id === id);
         const index = this.pastores.indexOf(pastorToDelete)
 
         if(!pastorToDelete) {

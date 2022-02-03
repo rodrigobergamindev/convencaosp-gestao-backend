@@ -59,7 +59,7 @@ interface IPastorRepository {
     list() : Pastor[] | null;
     create(data : ICreatePastorDTO) : void;
     update(data: IUpdatePastorDTO) : void;
-    delete(rm: string) : void;
+    delete(id: string) : void;
 }
 
 export { ICreatePastorDTO, IUpdatePastorDTO, IPastorRepository}

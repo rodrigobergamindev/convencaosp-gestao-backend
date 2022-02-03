@@ -59,7 +59,7 @@ interface IOficialRepository {
     list() : Oficial[] | null | undefined;
     create(data : ICreateOficialDTO) : void;
     update(data: IUpdateOficialDTO) : void;
-    delete(ro: string) : void;
+    delete(id: string) : void;
 }
 
 export { ICreateOficialDTO, IUpdateOficialDTO, IOficialRepository}
