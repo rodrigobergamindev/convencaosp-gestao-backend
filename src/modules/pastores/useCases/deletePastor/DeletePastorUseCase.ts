@@ -7,11 +7,11 @@ class DeletePastorUseCase {
 
     }
 
-    execute(ro: string): void {
-        const pastorToDelete = this.pastoresRepository.findByRM(ro)
+    execute(rm: string): void {
+        const pastorToDelete = this.pastoresRepository.findByRM(rm)
 
         if(pastorToDelete){
-            this.pastoresRepository.delete(ro)
+            this.pastoresRepository.delete(rm)
         }
         
     }

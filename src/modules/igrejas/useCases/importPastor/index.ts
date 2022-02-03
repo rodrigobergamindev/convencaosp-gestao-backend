@@ -1,10 +1,10 @@
-import { PastorRepository } from "../../repositories/implementations/PastorRepository";
-import { ImportPastorController } from "./ImportPastorController";
-import { ImportPastorUseCase } from "./ImportPastorUseCase";
+import { IgrejaRepository } from "../../repositories/implementations/IgrejaRepository";
+import { ImportIgrejaController } from "./ImportIgrejaController";
+import { ImportIgrejaUseCase } from "./ImportIgrejaUseCase";
 
 
-const pastoresRepository = PastorRepository.getInstance()
-const importPastorUseCase = new ImportPastorUseCase(pastoresRepository)
-const importPastorController = new ImportPastorController(importPastorUseCase)
+const igrejasRepository = IgrejaRepository.getInstance()
+const importIgrejaUseCase = new ImportIgrejaUseCase(igrejasRepository)
+const importIgrejaController = new ImportIgrejaController(importIgrejaUseCase)
 
-export {importPastorController}
+export {importIgrejaController}

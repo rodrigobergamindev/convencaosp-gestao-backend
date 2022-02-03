@@ -3,8 +3,8 @@ import { UpdatePastorController } from "./UpdatePastorController";
 import { UpdatePastorUseCase } from "./UpdatePastorUseCase";
 
 
-const oficiaisRepository = PastorRepository.getInstance()
-const updatePastorUseCase = new UpdatePastorUseCase(oficiaisRepository)
+const pastoresRepository = PastorRepository.getInstance()
+const updatePastorUseCase = new UpdatePastorUseCase(pastoresRepository)
 const updatePastorController = new UpdatePastorController(updatePastorUseCase)
 
 export {updatePastorController}

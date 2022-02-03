@@ -41,16 +41,16 @@ class Igreja {
     cnpj: string;
     tipo: string;
     igreja_sede: string;
-    endereco: IEndereco
+    endereco: IEndereco[];
     contato: IContato[];
     email: string;
     dirigente: string;
     presidente: string;
     templo: string;
     superitendencia: ISuperintendencia;
-    correspondencia: IEndereco;
     constribuicoes: IContribuicoes;
     observacao: IObservacao[];
+
     updated_at?: Date;
     updated_by?: string;
 
@@ -66,4 +66,4 @@ class Igreja {
 }
 
 
-export { Igreja }
+export { Igreja, ISuperintendencia, IObservacao, IContato, IEndereco, IContribuicoes }

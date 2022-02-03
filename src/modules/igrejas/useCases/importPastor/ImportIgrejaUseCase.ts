@@ -1,10 +1,10 @@
 import fs from "fs";
 import {parse} from "csv-parse"
-import { IPastorRepository } from "../../repositories/IPastorRepository";
+import { IIgrejaRepository } from "../../repositories/IIgrejaRepository";
 import {IAnuidade} from '../../../../types/IAnuidade'
 
 
-interface IImportPastor {
+interface IImportIgreja {
 
     rm: string;
     titulo: string;
@@ -28,17 +28,17 @@ interface IImportPastor {
 
 }
 
-class ImportPastorUseCase {
+class ImportIgrejaUseCase {
 
-    constructor(private pastoresRepository : IPastorRepository) {
+    constructor(private igrejasRepository : IIgrejaRepository) {
 
     }
 
-    loadPastores(file: Express.Multer.File): Promise<IImportPastor[]> {
+    loadIgrejas(file: Express.Multer.File): Promise<IImportIgreja[]> {
 
         return new Promise((resolve, reject) => {
             const stream = fs.createReadStream(file.path)
-        const pastores: IImportPastor[] = []
+        const igrejas: IImportIgreja[] = []
 
         const parseFile = parse()
 
@@ -52,14 +52,14 @@ class ImportPastorUseCase {
                 nascimento, consagracao, rg, cpf, igreja_sede, credencial, observacao
                ] = line
 
-               pastores.push({
+               igrejas.push({
                 rm, titulo, nome, funcao, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
                 nascimento, consagracao, rg, cpf, igreja_sede, credencial, observacao
                })
         })
         .on("end", async () => {
-            resolve(pastores)
+            resolve(igrejas)
 
             await fs.unlink(`${file.path}`, (err) => {
                 if (err) throw err
@@ -73,9 +73,9 @@ class ImportPastorUseCase {
     }
 
     async execute(file: Express.Multer.File): Promise<void> {
-        const pastores = await this.loadPastores(file)
+        const igrejas = await this.loadIgrejas(file)
 
-        pastores.map(async (pastor) => {
+        igrejas.map(async (pastor) => {
             
             const {rm, titulo, nome, funcao, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
@@ -83,11 +83,11 @@ class ImportPastorUseCase {
                 credencial, 
                 observacao} = pastor
 
-            const existPastor = this.pastoresRepository.findByRM(rm);
+            const existPastor = this.igrejasRepository.findByRI(ri);
 
             if(!existPastor) {
                 
-               this.pastoresRepository.create({
+               this.igrejasRepository.create({
                 rm, titulo, nome, funcao, endereco, 
                 bairro, cidade, uf, cep, telefone, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
@@ -102,4 +102,4 @@ class ImportPastorUseCase {
 
 }
 
-export {ImportPastorUseCase}
+export {ImportIgrejaUseCase}

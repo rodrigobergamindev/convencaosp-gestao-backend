@@ -3,14 +3,14 @@ import { IPastorRepository } from "../../repositories/IPastorRepository";
 
 class ListPastoresUseCase {
 
-    constructor(private oficiaisRepository: IPastorRepository){
+    constructor(private pastoresRepository: IPastorRepository){
 
     }
 
     execute(): Pastor[] {
 
-        const oficiais = this.oficiaisRepository.list()
-        return oficiais as Pastor[]
+        const pastores = this.pastoresRepository.list()
+        return pastores as Pastor[]
     }
 }
 
