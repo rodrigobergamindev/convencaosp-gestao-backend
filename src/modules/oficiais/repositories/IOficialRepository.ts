@@ -13,8 +13,8 @@ interface ICreateOficialDTO {
     email?: string;
     rg: string;
     cpf: string;
-    nascimento: Date;
-    consagracao?: Date; 
+    nascimento: string | Date;
+    consagracao?: string | Date; 
     igreja_sede: string; 
     anuidade?: IAnuidade;
     observacao?: IObservacao[];
@@ -38,8 +38,8 @@ interface IUpdateOficialDTO {
     email?: string;
     rg: string;
     cpf: string;
-    nascimento: Date;
-    consagracao?: Date; 
+    nascimento: Date | string;
+    consagracao?: Date | string; 
     igreja_sede: string; 
     anuidade?: IAnuidade;
     observacao?: IObservacao[];

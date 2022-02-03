@@ -16,8 +16,8 @@ interface IImportOficial {
     email?: string;
     rg: string;
     cpf: string;
-    nascimento: Date;
-    consagracao?: Date; 
+    nascimento: string;
+    consagracao?: string; 
     igreja_sede: string; 
     anuidade?: IAnuidade;
     observacao?: IObservacao[];

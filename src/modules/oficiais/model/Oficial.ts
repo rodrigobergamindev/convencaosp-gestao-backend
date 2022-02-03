@@ -3,14 +3,14 @@ import { v4 as uuidV4 } from 'uuid'
 
 
 interface Pagamento {
-    data: string;
+    data: string | Date;
     tipo: string;
 }
 
 
 interface IAnuidade {
     valor_credencial: string;
-    envio: string;
+    envio: string | Date;
     pagamentos?: Pagamento[]
 }
 
@@ -49,8 +49,8 @@ class Oficial {
     email?: string;
     rg: string;
     cpf: string;
-    nascimento: Date;
-    consagracao?: Date; 
+    nascimento: Date | string;
+    consagracao?: Date | string; 
     igreja_sede: string; 
     anuidade?: IAnuidade;
     observacao?: IObservacao[];
