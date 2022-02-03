@@ -133,20 +133,13 @@ class ImportOficialUseCase {
 
         oficiais.map(async (oficial) => {
             
-            const {ro, titulo, nome, funcao, endereco, contato, email, 
-                rg, cpf, nascimento, consagracao, igreja_sede,
-                anuidade, 
-                observacao} = oficial
+            const {ro} = oficial
 
             const existOficial = this.oficiaisRepository.findByRO(ro);
 
             if(!existOficial) {
                 
-               this.oficiaisRepository.create({
-                ro, titulo, nome, funcao, endereco,contato, email, 
-                rg, cpf, nascimento, consagracao, igreja_sede,
-                anuidade, observacao
-                })
+               this.oficiaisRepository.create(oficial)
                 
             }
 
