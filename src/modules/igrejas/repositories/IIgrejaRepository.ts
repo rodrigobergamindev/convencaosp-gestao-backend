@@ -14,8 +14,9 @@ interface ICreateIgrejaDTO {
     dirigente: string;
     presidente: string;
     templo: string;
+    membros: string;
     superitendencia: ISuperintendencia;
-    constribuicoes: IContribuicoes;
+    contribuicoes: IContribuicoes;
     observacao: IObservacao[];
 
 }
@@ -37,8 +38,9 @@ interface IUpdateIgrejaDTO {
     dirigente: string;
     presidente: string;
     templo: string;
+    membros: string;
     superitendencia: ISuperintendencia;
-    constribuicoes: IContribuicoes;
+    contribuicoes: IContribuicoes;
     observacao: IObservacao[];
 
     updated_at?: Date;

@@ -92,22 +92,12 @@ class ImportPastorUseCase {
         const pastores = await this.loadPastores(file)
 
         pastores.map(async (pastor) => {
-            
-            const {rm, titulo, nome, funcao, endereco , contato, email, 
-                rg, cpf, nascimento, consagracao, igreja_sede,
-                credencial, 
-                observacao} = pastor
-
+            const {rm} = pastor
             const existPastor = this.pastoresRepository.findByRM(rm);
 
             if(!existPastor) {
                 
-               this.pastoresRepository.create({
-                rm, titulo, nome, funcao, endereco, contato, email, 
-                rg, cpf, nascimento, consagracao, igreja_sede,
-                credencial, 
-                observacao
-                })
+               this.pastoresRepository.create(pastor)
                 
             }
 

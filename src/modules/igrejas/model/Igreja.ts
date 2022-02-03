@@ -2,6 +2,7 @@
 import { v4 as uuidV4 } from 'uuid'
 
 interface IEndereco {
+    tipo: string | null | undefined;
     logradouro: string;
     bairro: string;
     cidade: string;
@@ -10,7 +11,7 @@ interface IEndereco {
 }
 
 interface IContato {
-    tipo: string;
+    tipo: string | null | undefined;
     numero: string;
 }
 
@@ -27,7 +28,7 @@ interface IContribuicoes {
 }
 
 interface IObservacao {
-    titulo: string;
+    titulo: string | null | undefined;
     descricao: string;
 }
 
@@ -48,7 +49,7 @@ class Igreja {
     presidente: string;
     templo: string;
     superitendencia: ISuperintendencia;
-    constribuicoes: IContribuicoes;
+    contribuicoes: IContribuicoes;
     observacao: IObservacao[];
 
     updated_at?: Date;
