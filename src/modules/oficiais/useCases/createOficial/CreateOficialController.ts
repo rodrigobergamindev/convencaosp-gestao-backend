@@ -15,17 +15,31 @@ class CreateOficialController {
         const observacao = JSON.parse(request.body.observacao)
         const anuidade = JSON.parse(request.body.anuidade)
 
-        const oficial = {...request.body,
-            endereco,
-            contato,
-            observacao,
-            anuidade,
-            foto: request.file,
-        }
-        
-        this.createOficialUseCase.execute(oficial)
+        if(request.file){
+            const oficial = {...request.body,
+                endereco,
+                contato,
+                observacao,
+                anuidade,
+                foto: request.file,
+            }
 
-        return response.send()
+            this.createOficialUseCase.execute(oficial)
+
+            return response.send()
+        }
+
+            const oficial = {...request.body,
+                endereco,
+                contato,
+                observacao,
+                anuidade,
+            }
+
+            this.createOficialUseCase.execute(oficial)
+
+            return response.send()
+        
     }
 }
 

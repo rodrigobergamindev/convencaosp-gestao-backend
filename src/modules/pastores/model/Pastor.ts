@@ -36,9 +36,9 @@ class Pastor {
     email?: string;
     rg: string;
     cpf: string;
-    nascimento: Date;
-    credencial?: Date;
-    consagracao?: Date; 
+    nascimento: Date | string;
+    credencial?: Date | string;
+    consagracao?: Date | string; 
     igreja_sede: string; 
     observacao?: IObservacao[];
     foto?: string | Express.Multer.File;

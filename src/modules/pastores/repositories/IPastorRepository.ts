@@ -30,23 +30,19 @@ interface IUpdatePastorDTO {
 
     rm: string;
     titulo: string;
-    status?: string;
     nome: string;
     funcao?: string;
-    endereco: string; 
-    bairro: string;
-    cidade: string;
-    uf: string;
-    cep: string; 
-    telefone?: string;
+    dirigente?: string;
+    endereco?: IEndereco[];
+    contato?: IContato[];
     email?: string;
     rg: string;
     cpf: string;
-    nascimento: Date;
-    consagracao?: Date; 
+    nascimento: Date | string;
+    consagracao?: Date | string; 
     igreja_sede: string; 
-    credencial: Date;
-    observacao?: string;
+    credencial: Date | string;
+    observacao?: IObservacao[];
     foto?: string | Express.Multer.File;
 
     updated_at?: Date;
