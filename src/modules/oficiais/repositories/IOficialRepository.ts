@@ -1,5 +1,5 @@
 import { Oficial } from '../model/Oficial'
-import {IAnuidade} from '../../../types/IAnuidade'
+import {IEndereco, IObservacao, IContato, IAnuidade} from '../model/Oficial'
 
 interface ICreateOficialDTO {
 
@@ -8,12 +8,8 @@ interface ICreateOficialDTO {
     nome: string;
     funcao?: string;
     dirigente?: string;
-    endereco: string; 
-    bairro: string;
-    cidade: string;
-    uf: string;
-    cep: string; 
-    telefone?: string;
+    endereco?: IEndereco;
+    contato?: IContato;
     email?: string;
     rg: string;
     cpf: string;
@@ -21,7 +17,7 @@ interface ICreateOficialDTO {
     consagracao?: Date; 
     igreja_sede: string; 
     anuidade?: IAnuidade;
-    observacao?: string;
+    observacao?: IObservacao;
     foto?: string | Express.Multer.File;
 
 }
@@ -34,15 +30,11 @@ interface IUpdateOficialDTO {
 
     ro: string;
     titulo: string;
-    status?: string;
     nome: string;
     funcao?: string;
-    endereco: string; 
-    bairro: string;
-    cidade: string;
-    uf: string;
-    cep: string; 
-    telefone?: string;
+    dirigente?: string;
+    endereco?: IEndereco[];
+    contato?: IContato[];
     email?: string;
     rg: string;
     cpf: string;
@@ -50,7 +42,7 @@ interface IUpdateOficialDTO {
     consagracao?: Date; 
     igreja_sede: string; 
     anuidade?: IAnuidade;
-    observacao?: string;
+    observacao?: IObservacao[];
     foto?: string | Express.Multer.File;
 
     updated_at?: Date;
@@ -64,7 +56,7 @@ interface IUpdateOficialDTO {
 interface IOficialRepository {
 
     findByRO(ro: string) : Oficial | null | undefined;
-    list() : Oficial[] | null;
+    list() : Oficial[] | null | undefined;
     create(data : ICreateOficialDTO) : void;
     update(data: IUpdateOficialDTO) : void;
     delete(ro: string) : void;

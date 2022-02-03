@@ -11,7 +11,7 @@ interface IEndereco {
 
 interface IContato {
     tipo: string;
-    telefone: string;
+    numero: string;
 }
 
 interface ISuperintendencia {

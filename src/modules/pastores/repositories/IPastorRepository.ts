@@ -1,5 +1,5 @@
-import { Pastor } from '../model/Pastor'
-import {IAnuidade} from '../../../types/IAnuidade'
+import { Pastor, IEndereco, IContato, IObservacao } from '../model/Pastor'
+
 
 interface ICreatePastorDTO {
 
@@ -8,12 +8,8 @@ interface ICreatePastorDTO {
     nome: string;
     funcao?: string;
     dirigente?: string;
-    endereco: string; 
-    bairro: string;
-    cidade: string;
-    uf: string;
-    cep: string; 
-    telefone?: string;
+    endereco?: IEndereco;
+    contato?: IContato[];
     email?: string;
     rg: string;
     cpf: string;
@@ -21,7 +17,7 @@ interface ICreatePastorDTO {
     consagracao?: Date; 
     igreja_sede: string; 
     credencial: Date;
-    observacao?: string;
+    observacao?: IObservacao[];
     foto?: string | Express.Multer.File;
 
 }

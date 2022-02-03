@@ -1,7 +1,7 @@
 import fs from "fs";
 import {parse} from "csv-parse"
 import { IPastorRepository } from "../../repositories/IPastorRepository";
-import {IAnuidade} from '../../../../types/IAnuidade'
+import {IEndereco, IObservacao, IContato} from '../../model/Pastor'
 
 
 interface IImportPastor {
@@ -11,12 +11,8 @@ interface IImportPastor {
     nome: string;
     funcao?: string;
     status?: string;
-    endereco: string; 
-    bairro: string;
-    cidade: string;
-    uf: string;
-    cep: string; 
-    telefone?: string;
+    endereco?: IEndereco[];
+    contato?: IContato[];
     email?: string;
     rg: string;
     cpf: string;
@@ -24,7 +20,7 @@ interface IImportPastor {
     consagracao?: Date; 
     igreja_sede: string; 
     credencial: Date;
-    observacao?: string;
+    observacao: IObservacao[];
 
 }
 
@@ -47,15 +43,35 @@ class ImportPastorUseCase {
         parseFile.on("data", async(line) => {
             //[*name*,*description*]
             const [
-                rm, titulo, nome, funcao, endereco, 
+                rm, titulo, nome, funcao, logradouro, 
                 bairro, cidade, uf, cep, telefone, email, 
-                nascimento, consagracao, rg, cpf, igreja_sede, credencial, observacao
+                nascimento, consagracao, rg, cpf, igreja_sede, credencial, descricao
                ] = line
 
                pastores.push({
-                rm, titulo, nome, funcao, endereco, 
-                bairro, cidade, uf, cep, telefone, email, 
-                nascimento, consagracao, rg, cpf, igreja_sede, credencial, observacao
+                rm, titulo, nome, funcao,
+                endereco: [
+                    {
+                    logradouro,
+                    bairro,
+                    cidade,
+                    uf,
+                    cep
+                }
+            ],
+                contato: [
+                    {
+                        tipo: null,
+                        numero: telefone,
+                    }
+                ], email, 
+                nascimento, consagracao, rg, cpf, igreja_sede, credencial, 
+                observacao : [
+                    {
+                        titulo: null,
+                        descricao
+                    }
+                ] 
                })
         })
         .on("end", async () => {
@@ -77,8 +93,7 @@ class ImportPastorUseCase {
 
         pastores.map(async (pastor) => {
             
-            const {rm, titulo, nome, funcao, endereco, 
-                bairro, cidade, uf, cep, telefone, email, 
+            const {rm, titulo, nome, funcao, endereco , contato, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
                 credencial, 
                 observacao} = pastor
@@ -88,8 +103,7 @@ class ImportPastorUseCase {
             if(!existPastor) {
                 
                this.pastoresRepository.create({
-                rm, titulo, nome, funcao, endereco, 
-                bairro, cidade, uf, cep, telefone, email, 
+                rm, titulo, nome, funcao, endereco, contato, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
                 credencial, 
                 observacao

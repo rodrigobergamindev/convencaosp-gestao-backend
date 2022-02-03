@@ -1,7 +1,38 @@
 
 import { v4 as uuidV4 } from 'uuid'
-import {IAnuidade} from '../../../types/IAnuidade'
 
+
+interface Pagamento {
+    data: string;
+    tipo: string;
+}
+
+
+interface IAnuidade {
+    valor_credencial: string;
+    envio: string;
+    pagamentos?: Pagamento[]
+}
+
+
+interface IEndereco {
+    tipo?: string;
+    logradouro: string;
+    bairro: string;
+    cidade: string;
+    uf: string;
+    cep: string;
+}
+
+interface IContato {
+    tipo?: string | null | undefined;
+    numero: string;
+}
+
+interface IObservacao {
+    titulo: string | null;
+    descricao: string;
+}
 
 
 class Oficial {
@@ -13,12 +44,8 @@ class Oficial {
     status?: string;
     nome: string;
     funcao?: string;
-    endereco: string; 
-    bairro: string;
-    cidade: string;
-    uf: string;
-    cep: string; 
-    telefone?: string;
+    endereco?: IEndereco[]; 
+    contato?: IContato[];
     email?: string;
     rg: string;
     cpf: string;
@@ -26,7 +53,7 @@ class Oficial {
     consagracao?: Date; 
     igreja_sede: string; 
     anuidade?: IAnuidade;
-    observacao?: string;
+    observacao?: IObservacao[];
     foto?: string | Express.Multer.File;
 
     updated_at?: Date;
@@ -44,4 +71,4 @@ class Oficial {
 }
 
 
-export { Oficial }
+export { Oficial, IAnuidade, IObservacao, IEndereco, IContato }

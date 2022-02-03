@@ -1,7 +1,7 @@
 import fs from "fs";
 import {parse} from "csv-parse"
 import { IOficialRepository } from "../../repositories/IOficialRepository";
-import {IAnuidade} from '../../../../types/IAnuidade'
+import {IAnuidade, IEndereco, IContato, IObservacao} from '../../model/Oficial'
 
 
 interface IImportOficial {
@@ -11,12 +11,8 @@ interface IImportOficial {
     nome: string;
     funcao?: string;
     status?: string;
-    endereco: string; 
-    bairro: string;
-    cidade: string;
-    uf: string;
-    cep: string; 
-    telefone?: string;
+    endereco?: IEndereco[];
+    contato?: IContato[];
     email?: string;
     rg: string;
     cpf: string;
@@ -24,7 +20,7 @@ interface IImportOficial {
     consagracao?: Date; 
     igreja_sede: string; 
     anuidade?: IAnuidade;
-    observacao?: string;
+    observacao?: IObservacao[];
 
 }
 
@@ -47,18 +43,32 @@ class ImportOficialUseCase {
         parseFile.on("data", async(line) => {
             //[*name*,*description*]
             const [
-                ro, titulo, nome, funcao, endereco, 
+                ro, titulo, nome, funcao, logradouro, 
                 bairro, cidade, uf, cep, telefone, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede, 
                 valor_credencial, pagamento_2016, tipo_2016, pagamento_2017, 
                 tipo_2017, pagamento_2018, tipo_2018, pagamento_2019, tipo_2019, 
                 pagamento_2020, tipo_2020, pagamento_2021, tipo_2021, data_de_envio, 
-                observacao
+                descricao
                ] = line
 
                oficiais.push({
-                ro, titulo, nome, funcao, endereco, 
-                bairro, cidade, uf, cep, telefone, email, 
+                ro, titulo, nome, funcao, endereco: [
+                    {
+                    logradouro,
+                    bairro,
+                    cep,
+                    cidade,
+                    uf
+                }
+            ], 
+                contato: [
+                    {
+                   tipo: null,
+                   numero: telefone 
+                }
+            ], 
+                email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
                 anuidade: 
                     {
@@ -96,7 +106,12 @@ class ImportOficialUseCase {
                         ]
                     }
                 , 
-                observacao
+                observacao: [
+                    {
+                    titulo: null,
+                    descricao
+                    }
+                ]
                })
         })
         .on("end", async () => {
@@ -118,8 +133,7 @@ class ImportOficialUseCase {
 
         oficiais.map(async (oficial) => {
             
-            const {ro, titulo, nome, funcao, endereco, 
-                bairro, cidade, uf, cep, telefone, email, 
+            const {ro, titulo, nome, funcao, endereco, contato, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
                 anuidade, 
                 observacao} = oficial
@@ -129,11 +143,9 @@ class ImportOficialUseCase {
             if(!existOficial) {
                 
                this.oficiaisRepository.create({
-                ro, titulo, nome, funcao, endereco, 
-                bairro, cidade, uf, cep, telefone, email, 
+                ro, titulo, nome, funcao, endereco,contato, email, 
                 rg, cpf, nascimento, consagracao, igreja_sede,
-                anuidade, 
-                observacao
+                anuidade, observacao
                 })
                 
             }

@@ -1,7 +1,25 @@
 
 import { v4 as uuidV4 } from 'uuid'
 
+interface IEndereco {
+    tipo?: string;
+    logradouro: string;
+    bairro: string;
+    cidade: string;
+    uf: string;
+    cep: string;
+}
 
+
+interface IContato {
+    tipo: string;
+    numero: string;
+}
+
+interface IObservacao {
+    titulo: string;
+    descricao: string;
+}
 
 
 class Pastor {
@@ -13,12 +31,8 @@ class Pastor {
     status?: string;
     nome: string;
     funcao?: string;
-    endereco: string; 
-    bairro: string;
-    cidade: string;
-    uf: string;
-    cep: string; 
-    telefone?: string;
+    endereco?: IEndereco[];
+    contato?: IContato[];
     email?: string;
     rg: string;
     cpf: string;
@@ -26,7 +40,7 @@ class Pastor {
     credencial?: Date;
     consagracao?: Date; 
     igreja_sede: string; 
-    observacao?: string;
+    observacao?: IObservacao[];
     foto?: string | Express.Multer.File;
 
     updated_at?: Date;
@@ -44,4 +58,4 @@ class Pastor {
 }
 
 
-export { Pastor }
+export { Pastor, IEndereco, IObservacao, IContato }
