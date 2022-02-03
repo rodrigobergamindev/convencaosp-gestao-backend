@@ -1,5 +1,5 @@
 
-import { storage } from '../services/firebase'
+import { storage } from './storage'
 import { ref, listAll, getDownloadURL, uploadBytes, deleteObject } from 'firebase/storage';
 
 
