@@ -34,7 +34,6 @@ class OficialRepository implements IOficialRepository {
         Object.assign(oficial, {
             ...data
         })
-
         this.oficiais.push(oficial)
     }
 
