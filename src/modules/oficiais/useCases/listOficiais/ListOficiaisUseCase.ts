@@ -5,7 +5,7 @@ class ListOficialUseCase {
 
     constructor(private oficiaisRepository: IOficialRepository){
 
-    }
+    } 
 
     execute(): Promise<null> {
 
