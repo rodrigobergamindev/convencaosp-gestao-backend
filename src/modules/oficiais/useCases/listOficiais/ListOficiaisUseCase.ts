@@ -7,7 +7,7 @@ class ListOficialUseCase {
 
     } 
 
-    execute(): Promise<null> {
+    execute(): Promise<Oficial[]> {
 
         const oficiais = this.oficiaisRepository.list()
         return oficiais

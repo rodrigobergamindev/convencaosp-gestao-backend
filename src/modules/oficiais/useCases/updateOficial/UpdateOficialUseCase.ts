@@ -16,11 +16,8 @@ class UpdateOficialUseCase {
     }
 
     async execute(data: IUpdateOficialDTO): Promise<void> {
-        const {ro, id} = data
-        const oficialAlreadyExist = this.oficiaisRepository.findByID(id)
-    
-
-        if(!oficialAlreadyExist){
+        const {ro} = data
+       
             if(data.foto){
                 const url = await this.uploadImage(data.foto as Express.Multer.File, ro)
                 const oficial = {...data, foto: url}
@@ -29,9 +26,6 @@ class UpdateOficialUseCase {
                 const oficial = {...data}
                 this.oficiaisRepository.update(oficial)
             
-        }else{
-            throw new Error('Oficial não cadastrado')
-        }
         
     }
 }

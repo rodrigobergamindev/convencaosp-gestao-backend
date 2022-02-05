@@ -7,11 +7,21 @@ class ListOficialController {
 
     }
 
-    handle(request: Request, response: Response) : Response {
-        
-        const all = this.listOficialUseCase.execute()
+    async handle(request: Request, response: Response) : Promise<Response> {
 
-        return response.json(all)
+        try {
+
+            const all = await this.listOficialUseCase.execute()
+
+            return response.status(200).json(all)
+            
+        } catch (error) {
+            if(error){
+                response.status(400).send(error.message)
+            }
+        }
+        
+
     }
 }
 

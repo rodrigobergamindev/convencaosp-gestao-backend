@@ -2,6 +2,7 @@ import {Oficial} from '../../model/Oficial'
 import { IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
 import {db} from '../../../../services/firestore'
 
+
 class OficialRepository implements IOficialRepository {
 
     private oficiais: Oficial[];
@@ -21,7 +22,8 @@ class OficialRepository implements IOficialRepository {
     }
 
     findByRO(ro: string): Oficial {
-        const oficial = this.oficiais.find((oficial) => oficial.ro === ro);
+        const oficial = new Oficial()
+        
         return oficial
     }
 
@@ -30,10 +32,10 @@ class OficialRepository implements IOficialRepository {
         return oficial
     }
 
-    async list(): Promise<null> {
-        const oficiais = await db.collection('oficiais')
+    async list(): Promise<Oficial[]> {
+        const docRef = await db.collection('oficiais')
         
-        const data = await oficiais.get()
+        const data = await docRef.get()
 
         if(data.empty){
             return null
@@ -49,12 +51,12 @@ class OficialRepository implements IOficialRepository {
             this.oficiais.push(oficial)
         })
 
-        console.log(this.oficiais);
-        
-        return null
+        return this.oficiais
+
     }   
 
     async create(data: ICreateOficialDTO): Promise<void> {
+        const {ro} = data
         const oficial = new Oficial();
         Object.assign(oficial, {
             ...data
@@ -62,25 +64,20 @@ class OficialRepository implements IOficialRepository {
 
         const dataConverted = JSON.parse(JSON.stringify(oficial))
 
-        await db.collection('oficiais').add(dataConverted)
+        await db.collection('Oficiais').doc(ro).set(dataConverted)
+        
     }
 
-    update(data: IUpdateOficialDTO): void {
-        const {id} = data
-        let oficialToUpdate = this.oficiais.find((oficial) => oficial.id === id);
+    async update(data: IUpdateOficialDTO): Promise<void> {
+        const {ro} = data
 
-        const index = this.oficiais.indexOf(oficialToUpdate)
+        const oficialToUpdate = await db.collection('Oficiais').doc(ro)
+        
+        const dataConverted = JSON.parse(JSON.stringify(data))
 
-        const oficial = new Oficial()
+       await oficialToUpdate.update(dataConverted)
 
-        Object.assign(oficial, {
-            ...data,
-            updated_by: 'admin',
-            updated_at: new Date()
-        })
-
-        this.oficiais.splice(index, 1, oficial)
-    
+        
     }
 
     delete(id: string): void {
