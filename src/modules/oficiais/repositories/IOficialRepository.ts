@@ -55,7 +55,7 @@ interface IOficialRepository {
 
     findByRO(ro: string) : Oficial | null | undefined;
     findByID(id: string) : Oficial | null | undefined;
-    list() : Oficial[] | Promise<null> | undefined;
+    list() : Promise<null> | undefined;
     create(data : ICreateOficialDTO) : void;
     update(data: IUpdateOficialDTO) : void;
     delete(id: string) : void;

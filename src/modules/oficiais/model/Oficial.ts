@@ -1,6 +1,4 @@
 
-import { v4 as uuidV4 } from 'uuid'
-
 
 interface Pagamento {
     data: string | Date;

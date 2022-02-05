@@ -31,8 +31,26 @@ class OficialRepository implements IOficialRepository {
     }
 
     async list(): Promise<null> {
-        const oficiais = await db.collection('oficiais').get()
-       
+        const oficiais = await db.collection('oficiais')
+        
+        const data = await oficiais.get()
+
+        if(data.empty){
+            return null
+        }
+
+       await data.forEach(doc => {
+            const oficial = new Oficial()
+
+                Object.assign(oficial, {
+                     ...doc.data()
+                 })
+
+            this.oficiais.push(oficial)
+        })
+
+        console.log(this.oficiais);
+        
         return null
     }   
 

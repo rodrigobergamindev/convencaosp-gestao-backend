@@ -7,10 +7,10 @@ class ListOficialUseCase {
 
     }
 
-    execute(): Oficial[] {
+    execute(): Promise<null> {
 
         const oficiais = this.oficiaisRepository.list()
-        return oficiais as Oficial[]
+        return oficiais
     }
 }
 
