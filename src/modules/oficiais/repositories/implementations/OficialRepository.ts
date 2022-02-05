@@ -30,8 +30,10 @@ class OficialRepository implements IOficialRepository {
         return oficial
     }
 
-    list(): Oficial[] {
-        return this.oficiais;
+    async list(): Promise<null> {
+        const oficiais = await db.collection('oficiais').get()
+       
+        return null
     }   
 
     async create(data: ICreateOficialDTO): Promise<void> {
@@ -42,8 +44,7 @@ class OficialRepository implements IOficialRepository {
 
         const dataConverted = JSON.parse(JSON.stringify(oficial))
 
-        const res = await db.collection('oficiais').add(dataConverted)
-        console.log(`Add document with ID: ${res.id}`);
+        await db.collection('oficiais').add(dataConverted)
     }
 
     update(data: IUpdateOficialDTO): void {
