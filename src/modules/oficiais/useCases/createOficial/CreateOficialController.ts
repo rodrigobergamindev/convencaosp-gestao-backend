@@ -1,6 +1,6 @@
 import {Request, Response} from 'express'
 import { CreateOficialUseCase } from './CreateOficialUseCase'
-import { db } from '../../../../services/firestore'
+
 
 
 
@@ -24,12 +24,8 @@ class CreateOficialController {
                 anuidade,
                 foto: request.file,
             }
-
-            //implementar firesotre db const docRef = db.collection
             
-            //this.createOficialUseCase.execute(oficial)
-
-
+            this.createOficialUseCase.execute(oficial)
 
             return response.send()
         }

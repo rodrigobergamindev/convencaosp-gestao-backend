@@ -1,6 +1,6 @@
 import {Oficial} from '../../model/Oficial'
 import { IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
-
+import {db} from '../../../../services/firestore'
 
 class OficialRepository implements IOficialRepository {
 
@@ -34,12 +34,16 @@ class OficialRepository implements IOficialRepository {
         return this.oficiais;
     }   
 
-    create(data: ICreateOficialDTO): void {
+    async create(data: ICreateOficialDTO): Promise<void> {
         const oficial = new Oficial();
         Object.assign(oficial, {
             ...data
         })
-        this.oficiais.push(oficial)
+
+        const dataConverted = JSON.parse(JSON.stringify(oficial))
+
+        const res = await db.collection('oficiais').add(dataConverted)
+        console.log(`Add document with ID: ${res.id}`);
     }
 
     update(data: IUpdateOficialDTO): void {
