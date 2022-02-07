@@ -49,9 +49,9 @@ class Oficial {
     nascimento: Date | string;
     consagracao: Date | string; 
     igreja_sede: string; 
-    anuidade: IAnuidade;
-    observacao: IObservacao[];
-    foto: string | Express.Multer.File;
+    anuidade?: IAnuidade;
+    observacao?: IObservacao[];
+    foto?: string | Express.Multer.File;
 
 }
 
