@@ -1,7 +1,7 @@
 import {Oficial} from '../../model/Oficial'
 import { IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
 import {db} from '../../../../services/firestore'
-import { FieldValue, Timestamp } from 'firebase-admin/firestore';
+import { DocumentData, FieldValue, Timestamp } from 'firebase-admin/firestore';
 
 
 class OficialRepository implements IOficialRepository {
@@ -22,16 +22,13 @@ class OficialRepository implements IOficialRepository {
         return OficialRepository.INSTANCE
     }
 
-    findByRO(ro: string): Oficial {
-        const oficial = new Oficial()
+    async findByRO(ro: string): Promise<DocumentData> {
+        const oficialRef = await db.collection('Oficiais').doc(ro).get()
+        const oficial = oficialRef.data()
         
         return oficial
     }
 
-    findByID(id: string): Oficial {
-        const oficial = this.oficiais.find((oficial) => oficial.id === id);
-        return oficial
-    }
 
     async list(): Promise<Oficial[]> {
         const docRef = await db.collection('oficiais')

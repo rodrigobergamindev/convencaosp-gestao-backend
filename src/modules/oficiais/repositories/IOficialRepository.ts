@@ -1,3 +1,4 @@
+import { DocumentData } from 'firebase-admin/firestore'
 import { Oficial } from '../model/Oficial'
 import {IEndereco, IObservacao, IContato, IAnuidade} from '../model/Oficial'
 
@@ -48,8 +49,7 @@ interface IUpdateOficialDTO {
 
 interface IOficialRepository {
 
-    findByRO(ro: string) : Oficial | null | undefined;
-    findByID(id: string) : Oficial | null | undefined;
+    findByRO(ro: string) : Promise<DocumentData> | null | undefined;
     list() : Promise<Oficial[]> | undefined;
     create(data : ICreateOficialDTO) : void;
     update(data: IUpdateOficialDTO) : void;
