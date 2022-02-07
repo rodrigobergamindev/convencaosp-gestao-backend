@@ -58,18 +58,36 @@ class OficialRepository implements IOficialRepository {
 
     async create(data: ICreateOficialDTO): Promise<void> {
 
-        const { ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, observacao } = data
+        const { ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, observacao , anuidade, contato, endereco } = data
 
 
         const oficialRef = await db.collection('Oficiais').doc(ro)
-        const observacaoRef = await oficialRef.collection('Observacao').doc()
+        const observacaoRef = await oficialRef.collection('Observacao').doc(ro)
+        const anuidadeRef = await oficialRef.collection('Anuidade').doc(ro)
+        const contatoRef = await oficialRef.collection('Contato').doc(ro)
+        const enderecoRef = await oficialRef.collection('Endereço').doc(ro)
 
         await oficialRef.set({ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto})
-        await observacaoRef.set({
-            observacoes: observacao
+
+        await enderecoRef.set({
+            ...endereco
         })
 
+        await contatoRef.set({
+            ...contato
+        })
 
+       if(anuidade){
+        await anuidadeRef.set({
+            ...anuidade
+        })
+       }
+
+        if(observacao){
+            await observacaoRef.set({
+                ...observacao
+            })
+        }
         
     }
 

@@ -34,34 +34,25 @@ interface IObservacao {
 
 
 class Oficial {
-    created_at?: Date;
+    
     id?: string;
 
     ro: string;
     titulo: string;
-    status?: string;
+    status: string;
     nome: string;
-    funcao?: string;
-    endereco?: IEndereco[]; 
-    contato?: IContato[];
+    funcao: string;
+    endereco: IEndereco[]; 
+    contato: IContato[];
     rg: string;
     cpf: string;
     nascimento: Date | string;
-    consagracao?: Date | string; 
+    consagracao: Date | string; 
     igreja_sede: string; 
-    anuidade?: IAnuidade;
-    observacao?: IObservacao[];
-    foto?: string | Express.Multer.File;
+    anuidade: IAnuidade;
+    observacao: IObservacao[];
+    foto: string | Express.Multer.File;
 
-    updated_at?: Date;
-    updated_by?: string;
-
-    constructor() {
-
-        if(!this.created_at){
-            this.created_at = new Date()
-        }
-    }
 }
 
 

@@ -3,12 +3,12 @@ import {IEndereco, IObservacao, IContato, IAnuidade} from '../model/Oficial'
 
 interface ICreateOficialDTO {
 
+
     ro: string;
     titulo: string;
     nome: string;
-    funcao?: string;
+    funcao: string;
     status?: string;
-    dirigente?: string;
     endereco?: IEndereco[];
     contato?: IContato[];
     rg: string;
@@ -31,21 +31,18 @@ interface IUpdateOficialDTO {
     ro: string;
     titulo: string;
     nome: string;
-    funcao?: string;
-    dirigente?: string;
-    endereco?: IEndereco[];
-    contato?: IContato[];
+    funcao: string;
+    status: string;
+    endereco: IEndereco[];
+    contato: IContato[];
     rg: string;
     cpf: string;
     nascimento: Date | string;
-    consagracao?: Date | string; 
+    consagracao: Date | string; 
     igreja_sede: string; 
-    anuidade?: IAnuidade;
-    observacao?: IObservacao[];
-    foto?: string | Express.Multer.File;
-
-    updated_at?: Date;
-    updated_by?: string;
+    anuidade: IAnuidade;
+    observacao: IObservacao[];
+    foto: string | Express.Multer.File;
     
 }
 

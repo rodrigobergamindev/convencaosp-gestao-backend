@@ -9,7 +9,7 @@ interface IImportOficial {
     ro: string;
     titulo: string;
     nome: string;
-    funcao?: string;
+    funcao: string;
     status?: string;
     endereco?: IEndereco[];
     contato?: IContato[];
