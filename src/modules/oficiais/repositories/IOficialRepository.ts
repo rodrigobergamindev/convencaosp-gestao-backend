@@ -53,7 +53,7 @@ interface IOficialRepository {
     list() : Promise<Oficial[]> | undefined;
     create(data : ICreateOficialDTO) : void;
     update(data: IUpdateOficialDTO) : void;
-    delete(id: string) : void;
+    delete(ro: string) : void;
 }
 
 export { ICreateOficialDTO, IUpdateOficialDTO, IOficialRepository}

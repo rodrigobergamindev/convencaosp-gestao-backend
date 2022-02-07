@@ -1,5 +1,6 @@
 
 import { IOficialRepository } from "../../repositories/IOficialRepository";
+import {db} from '../../../../services/firestore'
 
 class DeleteOficialUseCase {
 
@@ -7,13 +8,14 @@ class DeleteOficialUseCase {
 
     }
 
-    execute(id: string): void {
-        const oficialToDelete = this.oficiaisRepository.findByID(id)
+    async execute(ro: string): Promise<void> {
+        const oficialRef = await db.collection('Oficiais').doc(ro).get()
+        const oficialData = oficialRef.data()
 
-        if(!oficialToDelete){
+        if(!oficialData){
             throw new Error("Oficial não encontrado")
         }
-        this.oficiaisRepository.delete(id)
+        this.oficiaisRepository.delete(ro)
     }
 }
 

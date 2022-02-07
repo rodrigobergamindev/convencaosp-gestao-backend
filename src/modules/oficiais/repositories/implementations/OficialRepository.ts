@@ -135,11 +135,34 @@ class OficialRepository implements IOficialRepository {
         
     }
 
-    delete(id: string): void {
-        const oficialToDelete = this.oficiais.find((oficial) => oficial.id === id);
-        const index = this.oficiais.indexOf(oficialToDelete)
+    async delete(ro: string): Promise<void> {
 
-        this.oficiais.splice(index, 1);
+        const oficialRef = await db.collection('Oficiais').doc(ro)
+
+        const observacaoRef = await oficialRef.collection('Observacao').doc(ro)
+        const anuidadeRef = await oficialRef.collection('Anuidade').doc(ro)
+        const contatoRef = await oficialRef.collection('Contato').doc(ro)
+        const enderecoRef = await oficialRef.collection('Endereço').doc(ro)
+
+        const batch = db.batch()
+
+        try {
+                if(observacaoRef){
+                    batch.delete(observacaoRef)
+                }
+
+                if(anuidadeRef){
+                    batch.delete(anuidadeRef)
+                }
+
+                batch.delete(contatoRef)
+                batch.delete(enderecoRef)
+                batch.delete(oficialRef)
+
+                await batch.commit()
+          } catch (e) {
+            console.log('Transaction failure:', e);
+          }
     }
 }
 
