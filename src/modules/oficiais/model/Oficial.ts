@@ -36,7 +36,8 @@ interface IObservacao {
 class Oficial {
     
     id?: string;
-
+    created_at: Date;
+    
     ro: string;
     titulo: string;
     status: string;

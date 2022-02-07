@@ -1,7 +1,7 @@
 import {Oficial} from '../../model/Oficial'
 import { IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
 import {db} from '../../../../services/firestore'
-import { FieldValue } from 'firebase-admin/firestore';
+import { FieldValue, Timestamp } from 'firebase-admin/firestore';
 
 
 class OficialRepository implements IOficialRepository {
@@ -67,7 +67,10 @@ class OficialRepository implements IOficialRepository {
         const contatoRef = await oficialRef.collection('Contato').doc(ro)
         const enderecoRef = await oficialRef.collection('Endereço').doc(ro)
 
-        await oficialRef.set({ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto})
+        await oficialRef.set({
+            ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto,
+            created_at: FieldValue.serverTimestamp()
+        })
 
         await enderecoRef.set({
             ...endereco
@@ -94,11 +97,9 @@ class OficialRepository implements IOficialRepository {
     async update(data: IUpdateOficialDTO): Promise<void> {
         const {ro} = data
 
-        const oficialToUpdate = await db.collection('Oficiais').doc(ro)
+        const oficialRef = await db.collection('Oficiais').doc(ro)
         
-        const dataConverted = JSON.parse(JSON.stringify(data))
-
-       await oficialToUpdate.update(dataConverted)
+       
 
         
     }

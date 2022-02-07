@@ -25,9 +25,6 @@ interface ICreateOficialDTO {
 
 interface IUpdateOficialDTO {
 
-    created_at: Date;
-    id: string;
-
     ro: string;
     titulo: string;
     nome: string;
