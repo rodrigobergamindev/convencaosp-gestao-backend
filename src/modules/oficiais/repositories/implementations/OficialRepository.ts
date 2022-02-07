@@ -68,12 +68,12 @@ class OficialRepository implements IOficialRepository {
         
         const baseInformation = await this.convertDataToJson({ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto})
         
-        await db.collection('Oficiais').doc(ro).set({
-            ...baseInformation,
-            observacao: observacao.map(obs => {
-                return db.collection('observacao').add(JSON.parse(JSON.stringify(obs)))
-            })
-        })
+        const oficial = await db.collection('Oficiais').doc(ro).set(baseInformation)
+
+        const oficialRef = await db.collection('Oficiais').doc(ro)
+
+        const observacaoData = oficialRef.collection('observacao').add()
+
 
         
     }
