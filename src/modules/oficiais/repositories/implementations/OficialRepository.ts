@@ -21,6 +21,11 @@ class OficialRepository implements IOficialRepository {
         return OficialRepository.INSTANCE
     }
 
+    async convertDataToJson(data) {
+        const dataConverted = await JSON.parse(JSON.stringify(data))
+        return dataConverted
+    }
+
     findByRO(ro: string): Oficial {
         const oficial = new Oficial()
         
@@ -56,15 +61,20 @@ class OficialRepository implements IOficialRepository {
     }   
 
     async create(data: ICreateOficialDTO): Promise<void> {
-        const {ro} = data
-        const oficial = new Oficial();
-        Object.assign(oficial, {
-            ...data
+
+        const { ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, observacao } = data
+
+        
+        
+        const baseInformation = await this.convertDataToJson({ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto})
+        
+        await db.collection('Oficiais').doc(ro).set({
+            ...baseInformation,
+            observacao: observacao.map(obs => {
+                return db.collection('observacao').add(JSON.parse(JSON.stringify(obs)))
+            })
         })
 
-        const dataConverted = JSON.parse(JSON.stringify(oficial))
-
-        await db.collection('Oficiais').doc(ro).set(dataConverted)
         
     }
 

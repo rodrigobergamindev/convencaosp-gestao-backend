@@ -7,6 +7,7 @@ interface ICreateOficialDTO {
     titulo: string;
     nome: string;
     funcao?: string;
+    status?: string;
     dirigente?: string;
     endereco?: IEndereco[];
     contato?: IContato[];

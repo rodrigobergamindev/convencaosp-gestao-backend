@@ -2,7 +2,7 @@ import fs from "fs";
 import {parse} from "csv-parse"
 import { IOficialRepository } from "../../repositories/IOficialRepository";
 import {IAnuidade, IEndereco, IContato, IObservacao} from '../../model/Oficial'
-
+import {db} from '../../../../services/firestore'
 
 interface IImportOficial {
 
@@ -134,16 +134,11 @@ class ImportOficialUseCase {
         const oficiais = await this.loadOficiais(file)
 
         oficiais.map(async (oficial) => {
-            
-            const {ro} = oficial
+          
 
-            const existOficial = this.oficiaisRepository.findByRO(ro);
-
-            if(!existOficial) {
-                
                this.oficiaisRepository.create(oficial)
                 
-            }
+            
 
         })
     }
