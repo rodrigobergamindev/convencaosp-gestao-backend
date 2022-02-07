@@ -147,11 +147,11 @@ class OficialRepository implements IOficialRepository {
         const batch = db.batch()
 
         try {
-                if(observacaoRef){
+                if((await observacaoRef.get()).data()){
                     batch.delete(observacaoRef)
                 }
 
-                if(anuidadeRef){
+                if((await anuidadeRef.get()).data()){
                     batch.delete(anuidadeRef)
                 }
 
@@ -160,6 +160,7 @@ class OficialRepository implements IOficialRepository {
                 batch.delete(oficialRef)
 
                 await batch.commit()
+                console.log('Oficial excluído');
           } catch (e) {
             console.log('Transaction failure:', e);
           }
