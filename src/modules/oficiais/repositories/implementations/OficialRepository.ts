@@ -1,6 +1,7 @@
 import {Oficial} from '../../model/Oficial'
 import { IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
 import {db} from '../../../../services/firestore'
+import { FieldValue } from 'firebase-admin/firestore';
 
 
 class OficialRepository implements IOficialRepository {
@@ -19,11 +20,6 @@ class OficialRepository implements IOficialRepository {
         }
 
         return OficialRepository.INSTANCE
-    }
-
-    async convertDataToJson(data) {
-        const dataConverted = await JSON.parse(JSON.stringify(data))
-        return dataConverted
     }
 
     findByRO(ro: string): Oficial {
@@ -64,15 +60,14 @@ class OficialRepository implements IOficialRepository {
 
         const { ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, observacao } = data
 
-        
-        
-        const baseInformation = await this.convertDataToJson({ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto})
-        
-        const oficial = await db.collection('Oficiais').doc(ro).set(baseInformation)
 
         const oficialRef = await db.collection('Oficiais').doc(ro)
+        const observacaoRef = await oficialRef.collection('Observacao').doc()
 
-        const observacaoData = oficialRef.collection('observacao').add()
+        await oficialRef.set({ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto})
+        await observacaoRef.set({
+            observacoes: observacao
+        })
 
 
         
