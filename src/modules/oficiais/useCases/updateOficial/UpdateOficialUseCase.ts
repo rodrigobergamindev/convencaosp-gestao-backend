@@ -22,9 +22,11 @@ class UpdateOficialUseCase {
                 const url = await this.uploadImage(data.foto as Express.Multer.File, ro)
                 const oficial = {...data, foto: url}
                 this.oficiaisRepository.update(oficial) 
-            }
+            }else{
                 const oficial = {...data}
                 this.oficiaisRepository.update(oficial)
+            }
+                
             
         
     }

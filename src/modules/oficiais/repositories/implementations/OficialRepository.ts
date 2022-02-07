@@ -95,10 +95,41 @@ class OficialRepository implements IOficialRepository {
     }
 
     async update(data: IUpdateOficialDTO): Promise<void> {
-        const {ro} = data
+        
+        const { ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, observacao , anuidade, contato, endereco } = data
 
         const oficialRef = await db.collection('Oficiais').doc(ro)
+        const observacaoRef = await oficialRef.collection('Observacao').doc(ro)
+        const anuidadeRef = await oficialRef.collection('Anuidade').doc(ro)
+        const contatoRef = await oficialRef.collection('Contato').doc(ro)
+        const enderecoRef = await oficialRef.collection('Endereço').doc(ro)
+
+        await oficialRef.update({
+            ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto,
+            updated_at: FieldValue.serverTimestamp(),
+            updated_by: 'admin'
+        })
         
+
+        await enderecoRef.update({
+            ...endereco
+        })
+
+        await contatoRef.update({
+            ...contato
+        })
+
+       if(anuidade){
+        await anuidadeRef.update({
+            ...anuidade
+        })
+       }
+
+        if(observacao){
+            await observacaoRef.update({
+                ...observacao
+            })
+        }
        
 
         
