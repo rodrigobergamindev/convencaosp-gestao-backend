@@ -1,7 +1,6 @@
 
 import { IOficialRepository, IUpdateOficialDTO } from "../../repositories/IOficialRepository";
 import { insert } from "../../../../services/photos";
-import { Oficial } from "../../model/Oficial";
 import {db} from '../../../../services/firestore'
 
 class UpdateOficialUseCase {

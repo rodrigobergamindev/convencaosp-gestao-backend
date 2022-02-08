@@ -22,6 +22,19 @@ class OficialRepository implements IOficialRepository {
         return OficialRepository.INSTANCE
     }
 
+    async findByName(nome: string): Promise<DocumentData> {
+            const oficiaisRef = db.collection('Oficiais');
+            const snapshot = await oficiaisRef.where('nome', '==', nome).get();
+
+            snapshot.forEach(doc => {
+
+               this.oficiais.push(doc.data())
+
+            });
+
+        return this.oficiais
+    }
+
     async findByRO(ro: string): Promise<DocumentData> {
         const oficialRef = await db.collection('Oficiais').doc(ro).get()
         const oficial = oficialRef.data()

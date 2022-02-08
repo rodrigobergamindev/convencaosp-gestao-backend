@@ -1,17 +1,17 @@
 import { DocumentData } from 'firebase-admin/firestore';
 import { IOficialRepository } from "../../repositories/IOficialRepository";
 
-class ListOficialUseCase {
+class FindByNameUseCase {
 
     constructor(private oficiaisRepository: IOficialRepository){
 
     } 
 
-    execute(): Promise<DocumentData[]> {
+    execute(nome: string): Promise<DocumentData> {
         
-        const oficiais = this.oficiaisRepository.list()
+        const oficiais = this.oficiaisRepository.findByName(nome)
         return oficiais
     }
 }
 
-export {ListOficialUseCase}
+export {FindByNameUseCase}

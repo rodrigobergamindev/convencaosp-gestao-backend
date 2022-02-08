@@ -1,27 +1,9 @@
 import fs from "fs";
 import {parse} from "csv-parse"
 import { IOficialRepository } from "../../repositories/IOficialRepository";
-import {IAnuidade, IEndereco, IContato, IObservacao} from '../../model/Oficial'
+import {IImportOficial} from '../../repositories/IOficialRepository'
 import {db} from '../../../../services/firestore'
 
-interface IImportOficial {
-
-    ro: string;
-    titulo: string;
-    nome: string;
-    funcao: string;
-    status?: string;
-    endereco?: IEndereco[];
-    contato?: IContato[];
-    rg: string;
-    cpf: string;
-    nascimento: string;
-    consagracao?: string; 
-    igreja_sede: string; 
-    anuidade?: IAnuidade;
-    observacao?: IObservacao[];
-
-}
 
 class ImportOficialUseCase {
 

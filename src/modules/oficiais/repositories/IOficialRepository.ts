@@ -75,16 +75,34 @@ interface IUpdateOficialDTO {
     
 }
 
+interface IImportOficial {
 
+    ro: string;
+    titulo: string;
+    nome: string;
+    funcao: string;
+    status?: string;
+    endereco?: IEndereco[];
+    contato?: IContato[];
+    rg: string;
+    cpf: string;
+    nascimento: string;
+    consagracao?: string; 
+    igreja_sede: string; 
+    anuidade?: IAnuidade;
+    observacao?: IObservacao[];
+
+}
 
 
 interface IOficialRepository {
 
     findByRO(ro: string) : Promise<DocumentData> | null | undefined;
+    findByName(nome: string) : Promise<DocumentData> | null | undefined;
     list() : Promise<DocumentData[]> | undefined;
     create(data : ICreateOficialDTO) : void;
     update(data: IUpdateOficialDTO) : void;
     delete(ro: string) : void;
 }
 
-export { ICreateOficialDTO, IUpdateOficialDTO, IOficialRepository}
+export { ICreateOficialDTO, IUpdateOficialDTO, IOficialRepository, IImportOficial}
