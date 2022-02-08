@@ -34,7 +34,7 @@ oficiaisRoutes.get("/list", (request, response) => {
     return listOficiaisController.handle(request, response);
 })
 
-oficiaisRoutes.get("/list/:ro", (request, response) => {
+oficiaisRoutes.get("/:ro", (request, response) => {
     return findByROController.handle(request, response);
 })
 

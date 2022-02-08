@@ -7,7 +7,7 @@ class FindByROUseCase {
 
     } 
 
-    execute(ro: string): Promise<DocumentData> {
+    async execute(ro: string): Promise<DocumentData> {
         
         const oficial = this.oficiaisRepository.findByRO(ro)
         return oficial

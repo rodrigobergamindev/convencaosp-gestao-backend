@@ -5,6 +5,7 @@ import { listPastoresController } from '../modules/pastores/useCases/listPastore
 import {deletePastorController} from '../modules/pastores/useCases/deletePastor'
 import { createPastorController } from '../modules/pastores/useCases/createPastor'
 import {updatePastorController} from '../modules/pastores/useCases/updatePastor'
+import { findByRMController } from '../modules/pastores/useCases/findByRM'
 
 const pastoresRoutes = Router()
 
@@ -31,6 +32,10 @@ pastoresRoutes.post("/import", upload.single("file"), (request, response) => {
 
 pastoresRoutes.get("/list", (request, response) => {
     return listPastoresController.handle(request, response);
+})
+
+pastoresRoutes.get("/:rm", (request, response) => {
+    return findByRMController.handle(request, response);
 })
 
 pastoresRoutes.delete("/delete/:id", (request, response) => {
