@@ -1,6 +1,37 @@
 import { DocumentData } from 'firebase-admin/firestore'
-import { Oficial } from '../model/Oficial'
-import {IEndereco, IObservacao, IContato, IAnuidade} from '../model/Oficial'
+
+
+interface Pagamento {
+    data: string | Date;
+    tipo: string;
+}
+
+
+interface IAnuidade {
+    valor_credencial: string;
+    envio: string | Date;
+    pagamentos?: Pagamento[]
+}
+
+
+interface IEndereco {
+    tipo?: string;
+    logradouro: string;
+    bairro: string;
+    cidade: string;
+    uf: string;
+    cep: string;
+}
+
+interface IContato {
+    tipo?: string | null | undefined;
+    descricao: string;
+}
+
+interface IObservacao {
+    titulo: string | null;
+    descricao: string;
+}
 
 interface ICreateOficialDTO {
 

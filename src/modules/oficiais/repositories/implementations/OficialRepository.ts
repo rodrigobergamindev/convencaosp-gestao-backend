@@ -1,4 +1,4 @@
-import {Oficial} from '../../model/Oficial'
+
 import { IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
 import {db} from '../../../../services/firestore'
 import { DocumentData, FieldValue, Timestamp } from 'firebase-admin/firestore';
