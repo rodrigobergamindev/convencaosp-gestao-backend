@@ -35,15 +35,11 @@ oficiaisRoutes.get("/list", (request, response) => {
     return listOficiaisController.handle(request, response);
 })
 
-oficiaisRoutes.get("/list/name", (request, response) => {
-    return findByNameController.handle(request, response);
-})
-
 oficiaisRoutes.get("/list/:ro", (request, response) => {
     return findByROController.handle(request, response);
 })
 
-oficiaisRoutes.delete("/delete/:id", (request, response) => {
+oficiaisRoutes.delete("/delete/:ro", (request, response) => {
     return deleteOficialController.handle(request, response);
 })
 
