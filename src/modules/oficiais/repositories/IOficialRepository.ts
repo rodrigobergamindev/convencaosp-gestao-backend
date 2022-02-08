@@ -98,7 +98,6 @@ interface IImportOficial {
 interface IOficialRepository {
 
     findByRO(ro: string) : Promise<DocumentData> | null | undefined;
-    findByName(nome: string) : Promise<DocumentData> | null | undefined;
     list() : Promise<DocumentData[]> | undefined;
     create(data : ICreateOficialDTO) : void;
     update(data: IUpdateOficialDTO) : void;

@@ -22,19 +22,6 @@ class OficialRepository implements IOficialRepository {
         return OficialRepository.INSTANCE
     }
 
-    async findByName(nome: string): Promise<DocumentData> {
-            const oficiaisRef = db.collection('Oficiais');
-            const snapshot = await oficiaisRef.where('nome', '==', nome).get();
-
-            snapshot.forEach(doc => {
-
-               this.oficiais.push(doc.data())
-
-            });
-
-        return this.oficiais
-    }
-
     async findByRO(ro: string): Promise<DocumentData> {
         const oficialRef = await db.collection('Oficiais').doc(ro).get()
         const oficial = oficialRef.data()
@@ -63,45 +50,63 @@ class OficialRepository implements IOficialRepository {
     }   
 
     async create(data: ICreateOficialDTO): Promise<void> {
-
+        const batch = db.batch()
         const { ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, observacao , anuidade, contato, endereco } = data
-
+        
 
         const oficialRef = await db.collection('Oficiais').doc(ro)
         const observacaoRef = await oficialRef.collection('Observacao').doc(ro)
         const anuidadeRef = await oficialRef.collection('Anuidade').doc(ro)
         const contatoRef = await oficialRef.collection('Contato').doc(ro)
         const enderecoRef = await oficialRef.collection('Endereço').doc(ro)
+        const logRef = await oficialRef.collection('Logs').doc(ro)
 
-        await oficialRef.set({
-            ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto,
-            created_at: FieldValue.serverTimestamp()
-        })
+        try {
 
-        await enderecoRef.set({
-            ...endereco
-        })
+            if(anuidade){
+                batch.set(anuidadeRef, {
+                    ...anuidade
+                })
+               }
+        
+                if(observacao){
+                    batch.set(observacaoRef, {
+                        ...observacao
+                    })
+                }
+            
+                batch.set(oficialRef, {
+                    ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto
+                })
+        
+                batch.set(enderecoRef, {
+                    ...endereco
+                })
+        
+                batch.set(contatoRef, {
+                    ...contato
+                })
+        
+                batch.set(logRef,  {
+                    created_at: FieldValue.serverTimestamp(),
+                    descricao: 'Criação de registro',
+                    created_by: 'admin'
+                })
 
-        await contatoRef.set({
-            ...contato
-        })
-
-       if(anuidade){
-        await anuidadeRef.set({
-            ...anuidade
-        })
-       }
-
-        if(observacao){
-            await observacaoRef.set({
-                ...observacao
-            })
+                await batch.commit()
+            
+        } catch (error) {
+            throw Error(error);
         }
+
+        
+
         
     }
 
     async update(data: IUpdateOficialDTO): Promise<void> {
-        
+        const batch = db.batch()
+
         const { ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, observacao , anuidade, contato, endereco } = data
 
         const oficialRef = await db.collection('Oficiais').doc(ro)
@@ -109,34 +114,46 @@ class OficialRepository implements IOficialRepository {
         const anuidadeRef = await oficialRef.collection('Anuidade').doc(ro)
         const contatoRef = await oficialRef.collection('Contato').doc(ro)
         const enderecoRef = await oficialRef.collection('Endereço').doc(ro)
+        const logRef = await oficialRef.collection('Logs').doc(ro)
 
-        await oficialRef.update({
-            ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto,
-            updated_at: FieldValue.serverTimestamp(),
-            updated_by: 'admin'
-        })
+
+        try {
+            if(anuidade){
+                batch.update(anuidadeRef, {
+                    ...anuidade
+                })
+               }
         
+                if(observacao){
+                    batch.update(observacaoRef, {
+                        ...observacao
+                    })
+                }
+                
+                batch.update(oficialRef, {
+                    ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto
+                })
+                
+        
+                batch.update(enderecoRef, {
+                    ...endereco
+                })
+        
+                batch.update(contatoRef, {
+                    ...contato
+                })
+        
+                batch.update(logRef, {
+                    updated_at: FieldValue.serverTimestamp(),
+                    updated_by: 'admin',
+                    descricao: 'Alteração de cadastro',
+                })
 
-        await enderecoRef.update({
-            ...endereco
-        })
+                await batch.commit()
 
-        await contatoRef.update({
-            ...contato
-        })
-
-       if(anuidade){
-        await anuidadeRef.update({
-            ...anuidade
-        })
-       }
-
-        if(observacao){
-            await observacaoRef.update({
-                ...observacao
-            })
+        } catch (error) {
+            throw Error(error);
         }
-       
 
         
     }

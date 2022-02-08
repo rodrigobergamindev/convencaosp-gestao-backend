@@ -6,7 +6,6 @@ import {deleteOficialController} from '../modules/oficiais/useCases/deleteOficia
 import { createOficialController } from '../modules/oficiais/useCases/createOficial'
 import {updateOficialController} from '../modules/oficiais/useCases/updateOficial'
 import { findByROController } from '../modules/oficiais/useCases/findByRO'
-import { findByNameController } from '../modules/oficiais/useCases/findByName'
 
 const oficiaisRoutes = Router()
 
