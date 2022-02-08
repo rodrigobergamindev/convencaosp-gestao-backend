@@ -7,13 +7,10 @@ class DeletePastorUseCase {
 
     }
 
-    execute(id: string): void {
-        const pastorToDelete = this.pastoresRepository.findByID(id)
+    execute(rm: string): void {
+        //const pastorToDelete = this.pastoresRepository.findByID(id)
 
-        if(!pastorToDelete){
-            throw new Error("Pastor não encontrado")
-        }
-        this.pastoresRepository.delete(id)
+        this.pastoresRepository.delete(rm)
     }
 }
 

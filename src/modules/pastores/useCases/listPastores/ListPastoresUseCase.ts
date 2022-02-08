@@ -1,3 +1,4 @@
+import { DocumentData } from "firebase-admin/firestore";
 import { Pastor } from "../../model/Pastor";
 import { IPastorRepository } from "../../repositories/IPastorRepository";
 
@@ -7,10 +8,10 @@ class ListPastoresUseCase {
 
     }
 
-    execute(): Pastor[] {
+    execute(): Promise<DocumentData[]> {
 
         const pastores = this.pastoresRepository.list()
-        return pastores as Pastor[]
+        return pastores
     }
 }
 

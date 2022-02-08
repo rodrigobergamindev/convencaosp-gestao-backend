@@ -19,20 +19,20 @@ class UpdateOficialUseCase {
         const oficialRef = await db.collection('Oficiais').doc(ro).get()
         const oficialAlreadyExist = oficialRef.data()
        
-        if(!oficialAlreadyExist) {
-            throw new Error('Oficial não existe')
+        if(oficialAlreadyExist) {
+            if(data.foto){
+
+                const url = await this.uploadImage(data.foto as Express.Multer.File, ro)
+                const oficial = {...data, foto: url}
+                this.oficiaisRepository.update(oficial) 
+                
+            }else{
+                    const oficial = {...data}
+                    this.oficiaisRepository.update(oficial)
+            }
         }
         
-        if(data.foto){
 
-            const url = await this.uploadImage(data.foto as Express.Multer.File, ro)
-            const oficial = {...data, foto: url}
-            this.oficiaisRepository.update(oficial) 
-            
-        }else{
-                const oficial = {...data}
-                this.oficiaisRepository.update(oficial)
-            }
         
 
                 

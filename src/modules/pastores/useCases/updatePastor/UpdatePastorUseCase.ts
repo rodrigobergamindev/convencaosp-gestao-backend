@@ -10,19 +10,19 @@ class UpdatePastorUseCase {
 
     }
 
-    uploadImage(file: Express.Multer.File, ro: string): Promise<string> {
-       const url = insert(file, ro)
+    uploadImage(file: Express.Multer.File, rm: string): Promise<string> {
+       const url = insert(file, rm)
        return url
     }
 
     async execute(data: IUpdatePastorDTO): Promise<void> {
-        const {id, rm} = data
-        const pastorAlreadyExist = this.pastoresRepository.findByID(id)
-    
-
+        const {rm} = data
+        //const pastorAlreadyExist = this.pastoresRepository.findByID(id)
+        //const namePhoto = `RM${rm}`
+/** 
         if(pastorAlreadyExist){
             if(data.foto){
-                const url = await this.uploadImage(data.foto as Express.Multer.File, rm)
+                const url = await this.uploadImage(data.foto as Express.Multer.File, namePhoto)
                 const pastor = {...data, foto: url}
                 this.pastoresRepository.update(pastor)
                 
@@ -33,8 +33,9 @@ class UpdatePastorUseCase {
         }else{
             throw new Error('Pastor não cadastrado')
         }
-        
+    */
     }
+
 }
 
 export {UpdatePastorUseCase}

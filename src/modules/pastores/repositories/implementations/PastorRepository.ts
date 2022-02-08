@@ -1,10 +1,12 @@
 import {Pastor} from '../../model/Pastor'
 import { IPastorRepository, ICreatePastorDTO, IUpdatePastorDTO} from '../IPastorRepository'
-
+import {db} from '../../../../services/firestore'
+import { DocumentData, FieldValue} from 'firebase-admin/firestore';
+import { deletePhoto } from '../../../../services/photos';
 
 class PastorRepository implements IPastorRepository {
 
-    private pastores: Pastor[];
+    private pastores: DocumentData[];
 
     private static INSTANCE: PastorRepository;
 
@@ -20,52 +22,143 @@ class PastorRepository implements IPastorRepository {
         return PastorRepository.INSTANCE
     }
 
-    findByRM(rm: string): Pastor {
-        const pastor = this.pastores.find((pastor) => pastor.rm === rm);
+    async findByRM(rm: string): Promise <DocumentData> {
+        const pastorRef = await db.collection('Pastores').doc(rm).get()
+        const pastor = pastorRef.data()
+
         return pastor
     }
 
-    findByID(id: string): Pastor {
-        const pastor = this.pastores.find((pastor) => pastor.id === id);
-        return pastor
-    }
+    async list(): Promise <DocumentData[]>  {
+        const docRef = await db.collection('Pastores')
+        
+        const data = await docRef.get()
+        
+        if(data.empty){
+            return null
+        }
 
-    list(): Pastor[] {
-        return this.pastores;
+      await data.forEach(doc => {
+          this.pastores.push(doc.data())
+        })
+
+   
+        return this.pastores
     }   
 
-    create(data: ICreatePastorDTO): void {
-        const pastor = new Pastor();
-        Object.assign(pastor, {
-            ...data
-        })
+    async create(data: ICreatePastorDTO): Promise<void> {
+        const batch = db.batch()
+        const { rm, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, igreja_sede, foto, credencial, observacao , contato, endereco } = data
+        
 
-        this.pastores.push(pastor)
+        const pastorRef = await db.collection('Pastores').doc(rm)
+        const observacaoRef = await pastorRef.collection('Observacao').doc(rm)
+        const contatoRef = await pastorRef.collection('Contato').doc(rm)
+        const enderecoRef = await pastorRef.collection('Endereço').doc(rm)
+        const logRef = await pastorRef.collection('Logs').doc(rm)
+
+     
+        
+                if(observacao){
+                    batch.set(observacaoRef, {
+                        data: observacao
+                    })
+                }
+            
+                batch.set(pastorRef, {
+                    rm, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, credencial, igreja_sede
+                })
+        
+                batch.set(enderecoRef, {
+                    data: endereco
+                })
+        
+                batch.set(contatoRef, {
+                   data: contato
+                })
+
+                batch.set(logRef,  
+                    {
+                        operations: FieldValue.arrayUnion({
+                            created_at: new Date(),
+                            created_by: 'admin',
+                            descricao: 'Criação de registro'
+                        })
+                    }
+                )
+
+                await batch.commit()
     }
 
-    update(data: IUpdatePastorDTO): void {
-        const {id} = data
-        let pastorToUpdate = this.pastores.find((pastor) => pastor.id === id);
+    async update(data: IUpdatePastorDTO): Promise<void> {
+        
+        const batch = db.batch()
+        const { rm, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, igreja_sede, foto, credencial, observacao , contato, endereco } = data
+        
 
-        const index = this.pastores.indexOf(pastorToUpdate)
+        const pastorRef = await db.collection('Pastores').doc(rm)
+        const observacaoRef = await pastorRef.collection('Observacao').doc(rm)
+        const contatoRef = await pastorRef.collection('Contato').doc(rm)
+        const enderecoRef = await pastorRef.collection('Endereço').doc(rm)
+        const logRef = await pastorRef.collection('Logs').doc(rm)
 
-        const pastor = new Pastor()
+     
+        
+                if(observacao){
+                    batch.update(observacaoRef, {
+                        data: observacao
+                    })
+                }
+            
+                batch.update(pastorRef, {
+                    rm, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, credencial
+                })
+        
+                batch.update(enderecoRef, {
+                    data: endereco
+                })
+        
+                batch.update(contatoRef, {
+                    data: contato
+                })
 
-        Object.assign(pastor, {
-            ...data,
-            updated_by: 'admin',
-            updated_at: new Date()
-        })
+                batch.update(logRef,  
+                    {
+                        operations: FieldValue.arrayUnion({
+                            created_at: new Date(),
+                            created_by: 'admin',
+                            descricao: 'Alteração de cadastro'
+                        })
+                    }
+                )
 
-        this.pastores.splice(index, 1, pastor)
+                await batch.commit()
     
     }
 
-    delete(id: string): void {
-        const pastorToDelete = this.pastores.find((pastor) => pastor.id === id);
-        const index = this.pastores.indexOf(pastorToDelete)
+    async delete(rm: string): Promise<void> {
+        const pastorRef = await db.collection('Oficiais').doc(rm)
 
-        this.pastores.splice(index, 1);
+        const observacaoRef = await pastorRef.collection('Observacao').doc(rm)
+        const contatoRef = await pastorRef.collection('Contato').doc(rm)
+        const enderecoRef = await pastorRef.collection('Endereço').doc(rm)
+        const logRef = await pastorRef.collection('Logs').doc(rm)
+
+
+        const batch = db.batch()
+
+    
+                if((await observacaoRef.get()).data()){
+                    batch.delete(observacaoRef)
+                }
+
+                batch.delete(contatoRef)
+                batch.delete(enderecoRef)
+                batch.delete(pastorRef)
+                batch.delete(logRef)
+                
+                await deletePhoto(`RM${rm}`)
+                await batch.commit()
     }
 }
 

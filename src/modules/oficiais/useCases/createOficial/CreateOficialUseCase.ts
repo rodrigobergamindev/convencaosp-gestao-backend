@@ -19,11 +19,7 @@ class CreateOficialUseCase {
         const oficialRef = await db.collection('Oficiais').doc(ro).get()
         const oficialAlreadyExist = oficialRef.data()
 
-       if(oficialAlreadyExist){
-           throw new Error("Oficial já cadastrado")
-       }
-
-     
+       if(!oficialAlreadyExist){
         if(data.foto){
             const url = await this.uploadImage(data.foto as Express.Multer.File, ro)
             const oficial = {...data, foto: url}
@@ -34,6 +30,8 @@ class CreateOficialUseCase {
             const oficial = {...data}
             this.oficiaisRepository.create(oficial)
         }
+       }
+
     
         
     }

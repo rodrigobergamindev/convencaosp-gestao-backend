@@ -28,12 +28,12 @@ export const getAll = async () => {
     return list;
 }
 
-export const insert = async (image: Express.Multer.File, ro: string) => {
+export const insert = async (image: Express.Multer.File, name: string) => {
     
         if(image) {
             if(['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(image.mimetype)) {
 
-                const newFile = ref(storage, `images/RO${ro}`);
+                const newFile = ref(storage, `images/${name}`);
                 const metadata = {
                     contentType: image.mimetype.toString()
                 }
@@ -56,3 +56,4 @@ export const deletePhoto = async (name: string) => {
     
 
 }
+

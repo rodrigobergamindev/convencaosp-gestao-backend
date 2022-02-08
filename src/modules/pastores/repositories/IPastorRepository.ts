@@ -1,65 +1,77 @@
-import { Pastor, IEndereco, IContato, IObservacao } from '../model/Pastor'
+import { DocumentData } from 'firebase-admin/firestore'
 
+
+interface IEndereco {
+    tipo?: string;
+    logradouro: string;
+    bairro: string;
+    cidade: string;
+    uf: string;
+    cep: string;
+}
+
+
+interface IContato {
+    tipo: string;
+    descricao: string;
+}
+
+interface IObservacao {
+    titulo: string;
+    descricao: string;
+}
 
 interface ICreatePastorDTO {
 
     rm: string;
+    status: string;
     titulo: string;
     nome: string;
-    funcao?: string;
-    dirigente?: string;
-    endereco?: IEndereco[];
-    contato?: IContato[];
-    email?: string;
+    funcao: string;
+    endereco: IEndereco[];
+    contato: IContato[];
     rg: string;
     cpf: string;
-    nascimento: Date;
-    consagracao?: Date; 
+    nascimento: string;
+    consagracao: string; 
     igreja_sede: string; 
-    credencial: Date;
+    credencial?: string;
     observacao?: IObservacao[];
     foto?: string | Express.Multer.File;
 
 }
-
 
 interface IUpdatePastorDTO {
 
-    created_at: Date;
-    id: string;
-
     rm: string;
+    status: string;
     titulo: string;
     nome: string;
-    funcao?: string;
-    dirigente?: string;
-    endereco?: IEndereco[];
-    contato?: IContato[];
+    funcao: string;
+    endereco: IEndereco[];
+    contato: IContato[];
     rg: string;
     cpf: string;
-    nascimento: Date | string;
-    consagracao?: Date | string; 
+    nascimento: string;
+    consagracao: string; 
     igreja_sede: string; 
-    credencial: Date | string;
+    credencial?: string;
     observacao?: IObservacao[];
     foto?: string | Express.Multer.File;
 
-    updated_at?: Date;
-    updated_by?: string;
-    
 }
+
 
 
 
 
 interface IPastorRepository {
 
-    findByRM(rm: string) : Pastor | null | undefined;
-    findByID(id: string) : Pastor | null | undefined;
-    list() : Pastor[] | null;
+    findByRM(rm: string) : Promise<DocumentData> | null | undefined;
+    list() : Promise<DocumentData[]> | null;
     create(data : ICreatePastorDTO) : void;
     update(data: IUpdatePastorDTO) : void;
-    delete(id: string) : void;
+    delete(rm: string) : void;
 }
 
-export { ICreatePastorDTO, IUpdatePastorDTO, IPastorRepository}
+export { ICreatePastorDTO, IUpdatePastorDTO, IPastorRepository, IContato, IEndereco, IObservacao}

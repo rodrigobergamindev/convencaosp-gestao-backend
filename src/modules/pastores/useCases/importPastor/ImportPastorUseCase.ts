@@ -1,7 +1,7 @@
 import fs from "fs";
 import {parse} from "csv-parse"
-import { IPastorRepository } from "../../repositories/IPastorRepository";
-import {IEndereco, IObservacao, IContato} from '../../model/Pastor'
+import { IPastorRepository, IEndereco, IObservacao, IContato } from "../../repositories/IPastorRepository";
+
 
 
 interface IImportPastor {
@@ -9,16 +9,16 @@ interface IImportPastor {
     rm: string;
     titulo: string;
     nome: string;
-    funcao?: string;
-    status?: string;
-    endereco?: IEndereco[];
-    contato?: IContato[];
+    funcao: string;
+    status: string;
+    endereco: IEndereco[];
+    contato: IContato[];
     rg: string;
     cpf: string;
-    nascimento: Date;
-    consagracao?: Date; 
+    nascimento: string;
+    consagracao: string; 
     igreja_sede: string; 
-    credencial: Date;
+    credencial: string;
     observacao: IObservacao[];
 
 }
@@ -49,6 +49,7 @@ class ImportPastorUseCase {
 
                pastores.push({
                 rm, titulo, nome, funcao,
+                status: 'ativo',
                 endereco: [
                     {
                     logradouro,

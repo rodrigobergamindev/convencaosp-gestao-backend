@@ -17,13 +17,13 @@ class CreatePastorUseCase {
         const {rm} = data
         const pastorAlreadyExist = this.pastoresRepository.findByRM(rm)
         
-
+        const namePhoto = `RM${rm}`
 
         if(!pastorAlreadyExist){
 
             if(data.foto){
 
-                const url = await this.uploadImage(data.foto as Express.Multer.File, rm)
+                const url = await this.uploadImage(data.foto as Express.Multer.File, namePhoto)
                 const pastor = {...data, foto: url}
                 this.pastoresRepository.create(pastor)
 

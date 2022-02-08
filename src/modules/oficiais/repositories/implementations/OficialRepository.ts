@@ -1,7 +1,8 @@
 
 import { IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
 import {db} from '../../../../services/firestore'
-import { DocumentData, FieldValue, Timestamp } from 'firebase-admin/firestore';
+import { DocumentData, FieldValue} from 'firebase-admin/firestore';
+import { deletePhoto } from '../../../../services/photos';
 
 
 class OficialRepository implements IOficialRepository {
@@ -51,7 +52,7 @@ class OficialRepository implements IOficialRepository {
 
     async create(data: ICreateOficialDTO): Promise<void> {
         const batch = db.batch()
-        const { ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, observacao , anuidade, contato, endereco } = data
+        const { ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, igreja_sede, foto, observacao , anuidade, contato, endereco } = data
         
 
         const oficialRef = await db.collection('Oficiais').doc(ro)
@@ -61,30 +62,30 @@ class OficialRepository implements IOficialRepository {
         const enderecoRef = await oficialRef.collection('Endereço').doc(ro)
         const logRef = await oficialRef.collection('Logs').doc(ro)
 
-        try {
+     
 
             if(anuidade){
                 batch.set(anuidadeRef, {
-                    ...anuidade
+                   ...anuidade
                 })
                }
         
                 if(observacao){
                     batch.set(observacaoRef, {
-                        ...observacao
+                        data: observacao
                     })
                 }
             
                 batch.set(oficialRef, {
-                    ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto
+                    ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, igreja_sede
                 })
         
                 batch.set(enderecoRef, {
-                    ...endereco
+                    data: endereco
                 })
         
                 batch.set(contatoRef, {
-                    ...contato
+                    data: contato
                 })
 
                 batch.set(logRef,  
@@ -98,13 +99,6 @@ class OficialRepository implements IOficialRepository {
                 )
 
                 await batch.commit()
-            
-        } catch (error) {
-            throw Error(error);
-        }
-
-        
-
         
     }
 
@@ -121,7 +115,6 @@ class OficialRepository implements IOficialRepository {
         const logRef = await oficialRef.collection('Logs').doc(ro)
 
 
-        try {
             if(anuidade){
                 batch.update(anuidadeRef, {
                     ...anuidade
@@ -130,7 +123,7 @@ class OficialRepository implements IOficialRepository {
         
                 if(observacao){
                     batch.update(observacaoRef, {
-                        ...observacao
+                        data: observacao
                     })
                 }
                 
@@ -140,11 +133,11 @@ class OficialRepository implements IOficialRepository {
                 
         
                 batch.update(enderecoRef, {
-                    ...endereco
+                    data: endereco
                 })
         
                 batch.update(contatoRef, {
-                    ...contato
+                    data: contato
                 })
         
                 batch.update(logRef, {
@@ -156,10 +149,6 @@ class OficialRepository implements IOficialRepository {
                 })
 
                 await batch.commit()
-
-        } catch (error) {
-            throw Error(error);
-        }
 
         
     }
@@ -173,6 +162,8 @@ class OficialRepository implements IOficialRepository {
         const contatoRef = await oficialRef.collection('Contato').doc(ro)
         const enderecoRef = await oficialRef.collection('Endereço').doc(ro)
         const logRef = await oficialRef.collection('Logs').doc(ro)
+
+        const oficialData = (await oficialRef.get()).data()
 
         const batch = db.batch()
 
@@ -188,7 +179,9 @@ class OficialRepository implements IOficialRepository {
                 batch.delete(contatoRef)
                 batch.delete(enderecoRef)
                 batch.delete(oficialRef)
-
+                batch.delete(logRef)
+                
+                await deletePhoto(oficialData.foto)
                 await batch.commit()
     }
 }
