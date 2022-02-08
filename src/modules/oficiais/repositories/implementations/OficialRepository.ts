@@ -6,7 +6,7 @@ import { DocumentData, FieldValue, Timestamp } from 'firebase-admin/firestore';
 
 class OficialRepository implements IOficialRepository {
 
-    private oficiais: Oficial[];
+    private oficiais: DocumentData[];
 
     private static INSTANCE: OficialRepository;
 
@@ -30,25 +30,21 @@ class OficialRepository implements IOficialRepository {
     }
 
 
-    async list(): Promise<Oficial[]> {
-        const docRef = await db.collection('oficiais')
+    async list(): Promise<DocumentData[]> {
+        
+        const docRef = await db.collection('Oficiais')
         
         const data = await docRef.get()
-
+        
         if(data.empty){
             return null
         }
 
-       await data.forEach(doc => {
-            const oficial = new Oficial()
-
-                Object.assign(oficial, {
-                     ...doc.data()
-                 })
-
-            this.oficiais.push(oficial)
+      await data.forEach(doc => {
+          this.oficiais.push(doc.data())
         })
 
+   
         return this.oficiais
 
     }   
@@ -159,7 +155,7 @@ class OficialRepository implements IOficialRepository {
                 await batch.commit()
                 console.log('Oficial excluído');
           } catch (e) {
-            console.log('Transaction failure:', e);
+            throw Error(e);
           }
     }
 }

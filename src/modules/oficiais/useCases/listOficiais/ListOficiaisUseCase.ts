@@ -1,3 +1,4 @@
+import { DocumentData } from 'firebase-admin/firestore';
 import { Oficial } from "../../model/Oficial";
 import { IOficialRepository } from "../../repositories/IOficialRepository";
 
@@ -7,8 +8,8 @@ class ListOficialUseCase {
 
     } 
 
-    execute(): Promise<Oficial[]> {
-
+    execute(): Promise<DocumentData[]> {
+        
         const oficiais = this.oficiaisRepository.list()
         return oficiais
     }

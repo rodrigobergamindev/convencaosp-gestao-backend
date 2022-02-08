@@ -15,31 +15,37 @@ class UpdateOficialController {
         const observacao = JSON.parse(request.body.observacao)
         const anuidade = JSON.parse(request.body.anuidade)
 
-        if(request.file){
-            const oficial = {...request.body,
-                endereco,
-                contato,
-                observacao,
-                anuidade,
-                foto: request.file,
+       try {
+            if(request.file){
+                const oficial = {...request.body,
+                    endereco,
+                    contato,
+                    observacao,
+                    anuidade,
+                    foto: request.file,
+                }
+    
+                this.updateOficialUseCase.execute(oficial)
+    
+                return response.status(201).send()
             }
-
-            this.updateOficialUseCase.execute(oficial)
-
-            return response.send()
-        }
-
-            const oficial = {...request.body,
-                endereco,
-                contato,
-                observacao,
-                anuidade,
+    
+                const oficial = {...request.body,
+                    endereco,
+                    contato,
+                    observacao,
+                    anuidade,
+                }
+    
+                this.updateOficialUseCase.execute(oficial)
+    
+                return response.status(201).send()
+            
+       } catch (error) {
+            if(error){
+                return response.status(404).send(error)
             }
-
-            this.updateOficialUseCase.execute(oficial)
-
-            return response.send()
-        
+       }
         
     }
 }

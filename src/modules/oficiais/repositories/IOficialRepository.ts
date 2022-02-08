@@ -50,7 +50,7 @@ interface IUpdateOficialDTO {
 interface IOficialRepository {
 
     findByRO(ro: string) : Promise<DocumentData> | null | undefined;
-    list() : Promise<Oficial[]> | undefined;
+    list() : Promise<DocumentData[]> | undefined;
     create(data : ICreateOficialDTO) : void;
     update(data: IUpdateOficialDTO) : void;
     delete(ro: string) : void;
