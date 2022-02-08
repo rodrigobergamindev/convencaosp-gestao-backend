@@ -23,7 +23,7 @@ class CreateOficialUseCase {
            throw new Error("Oficial já cadastrado")
        }
 
-       try {
+     
         if(data.foto){
             const url = await this.uploadImage(data.foto as Express.Multer.File, ro)
             const oficial = {...data, foto: url}
@@ -34,11 +34,7 @@ class CreateOficialUseCase {
             const oficial = {...data}
             this.oficiaisRepository.create(oficial)
         }
-       } catch (error) {
-           throw Error(error)
-       }
-        
-        
+    
         
     }
 }

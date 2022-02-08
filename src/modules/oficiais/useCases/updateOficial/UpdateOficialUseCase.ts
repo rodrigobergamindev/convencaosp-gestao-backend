@@ -23,18 +23,18 @@ class UpdateOficialUseCase {
         if(!oficialAlreadyExist) {
             throw new Error('Oficial não existe')
         }
-        try {
-            if(data.foto){
-                const url = await this.uploadImage(data.foto as Express.Multer.File, ro)
-                const oficial = {...data, foto: url}
-                this.oficiaisRepository.update(oficial) 
-            }else{
+        
+        if(data.foto){
+
+            const url = await this.uploadImage(data.foto as Express.Multer.File, ro)
+            const oficial = {...data, foto: url}
+            this.oficiaisRepository.update(oficial) 
+            
+        }else{
                 const oficial = {...data}
                 this.oficiaisRepository.update(oficial)
             }
-        } catch (error) {
-            throw new Error('Não foi possível atualizar os dados')
-        }
+        
 
                 
             

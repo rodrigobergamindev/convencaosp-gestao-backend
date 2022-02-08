@@ -10,7 +10,6 @@ class ListOficialController {
     async handle(request: Request, response: Response) : Promise<Response> {
 
         try {
-
             const all = await this.listOficialUseCase.execute()
 
             return response.status(200).json(all)
