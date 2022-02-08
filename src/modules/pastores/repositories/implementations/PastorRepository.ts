@@ -1,4 +1,4 @@
-import {Pastor} from '../../model/Pastor'
+
 import { IPastorRepository, ICreatePastorDTO, IUpdatePastorDTO} from '../IPastorRepository'
 import {db} from '../../../../services/firestore'
 import { DocumentData, FieldValue} from 'firebase-admin/firestore';

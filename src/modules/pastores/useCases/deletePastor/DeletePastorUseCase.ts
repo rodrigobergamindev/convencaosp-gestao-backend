@@ -1,4 +1,5 @@
 
+import { db } from "../../../../services/firestore";
 import { IPastorRepository } from "../../repositories/IPastorRepository";
 
 class DeletePastorUseCase {
@@ -7,10 +8,13 @@ class DeletePastorUseCase {
 
     }
 
-    execute(rm: string): void {
-        //const pastorToDelete = this.pastoresRepository.findByID(id)
+    async execute(rm: string): Promise<void> {
+        const pastorRef = await db.collection('Pastores').doc(rm).get()
+        const pastorData = pastorRef.data()
 
-        this.pastoresRepository.delete(rm)
+        if(pastorData){
+            this.pastoresRepository.delete(rm)
+        }
     }
 }
 

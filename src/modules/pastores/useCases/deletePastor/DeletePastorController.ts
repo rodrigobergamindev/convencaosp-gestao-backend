@@ -9,11 +9,22 @@ class DeletePastorController {
 
     handle(request: Request, response: Response) : Response {
 
-        const {id} = request.params
+        const {ro} = request.params
         
-        this.deletePastorUseCase.execute(id)
+        this.deletePastorUseCase.execute(ro)
 
-        return response.send()
+        try {
+            const {ro} = request.params
+        
+            this.deletePastorUseCase.execute(ro)
+
+            return response.status(200).send()
+
+        } catch (error) {
+            if(error){
+                return response.status(404).send(error)
+            }
+        }
     }
 }
 

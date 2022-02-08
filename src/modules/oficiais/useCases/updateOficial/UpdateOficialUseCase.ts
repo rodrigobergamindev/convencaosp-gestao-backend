@@ -32,12 +32,7 @@ class UpdateOficialUseCase {
                     this.oficiaisRepository.update(oficial)
             }
         }
-        
 
-        
-
-                
-            
         
     }
 }

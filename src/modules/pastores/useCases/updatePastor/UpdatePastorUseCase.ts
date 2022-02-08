@@ -1,6 +1,7 @@
 
 import { IPastorRepository, IUpdatePastorDTO } from "../../repositories/IPastorRepository";
 import { insert } from "../../../../services/photos";
+import { db } from "../../../../services/firestore";
 
 
 
@@ -17,9 +18,10 @@ class UpdatePastorUseCase {
 
     async execute(data: IUpdatePastorDTO): Promise<void> {
         const {rm} = data
-        //const pastorAlreadyExist = this.pastoresRepository.findByID(id)
-        //const namePhoto = `RM${rm}`
-/** 
+        const pastorRef = await db.collection('Oficiais').doc(rm).get()
+        const pastorAlreadyExist = pastorRef.data()
+        const namePhoto = `RM${rm}`
+
         if(pastorAlreadyExist){
             if(data.foto){
                 const url = await this.uploadImage(data.foto as Express.Multer.File, namePhoto)
@@ -30,10 +32,8 @@ class UpdatePastorUseCase {
                 const pastor = {...data}
                 this.pastoresRepository.update(pastor)
             
-        }else{
-            throw new Error('Pastor não cadastrado')
         }
-    */
+    
     }
 
 }

@@ -16,7 +16,6 @@ class CreatePastorUseCase {
     async execute(data: ICreatePastorDTO): Promise<void> {
         const {rm} = data
         const pastorAlreadyExist = this.pastoresRepository.findByRM(rm)
-        
         const namePhoto = `RM${rm}`
 
         if(!pastorAlreadyExist){
