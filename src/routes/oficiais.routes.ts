@@ -5,6 +5,7 @@ import { listOficiaisController } from '../modules/oficiais/useCases/listOficiai
 import {deleteOficialController} from '../modules/oficiais/useCases/deleteOficial'
 import { createOficialController } from '../modules/oficiais/useCases/createOficial'
 import {updateOficialController} from '../modules/oficiais/useCases/updateOficial'
+import { findByROController } from '../modules/oficiais/useCases/findByRO'
 
 const oficiaisRoutes = Router()
 
@@ -31,6 +32,10 @@ oficiaisRoutes.post("/import", upload.single("file"), (request, response) => {
 
 oficiaisRoutes.get("/list", (request, response) => {
     return listOficiaisController.handle(request, response);
+})
+
+oficiaisRoutes.get("/list/:ro", (request, response) => {
+    return findByROController.handle(request, response);
 })
 
 oficiaisRoutes.delete("/delete/:id", (request, response) => {

@@ -5,6 +5,7 @@ import { CreateOficialUseCase } from './CreateOficialUseCase'
 
 
 class CreateOficialController {
+    
     constructor(private createOficialUseCase: CreateOficialUseCase) {
 
     }
