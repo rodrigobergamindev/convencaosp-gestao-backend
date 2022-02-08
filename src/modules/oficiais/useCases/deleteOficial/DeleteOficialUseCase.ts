@@ -12,10 +12,9 @@ class DeleteOficialUseCase {
         const oficialRef = await db.collection('Oficiais').doc(ro).get()
         const oficialData = oficialRef.data()
 
-        if(!oficialData){
-            throw new Error("Oficial não encontrado")
+        if(oficialData){
+            this.oficiaisRepository.delete(ro)
         }
-        this.oficiaisRepository.delete(ro)
     }
 }
 

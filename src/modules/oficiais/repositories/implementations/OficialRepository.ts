@@ -86,12 +86,16 @@ class OficialRepository implements IOficialRepository {
                 batch.set(contatoRef, {
                     ...contato
                 })
-        
-                batch.set(logRef,  {
-                    created_at: FieldValue.serverTimestamp(),
-                    descricao: 'Criação de registro',
-                    created_by: 'admin'
-                })
+
+                batch.set(logRef,  
+                    {
+                        operations: FieldValue.arrayUnion({
+                            created_at: new Date(),
+                            created_by: 'admin',
+                            descricao: 'Criação de registro'
+                        })
+                    }
+                )
 
                 await batch.commit()
             
@@ -144,9 +148,11 @@ class OficialRepository implements IOficialRepository {
                 })
         
                 batch.update(logRef, {
-                    updated_at: FieldValue.serverTimestamp(),
-                    updated_by: 'admin',
-                    descricao: 'Alteração de cadastro',
+                        operations: FieldValue.arrayUnion({
+                            updated_at: new Date(),
+                            descricao: 'Alteração de cadastro',
+                            updated_by: 'admin'
+                        })
                 })
 
                 await batch.commit()
@@ -166,10 +172,11 @@ class OficialRepository implements IOficialRepository {
         const anuidadeRef = await oficialRef.collection('Anuidade').doc(ro)
         const contatoRef = await oficialRef.collection('Contato').doc(ro)
         const enderecoRef = await oficialRef.collection('Endereço').doc(ro)
+        const logRef = await oficialRef.collection('Logs').doc(ro)
 
         const batch = db.batch()
 
-        try {
+    
                 if((await observacaoRef.get()).data()){
                     batch.delete(observacaoRef)
                 }
@@ -183,10 +190,6 @@ class OficialRepository implements IOficialRepository {
                 batch.delete(oficialRef)
 
                 await batch.commit()
-                console.log('Oficial excluído');
-          } catch (e) {
-            throw Error(e);
-          }
     }
 }
 
