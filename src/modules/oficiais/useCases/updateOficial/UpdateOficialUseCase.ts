@@ -18,11 +18,12 @@ class UpdateOficialUseCase {
         const {ro} = data
         const oficialRef = await db.collection('Oficiais').doc(ro).get()
         const oficialAlreadyExist = oficialRef.data()
+        const namePhoto = `RO${ro}`
        
         if(oficialAlreadyExist) {
             if(data.foto){
 
-                const url = await this.uploadImage(data.foto as Express.Multer.File, ro)
+                const url = await this.uploadImage(data.foto as Express.Multer.File, namePhoto)
                 const oficial = {...data, foto: url}
                 this.oficiaisRepository.update(oficial) 
                 

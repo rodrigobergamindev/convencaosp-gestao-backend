@@ -163,7 +163,7 @@ class OficialRepository implements IOficialRepository {
         const enderecoRef = await oficialRef.collection('Endereço').doc(ro)
         const logRef = await oficialRef.collection('Logs').doc(ro)
 
-        const oficialData = (await oficialRef.get()).data()
+    
 
         const batch = db.batch()
 
@@ -181,7 +181,7 @@ class OficialRepository implements IOficialRepository {
                 batch.delete(oficialRef)
                 batch.delete(logRef)
                 
-                await deletePhoto(oficialData.foto)
+                await deletePhoto(`RO${ro}`)
                 await batch.commit()
     }
 }
