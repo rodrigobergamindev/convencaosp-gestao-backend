@@ -26,26 +26,27 @@ class OficialRepository implements IOficialRepository {
     async findByRO(ro: string): Promise<DocumentData> {
         const oficialRef = await db.collection('Oficiais').doc(ro).get()
         const oficial = oficialRef.data()
-        
+            
         return oficial
     }
 
 
     async list(): Promise<DocumentData[]> {
         
-        const docRef = await db.collection('Oficiais')
+        const collectionRef = await db.collection('Oficiais')
         
-        const data = await docRef.get()
+        const data = await collectionRef.get()
         
         if(data.empty){
             return null
         }
 
+
       await data.forEach(doc => {
+          
           this.oficiais.push(doc.data())
         })
-
-   
+        
         return this.oficiais
 
     }   
