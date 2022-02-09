@@ -1,5 +1,4 @@
 import { DocumentData, FieldValue } from 'firebase-admin/firestore';
-import {Igreja} from '../../model/Igreja'
 import { IIgrejaRepository, ICreateIgrejaDTO, IUpdateIgrejaDTO} from '../IIgrejaRepository'
 import {db} from '../../../../services/firestore'
 

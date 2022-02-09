@@ -10,9 +10,9 @@ class FindByRMController {
     async handle(request: Request, response: Response) : Promise<Response> {
         const {rm} = request.params
         try {
-            const oficial = await this.findByRMUseCase.execute(rm)
+            const pastor = await this.findByRMUseCase.execute(rm)
 
-            return response.status(200).json(oficial)
+            return response.status(200).json(pastor)
             
         } catch (error) {
             if(error){

@@ -9,10 +9,10 @@ class CreatePastorController {
     }
 
     handle(request: Request, response: Response) : Response {
+
         const endereco = JSON.parse(request.body.endereco)
         const contato = JSON.parse(request.body.contato)
         const observacao = JSON.parse(request.body.observacao)
-
 
         try {
 
@@ -22,19 +22,19 @@ class CreatePastorController {
                     endereco,
                     contato,
                     observacao,
-                    foto: request.file,
-                }
+                    foto: request.file}
                 this.createPastorUseCase.execute(pastor)
         
                 return response.status(201).send()
         
                }
-        
+               
                 const pastor = {...request.body,
                     endereco,
                     contato,
-                    observacao,
+                    observacao
                 }
+                
                 this.createPastorUseCase.execute(pastor)
         
                 return response.status(201).send()

@@ -38,7 +38,7 @@ pastoresRoutes.get("/:rm", (request, response) => {
     return findByRMController.handle(request, response);
 })
 
-pastoresRoutes.delete("/delete/:id", (request, response) => {
+pastoresRoutes.delete("/delete/:rm", (request, response) => {
     return deletePastorController.handle(request, response);
 })
 

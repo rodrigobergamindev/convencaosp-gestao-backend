@@ -10,9 +10,9 @@ class DeletePastorUseCase {
 
     async execute(rm: string): Promise<void> {
         const pastorRef = await db.collection('Pastores').doc(rm).get()
-        const pastorData = pastorRef.data()
+        const pastorAlreadyExist = await pastorRef.exists
 
-        if(pastorData){
+        if(pastorAlreadyExist){
             this.pastoresRepository.delete(rm)
         }
     }

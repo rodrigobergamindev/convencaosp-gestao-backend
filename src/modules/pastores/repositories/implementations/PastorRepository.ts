@@ -137,8 +137,7 @@ class PastorRepository implements IPastorRepository {
     }
 
     async delete(rm: string): Promise<void> {
-        const pastorRef = await db.collection('Oficiais').doc(rm)
-
+        const pastorRef = await db.collection('Pastores').doc(rm)
         const observacaoRef = await pastorRef.collection('Observacao').doc(rm)
         const contatoRef = await pastorRef.collection('Contato').doc(rm)
         const enderecoRef = await pastorRef.collection('Endereço').doc(rm)
@@ -148,7 +147,7 @@ class PastorRepository implements IPastorRepository {
         const batch = db.batch()
 
     
-                if((await observacaoRef.get()).data()){
+                if((await observacaoRef.get()).exists){
                     batch.delete(observacaoRef)
                 }
 

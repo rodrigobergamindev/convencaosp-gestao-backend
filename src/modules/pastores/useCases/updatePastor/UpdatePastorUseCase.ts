@@ -18,8 +18,8 @@ class UpdatePastorUseCase {
 
     async execute(data: IUpdatePastorDTO): Promise<void> {
         const {rm} = data
-        const pastorRef = await db.collection('Oficiais').doc(rm).get()
-        const pastorAlreadyExist = pastorRef.data()
+        const pastorRef = await db.collection('Pastores').doc(rm).get()
+        const pastorAlreadyExist = pastorRef.exists
         const namePhoto = `RM${rm}`
 
         if(pastorAlreadyExist){
@@ -28,9 +28,11 @@ class UpdatePastorUseCase {
                 const pastor = {...data, foto: url}
                 this.pastoresRepository.update(pastor)
                 
-            }
+            }else{
                 const pastor = {...data}
                 this.pastoresRepository.update(pastor)
+            }
+               
             
         }
     

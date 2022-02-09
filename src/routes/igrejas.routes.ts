@@ -5,6 +5,7 @@ import {deleteIgrejaController} from '../modules/igrejas/useCases/deleteIgreja'
 import {createIgrejaController } from '../modules/igrejas/useCases/createIgreja'
 import {updateIgrejaController} from '../modules/igrejas/useCases/updateIgreja'
 import multer from 'multer'
+import { findByRIController } from '../modules/igrejas/useCases/findByRI'
 
 const igrejasRoutes = Router()
 
@@ -31,6 +32,10 @@ igrejasRoutes.post("/import", upload.single("file"), (request, response) => {
 
 igrejasRoutes.get("/list", (request, response) => {
     return listIgrejasController.handle(request, response);
+})
+
+igrejasRoutes.get("/:ri", (request, response) => {
+    return findByRIController.handle(request, response);
 })
 
 igrejasRoutes.delete("/delete/:id", (request, response) => {

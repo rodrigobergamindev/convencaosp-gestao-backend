@@ -17,8 +17,9 @@ class CreateOficialUseCase {
     async execute(data: ICreateOficialDTO): Promise<void> {
         const {ro} = data
         const oficialRef = await db.collection('Oficiais').doc(ro).get()
-        const oficialAlreadyExist = oficialRef.data()
+        const oficialAlreadyExist = oficialRef.exists
         const namePhoto = `RO${ro}`
+        
 
        if(!oficialAlreadyExist){
         if(data.foto){

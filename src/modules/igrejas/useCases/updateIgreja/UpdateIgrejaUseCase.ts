@@ -13,7 +13,7 @@ class UpdateIgrejaUseCase {
     async execute(data: IUpdateIgrejaDTO): Promise<void> {
         const {ri} = data
         const igrejaRef = await db.collection('Igrejas').doc(ri).get()
-        const igrejaAlreadyExist = igrejaRef.data()
+        const igrejaAlreadyExist = igrejaRef.exists
        
         if(igrejaAlreadyExist) {
           

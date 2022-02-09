@@ -1,6 +1,7 @@
 
 import { ICreatePastorDTO, IPastorRepository } from "../../repositories/IPastorRepository";
 import { insert } from "../../../../services/photos";
+import {db} from '../../../../services/firestore'
 
 class CreatePastorUseCase {
 
@@ -8,22 +9,23 @@ class CreatePastorUseCase {
 
     }
 
-    uploadImage(file: Express.Multer.File, ro: string): Promise<string> {
-       const url = insert(file, ro)
+    uploadImage(file: Express.Multer.File, rm: string): Promise<string> {
+       const url = insert(file, rm)
        return url
     }
 
     async execute(data: ICreatePastorDTO): Promise<void> {
         const {rm} = data
-        const pastorAlreadyExist = this.pastoresRepository.findByRM(rm)
+        const pastorAlreadyExist = await db.collection('Pastores').doc(rm)
         const namePhoto = `RM${rm}`
 
-        if(!pastorAlreadyExist){
+        if(!(await pastorAlreadyExist.get()).exists){
 
             if(data.foto){
 
                 const url = await this.uploadImage(data.foto as Express.Multer.File, namePhoto)
                 const pastor = {...data, foto: url}
+                
                 this.pastoresRepository.create(pastor)
 
             }else{

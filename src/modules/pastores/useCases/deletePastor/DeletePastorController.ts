@@ -8,15 +8,10 @@ class DeletePastorController {
     }
 
     handle(request: Request, response: Response) : Response {
-
-        const {ro} = request.params
-        
-        this.deletePastorUseCase.execute(ro)
+        const {rm} = request.params
 
         try {
-            const {ro} = request.params
-        
-            this.deletePastorUseCase.execute(ro)
+            this.deletePastorUseCase.execute(rm)
 
             return response.status(200).send()
 

@@ -12,6 +12,7 @@ class CreateOficialController {
 
 
     handle(request: Request, response: Response) : Response {
+
         const endereco = JSON.parse(request.body.endereco)
         const contato = JSON.parse(request.body.contato)
         const observacao = JSON.parse(request.body.observacao)
@@ -21,12 +22,11 @@ class CreateOficialController {
 
             if(request.file){
                 const oficial = {...request.body,
-                    endereco,
+                    anuidade,
                     contato,
                     observacao,
-                    anuidade,
-                    foto: request.file,
-                }
+                    endereco,
+                    foto: request.file}
                 
                 this.createOficialUseCase.execute(oficial)
     
@@ -34,10 +34,10 @@ class CreateOficialController {
             }
     
                 const oficial = {...request.body,
-                    endereco,
+                    anuidade,
                     contato,
                     observacao,
-                    anuidade,
+                    endereco,
                 }
     
                 this.createOficialUseCase.execute(oficial)

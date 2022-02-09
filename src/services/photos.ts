@@ -50,7 +50,7 @@ export const insert = async (image: Express.Multer.File, name: string) => {
 
 export const deletePhoto = async (name: string) => {
 
-    let photoRef = ref(storage, name);
+    let photoRef = ref(storage, `images/${name}`);
   
     await deleteObject(photoRef);
     

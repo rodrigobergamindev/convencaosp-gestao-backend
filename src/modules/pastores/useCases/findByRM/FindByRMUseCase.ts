@@ -9,8 +9,8 @@ class FindByRMUseCase {
 
     async execute(rm: string): Promise<DocumentData> {
         
-        const oficial = this.pastoresRepository.findByRM(rm)
-        return oficial
+        const pastor = this.pastoresRepository.findByRM(rm)
+        return pastor
     }
 }
 
