@@ -12,7 +12,7 @@ class ImportIgrejaController {
         const {file} = request
         this.importIgrejaUseCase.execute(file)
 
-        return response.send()
+        return response.status(201).send()
     }
 }
 

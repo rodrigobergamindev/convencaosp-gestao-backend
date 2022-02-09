@@ -1,10 +1,11 @@
+import { DocumentData, FieldValue } from 'firebase-admin/firestore';
 import {Igreja} from '../../model/Igreja'
 import { IIgrejaRepository, ICreateIgrejaDTO, IUpdateIgrejaDTO} from '../IIgrejaRepository'
-
+import {db} from '../../../../services/firestore'
 
 class IgrejaRepository implements IIgrejaRepository {
 
-    private igrejas: Igreja[];
+    private igrejas: DocumentData[];
 
     private static INSTANCE: IgrejaRepository;
 
@@ -20,52 +21,186 @@ class IgrejaRepository implements IIgrejaRepository {
         return IgrejaRepository.INSTANCE
     }
 
-    findByRI(ri: string): Igreja {
-        const igreja = this.igrejas.find((igreja) => igreja.ri === ri);
+    async findByRI(ri: string): Promise<DocumentData> {
+        const igrejaRef = await db.collection('Igrejas').doc(ri).get()
+        const igreja = igrejaRef.data()
+        
         return igreja
     }
 
-    findByID(id: string): Igreja {
-        const igreja = this.igrejas.find((igreja) => igreja.id === id);
-        return igreja
-    }
+    async list(): Promise<DocumentData[]> {
+        const docRef = await db.collection('Igrejas')
+        
+        const data = await docRef.get()
+        
+        if(data.empty){
+            return null
+        }
 
-    list(): Igreja[] {
-        return this.igrejas;
+      await data.forEach(doc => {
+          this.igrejas.push(doc.data())
+        })
+
+   
+        return this.igrejas
+
     }   
 
-    create(data: ICreateIgrejaDTO): void {
-        const igreja = new Igreja();
-        Object.assign(igreja, {
-            ...data
-        })
+    async create(data: ICreateIgrejaDTO): Promise<void> {
+        const batch = db.batch()
+        const { ri, nome, cnpj, tipo, igreja_sede, endereco, contato, dirigente, presidente, templo, membros, superitendencia, contribuicoes, observacao } = data
+        
 
-        this.igrejas.push(igreja)
+        const igrejaRef = await db.collection('Igrejas').doc(ri)
+        const observacaoRef = await igrejaRef.collection('Observacao').doc(ri)
+        const contatoRef = await igrejaRef.collection('Contato').doc(ri)
+        const enderecoRef = await igrejaRef.collection('Endereço').doc(ri)
+        const logRef = await igrejaRef.collection('Logs').doc(ri)
+        const sede = await db.collection('Igrejas').doc(igreja_sede)
+        const igrejaSedeRef = await igrejaRef.collection('Sede').doc(ri)
+        const superitendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
+        const contribuicoesRef = await igrejaRef.collection('Contribuicoes').doc(ri)
+        
+                if(observacao){
+                    batch.set(observacaoRef, {
+                        data: observacao
+                    })
+                }
+            
+                batch.set(igrejaRef, {
+                    ri, nome, cnpj, tipo, dirigente, presidente, templo, membros
+                })
+        
+                batch.set(enderecoRef, {
+                    data: endereco
+                })
+        
+                batch.set(contatoRef, {
+                    data: contato
+                })
+
+                batch.set(superitendenciaRef, {
+                    data: superitendencia
+                })
+
+                batch.set(contribuicoesRef, {
+                    data: contribuicoes
+                })
+
+                batch.set(igrejaSedeRef, sede)
+
+                batch.set(logRef,  
+                    {
+                        operations: FieldValue.arrayUnion({
+                            created_at: new Date(),
+                            created_by: 'admin',
+                            descricao: 'Criação de registro'
+                        })
+                    }
+                )
+
+                await batch.commit()
+        
     }
 
-    update(data: IUpdateIgrejaDTO): void {
-        const {id} = data
-        const igrejaToUpdate = this.igrejas.find((igreja) => igreja.id === id);
+    async update(data: IUpdateIgrejaDTO): Promise<void> {
 
-        const index = this.igrejas.indexOf(igrejaToUpdate)
+        const batch = db.batch()
+        const { ri, nome, cnpj, tipo, igreja_sede, endereco, contato, dirigente, presidente, templo, membros, superitendencia, contribuicoes, observacao } = data
+        
 
-        const igreja = new Igreja()
+        const igrejaRef = await db.collection('Igrejas').doc(ri)
+        const observacaoRef = await igrejaRef.collection('Observacao').doc(ri)
+        const contatoRef = await igrejaRef.collection('Contato').doc(ri)
+        const enderecoRef = await igrejaRef.collection('Endereço').doc(ri)
+        const logRef = await igrejaRef.collection('Logs').doc(ri)
+        const sede = await db.collection('Igrejas').doc(igreja_sede)
+        const igrejaSedeRef = await igrejaRef.collection('Sede').doc(ri)
+        const superitendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
+        const contribuicoesRef = await igrejaRef.collection('Contribuicoes').doc(ri)
 
-        Object.assign(igreja, {
-            ...data,
-            updated_by: 'admin',
-            updated_at: new Date()
-        })
+        
+        
+                if(observacao){
+                    batch.update(observacaoRef, {
+                        data: observacao
+                    })
+                }
+            
+                batch.update(igrejaRef, {
+                    ri, nome, cnpj, tipo, dirigente, presidente, templo, membros
+                })
+        
+                batch.update(enderecoRef, {
+                    data: endereco
+                })
+        
+                batch.update(contatoRef, {
+                    data: contato
+                })
 
-        this.igrejas.splice(index, 1, igreja)
+                batch.update(superitendenciaRef, {
+                    data: superitendencia
+                })
+
+                batch.update(contribuicoesRef, {
+                    data: contribuicoes
+                })
+
+                batch.update(igrejaSedeRef, sede)
+
+                batch.update(logRef,  
+                    {
+                        operations: FieldValue.arrayUnion({
+                            updated_at: new Date(),
+                            updated_by: 'admin',
+                            descricao: 'Atualização de registro'
+                        })
+                    }
+                )
+
+                await batch.commit()
+        
+
     
     }
 
-    delete(id: string): void {
-        const igrejaToDelete = this.igrejas.find((igreja) => igreja.id === id);
-        const index = this.igrejas.indexOf(igrejaToDelete)
+   async  delete(ri: string): Promise<void> {
 
-        this.igrejas.splice(index, 1);
+    const batch = db.batch()
+
+    const igrejaRef = await db.collection('Igrejas').doc(ri)
+    const observacaoRef = await igrejaRef.collection('Observacao').doc(ri)
+    const contatoRef = await igrejaRef.collection('Contato').doc(ri)
+    const enderecoRef = await igrejaRef.collection('Endereço').doc(ri)
+    const logRef = await igrejaRef.collection('Logs').doc(ri)
+    const igrejaSedeRef = await igrejaRef.collection('Sede').doc(ri)
+    const superitendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
+    const contribuicoesRef = await igrejaRef.collection('Contribuicoes').doc(ri)
+
+    
+             if((await observacaoRef.get()).data()){
+                    batch.delete(observacaoRef)
+                }
+        
+            batch.delete(igrejaRef)
+    
+            batch.delete(enderecoRef)
+    
+            batch.delete(contatoRef)
+
+            batch.delete(igrejaSedeRef)
+
+            batch.delete(superitendenciaRef)
+            
+            batch.delete(contribuicoesRef)
+
+            batch.delete(logRef)
+
+
+            await batch.commit()
+    
+
     }
 }
 

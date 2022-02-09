@@ -1,19 +1,19 @@
 
 import { IIgrejaRepository } from "../../repositories/IIgrejaRepository";
-
+import {db} from '../../../../services/firestore'
 class DeleteIgrejaUseCase {
 
     constructor(private igrejasRepository: IIgrejaRepository){
 
     }
 
-    execute(id: string): void {
-        const igrejaToDelete = this.igrejasRepository.findByID(id)
+    async execute(ri: string): Promise<void> {
+        const igrejaRef = await db.collection('Igrejas').doc(ri).get()
+        const oficialData = igrejaRef.data()
 
-        if(!igrejaToDelete){
-            throw new Error("Igreja não existe")
+        if(oficialData){
+            this.igrejasRepository.delete(ri)
         }
-        this.igrejasRepository.delete(id)
     }
 }
 

@@ -1,4 +1,5 @@
-import { Igreja } from "../../model/Igreja";
+
+import { DocumentData } from "firebase-admin/firestore";
 import { IIgrejaRepository } from "../../repositories/IIgrejaRepository";
 
 class ListIgrejasUseCase {
@@ -7,10 +8,10 @@ class ListIgrejasUseCase {
 
     }
 
-    execute(): Igreja[] {
-
+    async execute(): Promise<DocumentData[]> {
+        
         const igrejas = this.igrejasRepository.list()
-        return igrejas as Igreja[]
+        return igrejas
     }
 }
 

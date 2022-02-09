@@ -1,5 +1,4 @@
 import { DocumentData } from "firebase-admin/firestore";
-import { Pastor } from "../../model/Pastor";
 import { IPastorRepository } from "../../repositories/IPastorRepository";
 
 class ListPastoresUseCase {

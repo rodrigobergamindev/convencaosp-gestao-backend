@@ -1,4 +1,4 @@
-import { Igreja, IEndereco, IObservacao, IContato, ISuperintendencia, IContribuicoes } from '../model/Igreja'
+import { DocumentData } from "firebase-admin/firestore";
 
 
 interface ICreateIgrejaDTO {
@@ -16,15 +16,12 @@ interface ICreateIgrejaDTO {
     membros: string;
     superitendencia: ISuperintendencia;
     contribuicoes: IContribuicoes;
-    observacao: IObservacao[];
+    observacao?: IObservacao[];
 
 }
 
 
 interface IUpdateIgrejaDTO {
-
-    created_at: Date;
-    id: string;
 
     ri: string;
     nome: string;
@@ -41,9 +38,39 @@ interface IUpdateIgrejaDTO {
     contribuicoes: IContribuicoes;
     observacao: IObservacao[];
 
-    updated_at?: Date;
-    updated_by?: string;
     
+}
+
+
+interface IEndereco {
+    tipo: string | null | undefined;
+    logradouro: string;
+    bairro: string;
+    cidade: string;
+    uf: string;
+    cep: string;
+}
+
+interface IContato {
+    tipo: string | null | undefined;
+    descricao: string;
+}
+
+interface ISuperintendencia {
+    nome: string;
+    localizacao: string;
+    regiao: string;
+}
+
+interface IContribuicoes {
+    dd: string;
+    pn: string;
+    taxa: string;
+}
+
+interface IObservacao {
+    titulo: string | null | undefined;
+    descricao: string;
 }
 
 
@@ -51,12 +78,11 @@ interface IUpdateIgrejaDTO {
 
 interface IIgrejaRepository {
 
-    findByRI(ri: string) : Igreja | null | undefined;
-    findByID(id: string) : Igreja | null | undefined;
-    list() : Igreja[] | null;
+    findByRI(ri: string) : Promise<DocumentData> | null | undefined;
+    list() : Promise<DocumentData[]> | null;
     create(data : ICreateIgrejaDTO) : void;
     update(data: IUpdateIgrejaDTO) : void;
     delete(id: string) : void;
 }
 
-export { ICreateIgrejaDTO, IUpdateIgrejaDTO, IIgrejaRepository}
+export { ICreateIgrejaDTO, IUpdateIgrejaDTO, IIgrejaRepository, IObservacao, IContato, IContribuicoes, IEndereco, ISuperintendencia}

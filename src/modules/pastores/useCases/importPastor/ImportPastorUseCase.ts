@@ -1,27 +1,8 @@
 import fs from "fs";
 import {parse} from "csv-parse"
-import { IPastorRepository, IEndereco, IObservacao, IContato } from "../../repositories/IPastorRepository";
+import { IImportPastor, IPastorRepository, IEndereco, IObservacao, IContato } from "../../repositories/IPastorRepository";
 
 
-
-interface IImportPastor {
-
-    rm: string;
-    titulo: string;
-    nome: string;
-    funcao: string;
-    status: string;
-    endereco: IEndereco[];
-    contato: IContato[];
-    rg: string;
-    cpf: string;
-    nascimento: string;
-    consagracao: string; 
-    igreja_sede: string; 
-    credencial: string;
-    observacao: IObservacao[];
-
-}
 
 class ImportPastorUseCase {
 

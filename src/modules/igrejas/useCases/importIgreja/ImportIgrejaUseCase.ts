@@ -1,7 +1,7 @@
 import fs from "fs";
 import {parse} from "csv-parse"
-import { IIgrejaRepository } from "../../repositories/IIgrejaRepository";
-import {IEndereco, IContato, ISuperintendencia, IContribuicoes, IObservacao} from '../../model/Igreja'
+import { IIgrejaRepository, IEndereco, IContato, ISuperintendencia, IContribuicoes, IObservacao } from "../../repositories/IIgrejaRepository";
+
 
 
 interface IImportIgreja {

@@ -7,13 +7,20 @@ class DeleteIgrejaController {
 
     }
 
-    handle(request: Request, response: Response) : Response {
+    async handle(request: Request, response: Response) : Promise<Response> {
 
-        const {id} = request.params
+        try {
+            const {ri} = request.params
         
-        this.deleteIgrejaUseCase.execute(id)
+            this.deleteIgrejaUseCase.execute(ri)
 
-        return response.send()
+            return response.status(200).send()
+
+        } catch (error) {
+            if(error){
+                return response.status(404).send(error)
+            }
+        }
     }
 }
 

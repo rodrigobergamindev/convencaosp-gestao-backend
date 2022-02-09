@@ -8,12 +8,35 @@ class CreateIgrejaController {
 
     }
 
-    handle(request: Request, response: Response) : Response {
+    async handle(request: Request, response: Response) : Promise<Response> {
 
-        const igreja = {...request.body, foto: request.file}
-        this.createIgrejaUseCase.execute(igreja)
+        const endereco = JSON.parse(request.body.endereco)
+        const contato = JSON.parse(request.body.contato)
+        const observacao = JSON.parse(request.body.observacao)
+        const superintendencia = JSON.parse(request.body.superintendencia)
+        const contribuicoes = JSON.parse(request.body.contribuicoes)
 
-        return response.send()
+
+        try {
+
+                const igreja = {...request.body,
+                    endereco,
+                    contato,
+                    observacao,
+                    superintendencia,
+                    contribuicoes
+                }
+    
+                this.createIgrejaUseCase.execute(igreja)
+    
+                return response.status(201).send()
+            
+        } catch (error) {
+            if(error){
+                return response.status(404).send(error)
+            }
+            
+        }
     }
 }
 

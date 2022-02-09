@@ -1,7 +1,7 @@
 
 import { IIgrejaRepository, IUpdateIgrejaDTO } from "../../repositories/IIgrejaRepository";
 import { insert } from "../../../../services/photos";
-
+import {db} from '../../../../services/firestore'
 
 
 class UpdateIgrejaUseCase {
@@ -11,16 +11,17 @@ class UpdateIgrejaUseCase {
     }
 
     async execute(data: IUpdateIgrejaDTO): Promise<void> {
-        const {ri, id} = data
-        const igrejaAlreadyExist = this.igrejasRepository.findByID(id)
-    
-
-        if(!igrejaAlreadyExist){
-            throw new Error('Igreja não cadastrado')
+        const {ri} = data
+        const igrejaRef = await db.collection('Igrejas').doc(ri).get()
+        const igrejaAlreadyExist = igrejaRef.data()
+       
+        if(igrejaAlreadyExist) {
+          
+            const igreja = {...data}
+            this.igrejasRepository.update(igreja)
+            
         }
 
-        const igreja = {...data}
-        this.igrejasRepository.update(igreja)
         
     }
 }

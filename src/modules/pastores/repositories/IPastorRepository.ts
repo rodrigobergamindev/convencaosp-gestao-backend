@@ -62,6 +62,24 @@ interface IUpdatePastorDTO {
 }
 
 
+interface IImportPastor {
+
+    rm: string;
+    titulo: string;
+    nome: string;
+    funcao: string;
+    status: string;
+    endereco: IEndereco[];
+    contato: IContato[];
+    rg: string;
+    cpf: string;
+    nascimento: string;
+    consagracao: string; 
+    igreja_sede: string; 
+    credencial: string;
+    observacao: IObservacao[];
+
+}
 
 
 
@@ -74,4 +92,4 @@ interface IPastorRepository {
     delete(rm: string) : void;
 }
 
-export { ICreatePastorDTO, IUpdatePastorDTO, IPastorRepository, IContato, IEndereco, IObservacao}
+export { ICreatePastorDTO, IUpdatePastorDTO, IImportPastor, IPastorRepository, IContato, IEndereco, IObservacao}
