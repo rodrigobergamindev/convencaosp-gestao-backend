@@ -1,5 +1,5 @@
 
-import { IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
+import { IGetOFicial, IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
 import {db} from '../../../../services/firestore'
 import { DocumentData, FieldValue} from 'firebase-admin/firestore';
 import { deletePhoto } from '../../../../services/photos';
@@ -7,7 +7,7 @@ import { deletePhoto } from '../../../../services/photos';
 
 class OficialRepository implements IOficialRepository {
 
-    private oficiais: DocumentData[];
+    private oficiais: any[];
 
     private static INSTANCE: OficialRepository;
 
@@ -53,16 +53,38 @@ class OficialRepository implements IOficialRepository {
         const data = await collectionRef.get()
         
         if(data.empty){
-            return null
+            console.log("tá vindo aqui")
+            return
         }
 
 
-      await data.forEach(doc => {
+      await data.forEach(async doc => {
+          
+        const ro = doc.id
 
-          this.oficiais.push(doc.data())
+        const oficialRef = await collectionRef.doc(ro)
+
+        const oficial = (await oficialRef.get()).data()
+        const observacao = (await oficialRef.collection('Observacao').doc(ro).get()).data()
+        const anuidade = (await oficialRef.collection('Anuidade').doc(ro).get()).data()
+        const contato = (await oficialRef.collection('Contato').doc(ro).get()).data()
+        const endereco = (await oficialRef.collection('Endereço').doc(ro).get()).data()
+        const log = (await oficialRef.collection('Logs').doc(ro).get()).data()
+        
+        const data = {
+            ...oficial, 
+            observacao: observacao.data,
+            anuidade,
+            contato: contato.data,
+            endereco: endereco.data,
+            log
+        }
+
+        
+        this.oficiais.push(data)
         })
         
-
+        
         return this.oficiais
 
     }   
@@ -87,7 +109,7 @@ class OficialRepository implements IOficialRepository {
                 })
                }
         
-                if(observacao){
+                if(observacao !== null){
                     batch.set(observacaoRef, {
                         data: observacao
                     })
@@ -138,11 +160,11 @@ class OficialRepository implements IOficialRepository {
                 })
                }
         
-                if(observacao){
-                    batch.update(observacaoRef, {
-                        data: observacao
-                    })
-                }
+               if(observacao !== null){
+                batch.update(observacaoRef, {
+                    data: observacao
+                })
+            }
                 
                 batch.update(oficialRef, {
                     ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto
@@ -185,11 +207,11 @@ class OficialRepository implements IOficialRepository {
         const batch = db.batch()
 
     
-                if((await observacaoRef.get()).data()){
+                if((await observacaoRef.get()).exists){
                     batch.delete(observacaoRef)
                 }
 
-                if((await anuidadeRef.get()).data()){
+                if((await anuidadeRef.get()).exists){
                     batch.delete(anuidadeRef)
                 }
 

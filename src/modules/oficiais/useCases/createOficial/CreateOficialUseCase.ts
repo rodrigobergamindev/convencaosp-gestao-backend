@@ -22,7 +22,7 @@ class CreateOficialUseCase {
         
 
        if(!oficialAlreadyExist){
-        if(data.foto){
+        if((data.foto !== null) || (data.foto !== undefined)){
             const url = await this.uploadImage(data.foto as Express.Multer.File, namePhoto)
             const oficial = {...data, foto: url}
             

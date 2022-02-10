@@ -95,6 +95,25 @@ interface IImportOficial {
 }
 
 
+interface IGetOFicial {
+
+    ro: string;
+    titulo: string;
+    nome: string;
+    funcao: string;
+    status: string;
+    endereco: IEndereco[];
+    contato: IContato[];
+    rg: string;
+    cpf: string;
+    nascimento: string;
+    consagracao: string; 
+    igreja_sede: string; 
+    anuidade: IAnuidade;
+    observacao?: IObservacao[];
+}
+
+
 interface IOficialRepository {
 
     findByRO(ro: string) : Promise<DocumentData> | null | undefined;
@@ -104,4 +123,4 @@ interface IOficialRepository {
     delete(ro: string) : void;
 }
 
-export { ICreateOficialDTO, IUpdateOficialDTO, IOficialRepository, IImportOficial}
+export { IGetOFicial, ICreateOficialDTO, IUpdateOficialDTO, IOficialRepository, IImportOficial}
