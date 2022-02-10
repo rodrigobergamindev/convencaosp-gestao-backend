@@ -1,6 +1,5 @@
 
 import { IIgrejaRepository, IUpdateIgrejaDTO } from "../../repositories/IIgrejaRepository";
-import { insert } from "../../../../services/photos";
 import {db} from '../../../../services/firestore'
 
 
