@@ -43,16 +43,37 @@ class PastorRepository implements IPastorRepository {
     }
 
     async list(): Promise <DocumentData[]>  {
-        const docRef = await db.collection('Pastores')
+        const collectionRef = await db.collection('Pastores')
         
-        const data = await docRef.get()
+        const data = await collectionRef.get()
         
         if(data.empty){
             return null
         }
 
-      await data.forEach(doc => {
-          this.pastores.push(doc.data())
+      await data.forEach(async doc => {
+
+        const rm = doc.id
+
+        const pastorRef = await collectionRef.doc(rm)
+
+        const oficial = (await pastorRef.get()).data()
+        const observacao = (await pastorRef.collection('Observacao').doc(rm).get()).data()
+        const contato = (await pastorRef.collection('Contato').doc(rm).get()).data()
+        const endereco = (await pastorRef.collection('Endereço').doc(rm).get()).data()
+        const log = (await pastorRef.collection('Logs').doc(rm).get()).data()
+        
+        const data = {
+            ...oficial, 
+            observacao: observacao.data,
+            contato: contato.data,
+            endereco: endereco.data,
+            log
+        }
+
+        
+        this.pastores.push(data)
+
         })
 
    
@@ -72,7 +93,7 @@ class PastorRepository implements IPastorRepository {
 
      
         
-                if(observacao !== null){
+                if(!!observacao){
                     batch.set(observacaoRef, {
                         data: observacao
                     })
@@ -151,7 +172,7 @@ class PastorRepository implements IPastorRepository {
                     data: contato
                 })
 
-                batch.set(logRef,  
+                batch.update(logRef,  
                     {
                         operations: FieldValue.arrayUnion({
                             created_at: new Date(),

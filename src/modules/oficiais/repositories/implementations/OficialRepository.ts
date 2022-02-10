@@ -195,7 +195,7 @@ class OficialRepository implements IOficialRepository {
                     data: contato
                 })
         
-                batch.set(logRef, {
+                batch.update(logRef, {
                         operations: FieldValue.arrayUnion({
                             updated_at: new Date(),
                             descricao: 'Alteração de cadastro',
