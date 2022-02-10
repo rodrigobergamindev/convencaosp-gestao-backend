@@ -58,10 +58,11 @@ class OficialRepository implements IOficialRepository {
 
 
       await data.forEach(doc => {
-          
+
           this.oficiais.push(doc.data())
         })
         
+
         return this.oficiais
 
     }   

@@ -55,9 +55,9 @@ class IgrejaRepository implements IIgrejaRepository {
         }
 
       await data.forEach(doc => {
+          
           this.igrejas.push(doc.data())
         })
-
    
         return this.igrejas
 
