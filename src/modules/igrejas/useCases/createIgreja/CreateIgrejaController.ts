@@ -12,7 +12,7 @@ class CreateIgrejaController {
 
         const endereco = JSON.parse(request.body.endereco)
         const contato = JSON.parse(request.body.contato)
-        const observacao = JSON.parse(request.body.observacao)
+        const observacao = request.body.observacao? JSON.parse(request.body.observacao) : null
         const superintendencia = JSON.parse(request.body.superintendencia)
         const contribuicoes = JSON.parse(request.body.contribuicoes)
 
