@@ -12,29 +12,17 @@ class CreatePastorController {
 
         const endereco = JSON.parse(request.body.endereco)
         const contato = JSON.parse(request.body.contato)
-        const observacao = JSON.parse(request.body.observacao)
+        const observacao = request.body.observacao? JSON.parse(request.body.observacao) : null
+        const foto = request.file? request.file : null
 
         try {
-
-            if(request.file){
 
                 const pastor = {...request.body,
                     endereco,
                     contato,
                     observacao,
-                    foto: request.file}
-                this.createPastorUseCase.execute(pastor)
-        
-                return response.status(201).send()
-        
-               }
-               
-                const pastor = {...request.body,
-                    endereco,
-                    contato,
-                    observacao
+                    foto
                 }
-                
                 this.createPastorUseCase.execute(pastor)
         
                 return response.status(201).send()

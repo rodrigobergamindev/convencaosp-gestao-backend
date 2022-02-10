@@ -34,7 +34,7 @@ class ImportOficialUseCase {
                ] = line
 
                oficiais.push({
-                ro, titulo, nome, funcao, endereco: [
+                ro, titulo, nome, status: 'ATIVO', funcao, endereco: [
                     {
                     logradouro,
                     bairro,

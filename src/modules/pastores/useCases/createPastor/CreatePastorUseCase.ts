@@ -21,7 +21,7 @@ class CreatePastorUseCase {
 
         if(!(await pastorAlreadyExist.get()).exists){
 
-            if(data.foto){
+            if((data.foto !== null) || (data.foto !== undefined)){
 
                 const url = await this.uploadImage(data.foto as Express.Multer.File, namePhoto)
                 const pastor = {...data, foto: url}

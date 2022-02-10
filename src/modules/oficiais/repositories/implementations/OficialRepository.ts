@@ -1,5 +1,5 @@
 
-import { IGetOFicial, IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
+import { IOficialRepository, ICreateOficialDTO, IUpdateOficialDTO} from '../IOficialRepository'
 import {db} from '../../../../services/firestore'
 import { DocumentData, FieldValue} from 'firebase-admin/firestore';
 import { deletePhoto } from '../../../../services/photos';

@@ -30,7 +30,7 @@ class ImportPastorUseCase {
 
                pastores.push({
                 rm, titulo, nome, funcao,
-                status: 'ativo',
+                status: 'ATIVO',
                 endereco: [
                     {
                     logradouro,

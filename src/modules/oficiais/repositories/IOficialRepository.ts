@@ -40,15 +40,15 @@ interface ICreateOficialDTO {
     titulo: string;
     nome: string;
     funcao: string;
-    status?: string;
-    endereco?: IEndereco[];
-    contato?: IContato[];
+    status: string;
+    endereco: IEndereco[];
+    contato: IContato[];
     rg: string;
     cpf: string;
     nascimento: string | Date;
-    consagracao?: string | Date; 
+    consagracao: string | Date; 
     igreja_sede: string; 
-    anuidade?: IAnuidade;
+    anuidade: IAnuidade;
     observacao?: IObservacao[];
     foto?: string | Express.Multer.File;
 
@@ -81,26 +81,6 @@ interface IImportOficial {
     titulo: string;
     nome: string;
     funcao: string;
-    status?: string;
-    endereco?: IEndereco[];
-    contato?: IContato[];
-    rg: string;
-    cpf: string;
-    nascimento: string;
-    consagracao?: string; 
-    igreja_sede: string; 
-    anuidade?: IAnuidade;
-    observacao?: IObservacao[];
-
-}
-
-
-interface IGetOFicial {
-
-    ro: string;
-    titulo: string;
-    nome: string;
-    funcao: string;
     status: string;
     endereco: IEndereco[];
     contato: IContato[];
@@ -110,8 +90,10 @@ interface IGetOFicial {
     consagracao: string; 
     igreja_sede: string; 
     anuidade: IAnuidade;
-    observacao?: IObservacao[];
+    observacao: IObservacao[];
+
 }
+
 
 
 interface IOficialRepository {
@@ -123,4 +105,4 @@ interface IOficialRepository {
     delete(ro: string) : void;
 }
 
-export { IGetOFicial, ICreateOficialDTO, IUpdateOficialDTO, IOficialRepository, IImportOficial}
+export {ICreateOficialDTO, IUpdateOficialDTO, IOficialRepository, IImportOficial}

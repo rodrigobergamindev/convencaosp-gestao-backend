@@ -72,7 +72,7 @@ class PastorRepository implements IPastorRepository {
 
      
         
-                if(observacao){
+                if(observacao !== null){
                     batch.set(observacaoRef, {
                         data: observacao
                     })
@@ -117,7 +117,7 @@ class PastorRepository implements IPastorRepository {
 
      
         
-                if(observacao){
+                if(observacao !== null){
                     batch.update(observacaoRef, {
                         data: observacao
                     })
