@@ -26,8 +26,10 @@ class CreateIgrejaController {
                     superintendencia,
                     contribuicoes
                 }
+
+                console.log(igreja)
     
-                this.createIgrejaUseCase.execute(igreja)
+                //this.createIgrejaUseCase.execute(igreja)
     
                 return response.status(201).send()
             

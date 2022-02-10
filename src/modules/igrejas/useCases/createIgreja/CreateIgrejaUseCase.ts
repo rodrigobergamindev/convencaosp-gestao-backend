@@ -12,9 +12,10 @@ class CreateIgrejaUseCase {
         const igrejaRef = await db.collection('Igrejas').doc(ri).get()
         const igrejaAlreadyExist = igrejaRef.exists
 
-        if(igrejaAlreadyExist){
+        if(!igrejaAlreadyExist){
             const igreja = {...data}
-            this.igrejasRepository.create(igreja)
+            console.log(igreja)
+            //this.igrejasRepository.create(igreja)
         }
         
     }

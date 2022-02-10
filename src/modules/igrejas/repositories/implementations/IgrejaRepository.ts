@@ -97,7 +97,6 @@ class IgrejaRepository implements IIgrejaRepository {
         const contatoRef = await igrejaRef.collection('Contato').doc(ri)
         const enderecoRef = await igrejaRef.collection('Endereço').doc(ri)
         const logRef = await igrejaRef.collection('Logs').doc(ri)
-        const sede = await db.collection('Igrejas').doc(igreja_sede)
         const igrejaSedeRef = await igrejaRef.collection('Sede').doc(ri)
         const superitendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
         const contribuicoesRef = await igrejaRef.collection('Contribuicoes').doc(ri)
@@ -109,7 +108,7 @@ class IgrejaRepository implements IIgrejaRepository {
                 }
             
                 batch.set(igrejaRef, {
-                    ri, nome, cnpj, tipo, dirigente, presidente, templo, membros
+                    ri, nome, cnpj, tipo, dirigente, presidente, templo, membros, igreja_sede
                 })
         
                 batch.set(enderecoRef, {
@@ -127,8 +126,6 @@ class IgrejaRepository implements IIgrejaRepository {
                 batch.set(contribuicoesRef, {
                     ...contribuicoes
                 })
-
-                batch.set(igrejaSedeRef, sede)
 
                 batch.set(logRef,  
                     {
@@ -155,7 +152,6 @@ class IgrejaRepository implements IIgrejaRepository {
         const contatoRef = await igrejaRef.collection('Contato').doc(ri)
         const enderecoRef = await igrejaRef.collection('Endereço').doc(ri)
         const logRef = await igrejaRef.collection('Logs').doc(ri)
-        const sede = await db.collection('Igrejas').doc(igreja_sede)
         const igrejaSedeRef = await igrejaRef.collection('Sede').doc(ri)
         const superitendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
         const contribuicoesRef = await igrejaRef.collection('Contribuicoes').doc(ri)
@@ -187,8 +183,6 @@ class IgrejaRepository implements IIgrejaRepository {
                 batch.set(contribuicoesRef, {
                     ...contribuicoes
                 })
-
-                batch.set(igrejaSedeRef, sede)
 
                 batch.set(logRef,  
                     {
