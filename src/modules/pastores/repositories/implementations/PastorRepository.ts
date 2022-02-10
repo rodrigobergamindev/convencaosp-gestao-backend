@@ -78,9 +78,17 @@ class PastorRepository implements IPastorRepository {
                     })
                 }
             
-                batch.set(pastorRef, {
-                    rm, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, credencial, igreja_sede
-                })
+                if(foto){
+                    batch.set(pastorRef, {
+                        rm, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, credencial, igreja_sede
+                    })
+                }
+
+                if(!foto){
+                    batch.set(pastorRef, {
+                        rm, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, credencial, igreja_sede
+                    })
+                }
         
                 batch.set(enderecoRef, {
                     data: endereco
@@ -117,25 +125,33 @@ class PastorRepository implements IPastorRepository {
 
      
         
-                if(observacao !== null){
-                    batch.update(observacaoRef, {
+                if(!!observacao){
+                    batch.set(observacaoRef, {
                         data: observacao
                     })
                 }
             
-                batch.update(pastorRef, {
-                    rm, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, credencial
-                })
+                if(foto){
+                    batch.set(pastorRef, {
+                        rm, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, credencial, igreja_sede
+                    })
+                }
+
+                if(!foto){
+                    batch.set(pastorRef, {
+                        rm, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, credencial, igreja_sede
+                    })
+                }
         
-                batch.update(enderecoRef, {
+                batch.set(enderecoRef, {
                     data: endereco
                 })
         
-                batch.update(contatoRef, {
+                batch.set(contatoRef, {
                     data: contato
                 })
 
-                batch.update(logRef,  
+                batch.set(logRef,  
                     {
                         operations: FieldValue.arrayUnion({
                             created_at: new Date(),

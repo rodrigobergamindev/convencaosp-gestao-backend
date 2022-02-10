@@ -103,21 +103,29 @@ class OficialRepository implements IOficialRepository {
 
      
 
-            if(anuidade){
+           
                 batch.set(anuidadeRef, {
                    ...anuidade
                 })
-               }
+
         
-                if(observacao !== null){
+                if(!!observacao){
                     batch.set(observacaoRef, {
                         data: observacao
                     })
                 }
             
-                batch.set(oficialRef, {
-                    ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, igreja_sede
-                })
+                if(foto) {
+                    batch.set(oficialRef, {
+                        ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, igreja_sede
+                    })
+                }
+
+                if(!foto){
+                    batch.set(oficialRef, {
+                        ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, igreja_sede
+                    })
+                }
         
                 batch.set(enderecoRef, {
                     data: endereco
@@ -144,7 +152,7 @@ class OficialRepository implements IOficialRepository {
     async update(data: IUpdateOficialDTO): Promise<void> {
         const batch = db.batch()
 
-        const { ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, observacao , anuidade, contato, endereco } = data
+        const { ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, igreja_sede, foto, observacao , anuidade, contato, endereco } = data
 
         const oficialRef = await db.collection('Oficiais').doc(ro)
         const observacaoRef = await oficialRef.collection('Observacao').doc(ro)
@@ -155,31 +163,39 @@ class OficialRepository implements IOficialRepository {
 
 
             if(anuidade){
-                batch.update(anuidadeRef, {
+                batch.set(anuidadeRef, {
                     ...anuidade
                 })
                }
         
                if(observacao !== null){
-                batch.update(observacaoRef, {
+                batch.set(observacaoRef, {
                     data: observacao
                 })
             }
                 
-                batch.update(oficialRef, {
-                    ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto
+            if(foto) {
+                batch.set(oficialRef, {
+                    ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, foto, igreja_sede
                 })
+            }
+
+            if(!foto){
+                batch.set(oficialRef, {
+                    ro, titulo, status, nome, funcao, rg, cpf, nascimento, consagracao, igreja_sede
+                })
+            }
                 
         
-                batch.update(enderecoRef, {
+                batch.set(enderecoRef, {
                     data: endereco
                 })
         
-                batch.update(contatoRef, {
+                batch.set(contatoRef, {
                     data: contato
                 })
         
-                batch.update(logRef, {
+                batch.set(logRef, {
                         operations: FieldValue.arrayUnion({
                             updated_at: new Date(),
                             descricao: 'Alteração de cadastro',
