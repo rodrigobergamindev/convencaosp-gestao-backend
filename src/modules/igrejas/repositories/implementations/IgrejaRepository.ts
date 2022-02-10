@@ -21,10 +21,28 @@ class IgrejaRepository implements IIgrejaRepository {
     }
 
     async findByRI(ri: string): Promise<DocumentData> {
-        const igrejaRef = await db.collection('Igrejas').doc(ri).get()
-        const igreja = igrejaRef.data()
-        
-        return igreja
+        const igrejaRef = await db.collection('Igrejas').doc(ri)
+
+        const igreja = (await igrejaRef.get()).data()
+        const observacao =  (await igrejaRef.collection('Observacao').doc(ri).get()).data()
+        const contato =  (await igrejaRef.collection('Contato').doc(ri).get()).data()
+        const endereco = (await igrejaRef.collection('Endereço').doc(ri).get()).data()
+        const log =  (await igrejaRef.collection('Logs').doc(ri).get()).data()
+        const superintendencia =  (await igrejaRef.collection('Superintendencia').doc(ri).get()).data()
+        const contribuicoes =  (await igrejaRef.collection('Contribuicoes').doc(ri).get()).data()
+
+
+        const data = {
+            ...igreja, 
+            observacao: observacao.data,
+            contato: contato.data,
+            endereco: endereco.data,
+            log,
+            superintendencia,
+            contribuicoes
+        }
+    
+        return data
     }
 
     async list(): Promise<DocumentData[]> {

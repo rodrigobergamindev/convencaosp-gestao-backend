@@ -23,10 +23,23 @@ class PastorRepository implements IPastorRepository {
     }
 
     async findByRM(rm: string): Promise <DocumentData> {
-        const pastorRef = await db.collection('Pastores').doc(rm).get()
-        const pastor = pastorRef.data()
+        const pastorRef = await db.collection('Pastores').doc(rm)
 
-        return pastor
+        const pastor = (await pastorRef.get()).data()
+        const observacao =  (await pastorRef.collection('Observacao').doc(rm).get()).data()
+        const contato =  (await pastorRef.collection('Contato').doc(rm).get()).data()
+        const endereco = (await pastorRef.collection('Endereço').doc(rm).get()).data()
+        const log =  (await pastorRef.collection('Logs').doc(rm).get()).data()
+
+        const data = {
+            ...pastor, 
+            observacao: observacao.data,
+            contato: contato.data,
+            endereco: endereco.data,
+            log
+        }
+    
+        return data
     }
 
     async list(): Promise <DocumentData[]>  {

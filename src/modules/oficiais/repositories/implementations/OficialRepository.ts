@@ -24,10 +24,25 @@ class OficialRepository implements IOficialRepository {
     }
 
     async findByRO(ro: string): Promise<DocumentData> {
-        const oficialRef = await db.collection('Oficiais').doc(ro).get()
-        const oficial = oficialRef.data()
-            
-        return oficial
+        const oficialRef = await db.collection('Oficiais').doc(ro)
+
+        const oficial = (await oficialRef.get()).data()
+        const observacao =  (await oficialRef.collection('Observacao').doc(ro).get()).data()
+        const anuidade =  (await oficialRef.collection('Anuidade').doc(ro).get()).data()
+        const contato =  (await oficialRef.collection('Contato').doc(ro).get()).data()
+        const endereco = (await oficialRef.collection('Endereço').doc(ro).get()).data()
+        const log =  (await oficialRef.collection('Logs').doc(ro).get()).data()
+
+        const data = {
+            ...oficial, 
+            observacao: observacao.data,
+            anuidade,
+            contato: contato.data,
+            endereco: endereco.data,
+            log
+        }
+    
+        return data
     }
 
 
