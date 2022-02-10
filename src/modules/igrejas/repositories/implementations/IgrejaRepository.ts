@@ -46,17 +46,41 @@ class IgrejaRepository implements IIgrejaRepository {
     }
 
     async list(): Promise<DocumentData[]> {
-        const docRef = await db.collection('Igrejas')
+        const collectionRef = await db.collection('Igrejas')
         
-        const data = await docRef.get()
+        const data = await collectionRef.get()
         
         if(data.empty){
             return null
         }
 
-      await data.forEach(doc => {
+      await data.forEach(async doc => {
+
+        const ri = doc.id
+
+        const igrejaRef = await collectionRef.doc(ri)
+
+        const igreja = (await igrejaRef.get()).data()
+        const observacao = (await igrejaRef.collection('Observacao').doc(ri).get()).data()
+        const contato = (await igrejaRef.collection('Contato').doc(ri).get()).data()
+        const endereco = (await igrejaRef.collection('Endereço').doc(ri).get()).data()
+        const log = (await igrejaRef.collection('Logs').doc(ri).get()).data()
+        const superitendencia =  (await igrejaRef.collection('Superintendencia').doc(ri).get()).data()
+        const contribuicoes =  (await igrejaRef.collection('Contribuicoes').doc(ri).get()).data()
+
+
+        const data = {
+            ...igreja, 
+            observacao: observacao.data,
+            contato: contato.data,
+            endereco: endereco.data,
+            superitendencia,
+            contribuicoes,
+            log
+        }
+
           
-          this.igrejas.push(doc.data())
+          this.igrejas.push(data)
         })
    
         return this.igrejas
@@ -78,7 +102,7 @@ class IgrejaRepository implements IIgrejaRepository {
         const superitendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
         const contribuicoesRef = await igrejaRef.collection('Contribuicoes').doc(ri)
         
-                if(observacao){
+                if(!!observacao){
                     batch.set(observacaoRef, {
                         data: observacao
                     })
@@ -97,11 +121,11 @@ class IgrejaRepository implements IIgrejaRepository {
                 })
 
                 batch.set(superitendenciaRef, {
-                    data: superitendencia
+                    ...superitendencia
                 })
 
                 batch.set(contribuicoesRef, {
-                    data: contribuicoes
+                    ...contribuicoes
                 })
 
                 batch.set(igrejaSedeRef, sede)
@@ -138,35 +162,35 @@ class IgrejaRepository implements IIgrejaRepository {
 
         
         
-                if(observacao){
-                    batch.update(observacaoRef, {
+                if(!!observacao){
+                    batch.set(observacaoRef, {
                         data: observacao
                     })
                 }
             
-                batch.update(igrejaRef, {
+                batch.set(igrejaRef, {
                     ri, nome, cnpj, tipo, dirigente, presidente, templo, membros
                 })
         
-                batch.update(enderecoRef, {
+                batch.set(enderecoRef, {
                     data: endereco
                 })
         
-                batch.update(contatoRef, {
+                batch.set(contatoRef, {
                     data: contato
                 })
 
-                batch.update(superitendenciaRef, {
-                    data: superitendencia
+                batch.set(superitendenciaRef, {
+                    ...superitendencia
                 })
 
-                batch.update(contribuicoesRef, {
-                    data: contribuicoes
+                batch.set(contribuicoesRef, {
+                    ...contribuicoes
                 })
 
-                batch.update(igrejaSedeRef, sede)
+                batch.set(igrejaSedeRef, sede)
 
-                batch.update(logRef,  
+                batch.set(logRef,  
                     {
                         operations: FieldValue.arrayUnion({
                             updated_at: new Date(),
@@ -184,16 +208,16 @@ class IgrejaRepository implements IIgrejaRepository {
 
    async  delete(ri: string): Promise<void> {
 
-    const batch = db.batch()
+            const batch = db.batch()
 
-    const igrejaRef = await db.collection('Igrejas').doc(ri)
-    const observacaoRef = await igrejaRef.collection('Observacao').doc(ri)
-    const contatoRef = await igrejaRef.collection('Contato').doc(ri)
-    const enderecoRef = await igrejaRef.collection('Endereço').doc(ri)
-    const logRef = await igrejaRef.collection('Logs').doc(ri)
-    const igrejaSedeRef = await igrejaRef.collection('Sede').doc(ri)
-    const superitendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
-    const contribuicoesRef = await igrejaRef.collection('Contribuicoes').doc(ri)
+            const igrejaRef = await db.collection('Igrejas').doc(ri)
+            const observacaoRef = await igrejaRef.collection('Observacao').doc(ri)
+            const contatoRef = await igrejaRef.collection('Contato').doc(ri)
+            const enderecoRef = await igrejaRef.collection('Endereço').doc(ri)
+            const logRef = await igrejaRef.collection('Logs').doc(ri)
+            const igrejaSedeRef = await igrejaRef.collection('Sede').doc(ri)
+            const superitendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
+            const contribuicoesRef = await igrejaRef.collection('Contribuicoes').doc(ri)
 
     
              if((await observacaoRef.get()).data()){
