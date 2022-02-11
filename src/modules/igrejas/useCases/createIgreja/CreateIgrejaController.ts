@@ -16,7 +16,6 @@ class CreateIgrejaController {
         //const superintendencia = JSON.parse(request.body.superintendencia)
         //const contribuicoes = JSON.parse(request.body.contribuicoes)
 
-        console.log(request.body)
 
         try {
             /**const igreja = {...request.body,

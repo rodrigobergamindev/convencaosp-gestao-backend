@@ -19,7 +19,8 @@ const uploadImage = multer({
 
 
 pastoresRoutes.post("/create", uploadImage.single("foto"), (request, response) => {
-    return createPastorController.handle(request, response);
+    console.log(request.body)
+    //return createPastorController.handle(request, response);
 })
 
 pastoresRoutes.put("/update", uploadImage.single("foto"), (request, response) => {

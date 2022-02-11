@@ -13,10 +13,6 @@ const upload = multer({
     dest: "./tmp",
 })
 
-const uploadImage = multer({
-    storage: multer.memoryStorage()
-})
-
 
 igrejasRoutes.post("/create", (request, response) => {
     console.log(request.body)
