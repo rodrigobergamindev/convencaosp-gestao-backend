@@ -19,6 +19,7 @@ const uploadImage = multer({
 
 
 igrejasRoutes.post("/create", (request, response) => {
+    console.log(request.body)
     return createIgrejaController.handle(request, response);
 })
 
