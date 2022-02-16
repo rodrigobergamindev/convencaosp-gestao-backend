@@ -15,7 +15,6 @@ const upload = multer({
 
 
 igrejasRoutes.post("/create", (request, response) => {
-    console.log(request.body)
     return createIgrejaController.handle(request, response);
 })
 
@@ -24,7 +23,8 @@ igrejasRoutes.put("/update", (request, response) => {
 })
 
 igrejasRoutes.post("/import", upload.single("file"), (request, response) => {
-   return importIgrejaController.handle(request, response)
+    console.log(request.body)
+   //return importIgrejaController.handle(request, response)
 })
 
 igrejasRoutes.get("/list", (request, response) => {

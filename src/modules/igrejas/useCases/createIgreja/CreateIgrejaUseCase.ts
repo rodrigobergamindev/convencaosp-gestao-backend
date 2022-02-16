@@ -15,7 +15,7 @@ class CreateIgrejaUseCase {
         if(!igrejaAlreadyExist){
             const igreja = {...data}
            
-            //this.igrejasRepository.create(igreja)
+            this.igrejasRepository.create(igreja)
         }
         
     }
