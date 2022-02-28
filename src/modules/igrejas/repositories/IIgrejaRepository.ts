@@ -14,7 +14,7 @@ interface ICreateIgrejaDTO {
     presidente: string;
     templo: string;
     membros: string;
-    superitendencia: ISuperintendencia;
+    superintendencia: ISuperintendencia;
     contribuicoes: IContribuicoes;
     observacao?: IObservacao[];
 
@@ -34,7 +34,7 @@ interface IUpdateIgrejaDTO {
     presidente: string;
     templo: string;
     membros: string;
-    superitendencia: ISuperintendencia;
+    superintendencia: ISuperintendencia;
     contribuicoes: IContribuicoes;
     observacao: IObservacao[];
 

@@ -11,6 +11,7 @@ class CreateIgrejaUseCase {
         const {ri} = data
         const igrejaRef = await db.collection('Igrejas').doc(ri).get()
         const igrejaAlreadyExist = igrejaRef.exists
+   
 
         if(!igrejaAlreadyExist){
             const igreja = {...data}

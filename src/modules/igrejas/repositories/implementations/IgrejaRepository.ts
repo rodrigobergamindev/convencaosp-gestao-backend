@@ -65,7 +65,7 @@ class IgrejaRepository implements IIgrejaRepository {
         const contato = (await igrejaRef.collection('Contato').doc(ri).get()).data()
         const endereco = (await igrejaRef.collection('Endereço').doc(ri).get()).data()
         const log = (await igrejaRef.collection('Logs').doc(ri).get()).data()
-        const superitendencia =  (await igrejaRef.collection('Superintendencia').doc(ri).get()).data()
+        const superintendencia =  (await igrejaRef.collection('Superintendencia').doc(ri).get()).data()
         const contribuicoes =  (await igrejaRef.collection('Contribuicoes').doc(ri).get()).data()
 
 
@@ -74,7 +74,7 @@ class IgrejaRepository implements IIgrejaRepository {
             observacao: observacao.data,
             contato: contato.data,
             endereco: endereco.data,
-            superitendencia,
+            superintendencia,
             contribuicoes,
             log
         }
@@ -89,8 +89,8 @@ class IgrejaRepository implements IIgrejaRepository {
 
     async create(data: ICreateIgrejaDTO): Promise<void> {
         const batch = db.batch()
-        const { ri, nome, cnpj, tipo, igreja_sede, endereco, contato, dirigente, presidente, templo, membros, superitendencia, contribuicoes, observacao } = data
-        
+        const { ri, nome, cnpj, tipo, igreja_sede, endereco, contato, dirigente, presidente, templo, membros, superintendencia, contribuicoes, observacao } = data
+
 
         const igrejaRef = await db.collection('Igrejas').doc(ri)
         const observacaoRef = await igrejaRef.collection('Observacao').doc(ri)
@@ -98,7 +98,7 @@ class IgrejaRepository implements IIgrejaRepository {
         const enderecoRef = await igrejaRef.collection('Endereço').doc(ri)
         const logRef = await igrejaRef.collection('Logs').doc(ri)
         const igrejaSedeRef = await igrejaRef.collection('Sede').doc(ri)
-        const superitendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
+        const superintendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
         const contribuicoesRef = await igrejaRef.collection('Contribuicoes').doc(ri)
         
                 if(!!observacao){
@@ -119,8 +119,8 @@ class IgrejaRepository implements IIgrejaRepository {
                     data: contato
                 })
 
-                batch.set(superitendenciaRef, {
-                    ...superitendencia
+                batch.set(superintendenciaRef, {
+                    ...superintendencia
                 })
 
                 batch.set(contribuicoesRef, {
@@ -144,7 +144,7 @@ class IgrejaRepository implements IIgrejaRepository {
     async update(data: IUpdateIgrejaDTO): Promise<void> {
 
         const batch = db.batch()
-        const { ri, nome, cnpj, tipo, igreja_sede, endereco, contato, dirigente, presidente, templo, membros, superitendencia, contribuicoes, observacao } = data
+        const { ri, nome, cnpj, tipo, igreja_sede, endereco, contato, dirigente, presidente, templo, membros, superintendencia, contribuicoes, observacao } = data
         
 
         const igrejaRef = await db.collection('Igrejas').doc(ri)
@@ -153,7 +153,7 @@ class IgrejaRepository implements IIgrejaRepository {
         const enderecoRef = await igrejaRef.collection('Endereço').doc(ri)
         const logRef = await igrejaRef.collection('Logs').doc(ri)
         const igrejaSedeRef = await igrejaRef.collection('Sede').doc(ri)
-        const superitendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
+        const superintendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
         const contribuicoesRef = await igrejaRef.collection('Contribuicoes').doc(ri)
 
         
@@ -176,8 +176,8 @@ class IgrejaRepository implements IIgrejaRepository {
                     data: contato
                 })
 
-                batch.set(superitendenciaRef, {
-                    ...superitendencia
+                batch.set(superintendenciaRef, {
+                    ...superintendencia
                 })
 
                 batch.set(contribuicoesRef, {
@@ -210,7 +210,7 @@ class IgrejaRepository implements IIgrejaRepository {
             const enderecoRef = await igrejaRef.collection('Endereço').doc(ri)
             const logRef = await igrejaRef.collection('Logs').doc(ri)
             const igrejaSedeRef = await igrejaRef.collection('Sede').doc(ri)
-            const superitendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
+            const superintendenciaRef = await igrejaRef.collection('Superintendencia').doc(ri)
             const contribuicoesRef = await igrejaRef.collection('Contribuicoes').doc(ri)
 
     
@@ -226,7 +226,7 @@ class IgrejaRepository implements IIgrejaRepository {
 
             batch.delete(igrejaSedeRef)
 
-            batch.delete(superitendenciaRef)
+            batch.delete(superintendenciaRef)
             
             batch.delete(contribuicoesRef)
 
